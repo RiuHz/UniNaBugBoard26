@@ -24,7 +24,7 @@ jobs:
         run: flutter pub get --directory=./Frontend/src
 
       - name: Build
-        run: flutter build web --debug --target=./Frontend/src/lib/main.dart
+        run: cd ./Frontend/src/ && flutter build web --debug
 
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v6
