@@ -21,10 +21,10 @@ jobs:
           channel: stable
 
       - name: Flutter Pub Get
-        run: flutter pub get
+        run: cd ./Frontend/src && flutter pub get
 
       - name: Build
-        run: flutter build web --debug
+        run: cd ./Frontend/src/ && flutter build web --debug
 
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v6
