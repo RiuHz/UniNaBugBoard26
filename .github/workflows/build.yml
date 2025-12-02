@@ -21,7 +21,7 @@ jobs:
           channel: stable
 
       - name: Flutter Pub Get
-        run: flutter pub get
+        run: flutter pub get --directory=./Frontend/src
 
       - name: Build
         run: flutter build web --debug
