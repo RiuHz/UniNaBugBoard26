@@ -15,9 +15,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Move to project folder
-        run: cd Frontend/src
-
       - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -33,3 +30,6 @@ jobs:
         uses: SonarSource/sonarqube-scan-action@v6
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          projectBaseDir: Frontend/src
+          sonar.projectBaseDir: Frontend/src
