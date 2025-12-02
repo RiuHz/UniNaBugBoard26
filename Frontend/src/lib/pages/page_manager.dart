@@ -26,7 +26,7 @@ class PageManager extends StatelessWidget {
 }
 
 class PageManagerState extends ChangeNotifier {
-  Widget selectedPage = Placeholder(); // Dovrei metterci la pagina di default
+  Widget selectedPage = const Placeholder(); // Dovrei metterci la pagina di default
   int selectedIndex = 0;
 
   void switchPage(int index) {
