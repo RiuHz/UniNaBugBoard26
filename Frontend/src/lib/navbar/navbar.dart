@@ -12,15 +12,15 @@ class Navbar extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.primary,
         labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
         destinations: [
-          NavbarDestination(
+          const NavbarDestination(
             label: 'Aggiungi un Bug',
             iconData: Icons.add
           ),
-          NavbarDestination(
+          const NavbarDestination(
             label: 'Home',
             iconData: Icons.home
           ),
-          NavbarDestination(
+          const NavbarDestination(
             label: 'Miei Bug',
             iconData: Icons.bug_report
           )

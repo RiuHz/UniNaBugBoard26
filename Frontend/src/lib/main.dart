@@ -5,7 +5,7 @@ import 'package:test_app/theme/theme.dart';
 import 'package:test_app/pages/page_manager.dart';
 
 void main() {
-  runApp(UniNaBugBoard26());
+  runApp(const UniNaBugBoard26());
 }
 
 class UniNaBugBoard26 extends StatelessWidget {
@@ -29,8 +29,8 @@ class UniNaBugBoard26 extends StatelessWidget {
                   title: Text(title),
                   centerTitle: true,
                 ),
-                body: PageManager(),
-                floatingActionButton: ThemeButton(),
+                body: const PageManager(),
+                floatingActionButton: const ThemeButton(),
               )
             );
           }

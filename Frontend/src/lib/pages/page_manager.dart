@@ -13,7 +13,7 @@ class PageManager extends StatelessWidget {
         builder: (context, state, child) {
           return Column(
             children: [
-              Navbar(),
+              const Navbar(),
               Expanded(
                 child: state.selectedPage
               )
@@ -34,13 +34,13 @@ class PageManagerState extends ChangeNotifier {
 
     switch (index) {
       case 0:
-        selectedPage = Placeholder();
+        selectedPage = const Placeholder();
         break;
       case 1:
-        selectedPage = Placeholder();
+        selectedPage = const Placeholder();
         break;
       case 2:
-        selectedPage = Placeholder();
+        selectedPage = const Placeholder();
         break;
       default:
         throw UnimplementedError('No widget for $index');
