@@ -9,6 +9,7 @@ class Navbar extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: NavigationBar(
+        backgroundColor: Theme.of(context).colorScheme.primary,
         labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
         destinations: [
           NavbarDestination(
