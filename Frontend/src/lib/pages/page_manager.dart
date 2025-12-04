@@ -42,6 +42,9 @@ class PageManagerState extends ChangeNotifier {
       case 2:
         selectedPage = const Placeholder();
         break;
+      case 3:
+        selectedPage = const Placeholder();
+        break;
       default:
         throw UnimplementedError('No widget for $index');
     }

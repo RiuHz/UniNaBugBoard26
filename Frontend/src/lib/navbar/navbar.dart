@@ -13,17 +13,21 @@ class Navbar extends StatelessWidget {
         labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
         destinations: [
           const NavbarDestination(
-            label: 'Aggiungi un Bug',
-            iconData: Icons.add
-          ),
-          const NavbarDestination(
             label: 'Home',
             iconData: Icons.home
           ),
           const NavbarDestination(
             label: 'Miei Bug',
             iconData: Icons.bug_report
-          )
+          ),
+          const NavbarDestination(
+            label: 'Aggiungi un Issue',
+            iconData: Icons.add
+          ),
+          const NavbarDestination(
+            label: 'Aggiungi Utente',
+            iconData: Icons.person_add
+          ),
         ],
         selectedIndex: Provider.of<PageManagerState>(context).selectedIndex,
         onDestinationSelected: (int index) {
