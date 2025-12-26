@@ -1,8 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:test_app/classes/issue/issue.dart';
+import 'package:test_app/classes/issues/issue.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:test_app/pages/home/issue_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,9 +16,6 @@ class HomePageState extends State<HomePage> {
   late Future<List<Issue>> issues = fetchIssues();
 
   @override
-  void initState() {super.initState();}
-
-  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
@@ -28,7 +26,7 @@ class HomePageState extends State<HomePage> {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const CircularProgressIndicator();
             } else if (snapshot.hasError) {
-              return Text('OPS... Qualcosa è andato storto');
+              return Text('Ops... Qualcosa è andato storto');
             } else if (snapshot.hasData) {
               return Expanded(
                 child: buildIssuesList(snapshot.data!)
@@ -45,9 +43,11 @@ class HomePageState extends State<HomePage> {
   Widget buildIssuesList(List<Issue> issues) => ListView.builder(
     itemCount: issues.length,
     itemBuilder: (context, index) {
-      final issue = issues[index];
+      final Issue issue = issues[index];
 
-      return Issue.toCard(context, issue);
+      return IssueCard(
+        issue: issue
+      );
     }
   );
 }
