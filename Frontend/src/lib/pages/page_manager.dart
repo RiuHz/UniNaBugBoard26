@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:provider/provider.dart';
 import 'package:test_app/navbar/navbar.dart';
+import 'package:test_app/pages/home/home.dart';
+import 'package:test_app/pages/my%20bugs/my_bugs.dart';
+import 'package:test_app/pages/add%20issue/add_issue.dart';
+import 'package:test_app/pages/register%20user/register_user.dart';
 
 // Aggiunta libreria per la decodifica del token JWT
 import 'package:jwt_decoder/jwt_decoder.dart';
@@ -78,7 +82,7 @@ class PageManager extends StatelessWidget {
 }
 
 class PageManagerState extends ChangeNotifier {
-  Widget selectedPage = const Placeholder(); // Dovrei metterci la pagina di default
+  Widget selectedPage = const HomePage(); // Dovrei metterci la pagina di default
   int selectedIndex = 0;
 
   void switchPage(int index) {
@@ -86,19 +90,19 @@ class PageManagerState extends ChangeNotifier {
 
     switch (index) {
       case 0:
-        selectedPage = const Placeholder();
+        selectedPage = const HomePage();
         break;
       case 1:
-        selectedPage = const Placeholder();
+        selectedPage = const MyBugsPage();
         break;
       case 2:
-        selectedPage = const Placeholder();
+        selectedPage = const AddIssuePage();
         break;
       case 3:
-        selectedPage = const Placeholder();
+        selectedPage = const RegisterUserPage();
         break;
       default:
-        throw UnimplementedError('No widget for $index');
+        throw UnimplementedError('No widget page for $index');
     }
 
     notifyListeners();
