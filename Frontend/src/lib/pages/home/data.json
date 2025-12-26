@@ -1,0 +1,132 @@
+[
+    {
+        "Id": 0,
+        "User": {
+            "Name": "Davide",
+            "Surname": "Neri"
+        },
+        "Title": "Placeholder Title",
+        "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ac risus nec tellus dignissim iaculis elementum in risus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Mauris varius nunc tortor, sit amet malesuada lacus feugiat sit amet. Ut et tellus ac nunc rutrum dapibus vitae sit amet risus. Aliquam vitae metus diam. Sed non convallis ante. Pellentesque eu vulputate purus. In hac habitasse platea dictumst. Cras imperdiet elit enim, eget cursus nibh pulvinar eget. Nulla urna elit, sodales sit amet dolor sit amet, lacinia iaculis nisi. Integer dapibus tempus magna Id lacinia. In a pellentesque metus, ac elementum mi. In in aliquet purus, Id scelerisque odio.\n\nMaecenas efficitur tincidunt luctus. Integer aliquet, ipsum in ornare finibus, augue turpis pharetra velit, eget scelerisque tortor sapien Id ipsum. Morbi lorem est, ultrices non ligula egestas, volutpat eleifend enim. Duis nec massa ex. Mauris risus leo, commodo ac diam et, hendrerit molestie ante. Curabitur elementum vestibulum quam ut tristique. Integer ac aliquam nisi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer ligula urna, faucibus Id facilisis a, ultrices Id metus. Ut porta ac felis non rutrum. Praesent hendrerit facilisis eros. In iaculis neque suscipit convallis iaculis. Aliquam nec mollis magna.",
+        "Priority": "Low",
+        "State": "In Progress",
+        "Type": "Bug",
+        "Images": []
+    },
+    {
+        "Id": 1,
+        "User": {
+            "Name": "Anna",
+            "Surname": "Verdi"
+        },
+        "Title": "Placeholder Title",
+        "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ac risus nec tellus dignissim iaculis elementum in risus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Mauris varius nunc tortor, sit amet malesuada lacus feugiat sit amet. Ut et tellus ac nunc rutrum dapibus vitae sit amet risus. Aliquam vitae metus diam. Sed non convallis ante. Pellentesque eu vulputate purus. In hac habitasse platea dictumst. Cras imperdiet elit enim, eget cursus nibh pulvinar eget. Nulla urna elit, sodales sit amet dolor sit amet, lacinia iaculis nisi. Integer dapibus tempus magna Id lacinia. In a pellentesque metus, ac elementum mi. In in aliquet purus, Id scelerisque odio.\n\nMaecenas efficitur tincidunt luctus. Integer aliquet, ipsum in ornare finibus, augue turpis pharetra velit, eget scelerisque tortor sapien Id ipsum. Morbi lorem est, ultrices non ligula egestas, volutpat eleifend enim. Duis nec massa ex. Mauris risus leo, commodo ac diam et, hendrerit molestie ante. Curabitur elementum vestibulum quam ut tristique. Integer ac aliquam nisi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer ligula urna, faucibus Id facilisis a, ultrices Id metus. Ut porta ac felis non rutrum. Praesent hendrerit facilisis eros. In iaculis neque suscipit convallis iaculis. Aliquam nec mollis magna.",
+        "Priority": "Medium",
+        "State": "Resolved",
+        "Type": "Feature",
+        "Images": []
+    },
+    {
+        "Id": 2,
+        "User": {
+            "Name": "Davide",
+            "Surname": "Neri"
+        },
+        "Title": "Placeholder Title",
+        "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ac risus nec tellus dignissim iaculis elementum in risus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Mauris varius nunc tortor, sit amet malesuada lacus feugiat sit amet. Ut et tellus ac nunc rutrum dapibus vitae sit amet risus. Aliquam vitae metus diam. Sed non convallis ante. Pellentesque eu vulputate purus. In hac habitasse platea dictumst. Cras imperdiet elit enim, eget cursus nibh pulvinar eget. Nulla urna elit, sodales sit amet dolor sit amet, lacinia iaculis nisi. Integer dapibus tempus magna Id lacinia. In a pellentesque metus, ac elementum mi. In in aliquet purus, Id scelerisque odio.\n\nMaecenas efficitur tincidunt luctus. Integer aliquet, ipsum in ornare finibus, augue turpis pharetra velit, eget scelerisque tortor sapien Id ipsum. Morbi lorem est, ultrices non ligula egestas, volutpat eleifend enim. Duis nec massa ex. Mauris risus leo, commodo ac diam et, hendrerit molestie ante. Curabitur elementum vestibulum quam ut tristique. Integer ac aliquam nisi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer ligula urna, faucibus Id facilisis a, ultrices Id metus. Ut porta ac felis non rutrum. Praesent hendrerit facilisis eros. In iaculis neque suscipit convallis iaculis. Aliquam nec mollis magna.",
+        "Priority": "High",
+        "State": "In Progress",
+        "Type": "Question",
+        "Images": []
+    },
+    {
+        "Id": 3,
+        "User": {
+            "Name": "Anna",
+            "Surname": "Verdi"
+        },
+        "Title": "Placeholder Title",
+        "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ac risus nec tellus dignissim iaculis elementum in risus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Mauris varius nunc tortor, sit amet malesuada lacus feugiat sit amet. Ut et tellus ac nunc rutrum dapibus vitae sit amet risus. Aliquam vitae metus diam. Sed non convallis ante. Pellentesque eu vulputate purus. In hac habitasse platea dictumst. Cras imperdiet elit enim, eget cursus nibh pulvinar eget. Nulla urna elit, sodales sit amet dolor sit amet, lacinia iaculis nisi. Integer dapibus tempus magna Id lacinia. In a pellentesque metus, ac elementum mi. In in aliquet purus, Id scelerisque odio.\n\nMaecenas efficitur tincidunt luctus. Integer aliquet, ipsum in ornare finibus, augue turpis pharetra velit, eget scelerisque tortor sapien Id ipsum. Morbi lorem est, ultrices non ligula egestas, volutpat eleifend enim. Duis nec massa ex. Mauris risus leo, commodo ac diam et, hendrerit molestie ante. Curabitur elementum vestibulum quam ut tristique. Integer ac aliquam nisi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer ligula urna, faucibus Id facilisis a, ultrices Id metus. Ut porta ac felis non rutrum. Praesent hendrerit facilisis eros. In iaculis neque suscipit convallis iaculis. Aliquam nec mollis magna.",
+        "Priority": "Low",
+        "State": "Resolved",
+        "Type": "Documentation",
+        "Images": []
+    },
+    {
+        "Id": 4,
+        "User": {
+            "Name": "Davide",
+            "Surname": "Neri"
+        },
+        "Title": "Placeholder Title",
+        "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ac risus nec tellus dignissim iaculis elementum in risus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Mauris varius nunc tortor, sit amet malesuada lacus feugiat sit amet. Ut et tellus ac nunc rutrum dapibus vitae sit amet risus. Aliquam vitae metus diam. Sed non convallis ante. Pellentesque eu vulputate purus. In hac habitasse platea dictumst. Cras imperdiet elit enim, eget cursus nibh pulvinar eget. Nulla urna elit, sodales sit amet dolor sit amet, lacinia iaculis nisi. Integer dapibus tempus magna Id lacinia. In a pellentesque metus, ac elementum mi. In in aliquet purus, Id scelerisque odio.\n\nMaecenas efficitur tincidunt luctus. Integer aliquet, ipsum in ornare finibus, augue turpis pharetra velit, eget scelerisque tortor sapien Id ipsum. Morbi lorem est, ultrices non ligula egestas, volutpat eleifend enim. Duis nec massa ex. Mauris risus leo, commodo ac diam et, hendrerit molestie ante. Curabitur elementum vestibulum quam ut tristique. Integer ac aliquam nisi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer ligula urna, faucibus Id facilisis a, ultrices Id metus. Ut porta ac felis non rutrum. Praesent hendrerit facilisis eros. In iaculis neque suscipit convallis iaculis. Aliquam nec mollis magna.",
+        "Priority": "Medium",
+        "State": "In Progress",
+        "Type": "Bug",
+        "Images": []
+    },
+    {
+        "Id": 5,
+        "User": {
+            "Name": "Anna",
+            "Surname": "Verdi"
+        },
+        "Title": "Placeholder Title",
+        "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ac risus nec tellus dignissim iaculis elementum in risus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Mauris varius nunc tortor, sit amet malesuada lacus feugiat sit amet. Ut et tellus ac nunc rutrum dapibus vitae sit amet risus. Aliquam vitae metus diam. Sed non convallis ante. Pellentesque eu vulputate purus. In hac habitasse platea dictumst. Cras imperdiet elit enim, eget cursus nibh pulvinar eget. Nulla urna elit, sodales sit amet dolor sit amet, lacinia iaculis nisi. Integer dapibus tempus magna Id lacinia. In a pellentesque metus, ac elementum mi. In in aliquet purus, Id scelerisque odio.\n\nMaecenas efficitur tincidunt luctus. Integer aliquet, ipsum in ornare finibus, augue turpis pharetra velit, eget scelerisque tortor sapien Id ipsum. Morbi lorem est, ultrices non ligula egestas, volutpat eleifend enim. Duis nec massa ex. Mauris risus leo, commodo ac diam et, hendrerit molestie ante. Curabitur elementum vestibulum quam ut tristique. Integer ac aliquam nisi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer ligula urna, faucibus Id facilisis a, ultrices Id metus. Ut porta ac felis non rutrum. Praesent hendrerit facilisis eros. In iaculis neque suscipit convallis iaculis. Aliquam nec mollis magna.",
+        "Priority": "High",
+        "State": "Resolved",
+        "Type": "Feature",
+        "Images": []
+    },
+    {
+        "Id": 6,
+        "User": {
+            "Name": "Davide",
+            "Surname": "Neri"
+        },
+        "Title": "Placeholder Title",
+        "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ac risus nec tellus dignissim iaculis elementum in risus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Mauris varius nunc tortor, sit amet malesuada lacus feugiat sit amet. Ut et tellus ac nunc rutrum dapibus vitae sit amet risus. Aliquam vitae metus diam. Sed non convallis ante. Pellentesque eu vulputate purus. In hac habitasse platea dictumst. Cras imperdiet elit enim, eget cursus nibh pulvinar eget. Nulla urna elit, sodales sit amet dolor sit amet, lacinia iaculis nisi. Integer dapibus tempus magna Id lacinia. In a pellentesque metus, ac elementum mi. In in aliquet purus, Id scelerisque odio.\n\nMaecenas efficitur tincidunt luctus. Integer aliquet, ipsum in ornare finibus, augue turpis pharetra velit, eget scelerisque tortor sapien Id ipsum. Morbi lorem est, ultrices non ligula egestas, volutpat eleifend enim. Duis nec massa ex. Mauris risus leo, commodo ac diam et, hendrerit molestie ante. Curabitur elementum vestibulum quam ut tristique. Integer ac aliquam nisi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer ligula urna, faucibus Id facilisis a, ultrices Id metus. Ut porta ac felis non rutrum. Praesent hendrerit facilisis eros. In iaculis neque suscipit convallis iaculis. Aliquam nec mollis magna.",
+        "Priority": "Low",
+        "State": "In Progress",
+        "Type": "Question",
+        "Images": []
+    },
+    {
+        "Id": 7,
+        "User": {
+            "Name": "Anna",
+            "Surname": "Verdi"
+        },
+        "Title": "Placeholder Title",
+        "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ac risus nec tellus dignissim iaculis elementum in risus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Mauris varius nunc tortor, sit amet malesuada lacus feugiat sit amet. Ut et tellus ac nunc rutrum dapibus vitae sit amet risus. Aliquam vitae metus diam. Sed non convallis ante. Pellentesque eu vulputate purus. In hac habitasse platea dictumst. Cras imperdiet elit enim, eget cursus nibh pulvinar eget. Nulla urna elit, sodales sit amet dolor sit amet, lacinia iaculis nisi. Integer dapibus tempus magna Id lacinia. In a pellentesque metus, ac elementum mi. In in aliquet purus, Id scelerisque odio.\n\nMaecenas efficitur tincidunt luctus. Integer aliquet, ipsum in ornare finibus, augue turpis pharetra velit, eget scelerisque tortor sapien Id ipsum. Morbi lorem est, ultrices non ligula egestas, volutpat eleifend enim. Duis nec massa ex. Mauris risus leo, commodo ac diam et, hendrerit molestie ante. Curabitur elementum vestibulum quam ut tristique. Integer ac aliquam nisi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer ligula urna, faucibus Id facilisis a, ultrices Id metus. Ut porta ac felis non rutrum. Praesent hendrerit facilisis eros. In iaculis neque suscipit convallis iaculis. Aliquam nec mollis magna.",
+        "Priority": "Medium",
+        "State": "Resolved",
+        "Type": "Documentation",
+        "Images": []
+    },
+    {
+        "Id": 8,
+        "User": {
+            "Name": "Davide",
+            "Surname": "Neri"
+        },
+        "Title": "Placeholder Title",
+        "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ac risus nec tellus dignissim iaculis elementum in risus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Mauris varius nunc tortor, sit amet malesuada lacus feugiat sit amet. Ut et tellus ac nunc rutrum dapibus vitae sit amet risus. Aliquam vitae metus diam. Sed non convallis ante. Pellentesque eu vulputate purus. In hac habitasse platea dictumst. Cras imperdiet elit enim, eget cursus nibh pulvinar eget. Nulla urna elit, sodales sit amet dolor sit amet, lacinia iaculis nisi. Integer dapibus tempus magna Id lacinia. In a pellentesque metus, ac elementum mi. In in aliquet purus, Id scelerisque odio.\n\nMaecenas efficitur tincidunt luctus. Integer aliquet, ipsum in ornare finibus, augue turpis pharetra velit, eget scelerisque tortor sapien Id ipsum. Morbi lorem est, ultrices non ligula egestas, volutpat eleifend enim. Duis nec massa ex. Mauris risus leo, commodo ac diam et, hendrerit molestie ante. Curabitur elementum vestibulum quam ut tristique. Integer ac aliquam nisi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer ligula urna, faucibus Id facilisis a, ultrices Id metus. Ut porta ac felis non rutrum. Praesent hendrerit facilisis eros. In iaculis neque suscipit convallis iaculis. Aliquam nec mollis magna.",
+        "Priority": "High",
+        "State": "In Progress",
+        "Type": "Bug",
+        "Images": []
+    },
+    {
+        "Id": 9,
+        "User": {
+            "Name": "Anna",
+            "Surname": "Verdi"
+        },
+        "Title": "Placeholder Title",
+        "Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras ac risus nec tellus dignissim iaculis elementum in risus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Mauris varius nunc tortor, sit amet malesuada lacus feugiat sit amet. Ut et tellus ac nunc rutrum dapibus vitae sit amet risus. Aliquam vitae metus diam. Sed non convallis ante. Pellentesque eu vulputate purus. In hac habitasse platea dictumst. Cras imperdiet elit enim, eget cursus nibh pulvinar eget. Nulla urna elit, sodales sit amet dolor sit amet, lacinia iaculis nisi. Integer dapibus tempus magna Id lacinia. In a pellentesque metus, ac elementum mi. In in aliquet purus, Id scelerisque odio.\n\nMaecenas efficitur tincidunt luctus. Integer aliquet, ipsum in ornare finibus, augue turpis pharetra velit, eget scelerisque tortor sapien Id ipsum. Morbi lorem est, ultrices non ligula egestas, volutpat eleifend enim. Duis nec massa ex. Mauris risus leo, commodo ac diam et, hendrerit molestie ante. Curabitur elementum vestibulum quam ut tristique. Integer ac aliquam nisi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer ligula urna, faucibus Id facilisis a, ultrices Id metus. Ut porta ac felis non rutrum. Praesent hendrerit facilisis eros. In iaculis neque suscipit convallis iaculis. Aliquam nec mollis magna.",
+        "Priority": "Low",
+        "State": "Resolved",
+        "Type": "Feature",
+        "Images": []
+    }
+]
