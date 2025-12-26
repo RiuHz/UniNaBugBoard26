@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:test_app/classes/user/user.dart';
 
 class Issue {
@@ -22,13 +23,39 @@ class Issue {
   });
 
   static Issue fromJson(Map<String, dynamic> json) => Issue(
-      id: json['ID'] as int,
-      user: json['User'] as User,
+      id: json['Id'] as int,
+      user: User.fromJson(json['User']),
       title: json['Title'] as String,
       description: json['Description'] as String,
-      priority: json['Proprity'] as String,
+      priority: json['Priority'] as String,
       state: json['State'] as String,
       type: json['Type'] as String,
-      images: json['Images'] as List<String>
+      images: List<String>.from(json['Images'] as List<dynamic>)
     );
+
+    static Card toCard(BuildContext context, Issue issue) => Card(
+      surfaceTintColor: Theme.of(context).colorScheme.inverseSurface,
+      shadowColor: Theme.of(context).colorScheme.secondary,
+      child: ListTile(
+        leading: Issue.selectIssueIcon(issue.type),
+        title: Text(issue.title),
+        subtitle: Text(issue.description),
+      )
+    );
+
+    // Qua bisogna usare la OOP (Code smell assurda sto switch, ma per ora deve funzionare :D)
+    static Icon selectIssueIcon(String issueType) {
+      switch (issueType) {
+        case 'Bug':
+          return Icon(Icons.pest_control);
+        case 'Documentation':
+          return Icon(Icons.edit_document);
+        case 'Question':
+          return Icon(Icons.question_mark);
+        case 'Feature':
+          return Icon(Icons.bookmark_add);
+      }
+
+      throw Exception('No icon found for this issue...');
+    }
 }
