@@ -21,8 +21,7 @@ class Issue {
     required this.images
   });
 
-  factory Issue.fromJson(Map<String, dynamic> json) {
-    return Issue(
+  static Issue fromJson(Map<String, dynamic> json) => Issue(
       id: json['ID'] as int,
       user: json['User'] as User,
       title: json['Title'] as String,
@@ -32,5 +31,4 @@ class Issue {
       type: json['Type'] as String,
       images: json['Images'] as List<String>
     );
-  }
 }

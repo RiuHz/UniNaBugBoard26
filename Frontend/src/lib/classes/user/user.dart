@@ -7,10 +7,8 @@ class User {
     required this.surname
   });
 
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
+  static User fromJson(Map<String, dynamic> json) => User(
       name: json['Name'] as String,
       surname: json['Surname'] as String
     );
-  }
 }
