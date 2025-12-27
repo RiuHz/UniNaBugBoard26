@@ -7,7 +7,7 @@ class Documentation extends Issue {
   );
 
   @override
-  bool isEditable() {
+  bool isEditable(BuildContext context) {
     return false;
   }
 }

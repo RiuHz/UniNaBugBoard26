@@ -7,7 +7,7 @@ class Feature extends Issue {
   );
 
   @override
-  bool isEditable() {
+  bool isEditable(BuildContext context) {
     return false;
   }
 }

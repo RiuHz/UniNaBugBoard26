@@ -33,7 +33,7 @@ abstract class Issue {
     return issue;
   }
 
-  bool isEditable();
+  bool isEditable(BuildContext context);
 }
 
 class IssueFactory {
