@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:test_app/main.dart';
 import 'package:test_app/pages/page_manager.dart';
 
 class Navbar extends StatelessWidget {
@@ -24,10 +25,11 @@ class Navbar extends StatelessWidget {
             label: 'Aggiungi un Issue',
             iconData: Icons.add
           ),
-          const NavbarDestination(
-            label: 'Aggiungi Utente',
-            iconData: Icons.person_add
-          ),
+          if (Provider.of<UniNaBugBoard26State>(context).user.role == 'Admin')
+            const NavbarDestination(
+              label: 'Aggiungi Utente',
+              iconData: Icons.person_add
+            ),
         ],
         selectedIndex: Provider.of<PageManagerState>(context).selectedIndex,
         onDestinationSelected: (int index) {
