@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:test_app/classes/issues/issue.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:test_app/pages/home/issue_card.dart';
+import 'package:test_app/filter/filter_bar.dart';
+import 'package:test_app/components/issue%20card/issue_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -19,7 +20,7 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text('Filtri'),
+        FilterBar(),
         FutureBuilder<List<Issue>> (
           future: issues,
           builder: (context, snapshot) {
