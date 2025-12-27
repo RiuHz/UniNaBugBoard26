@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test_app/classes/issues/issue.dart';
 import 'package:test_app/main.dart';
+import 'package:test_app/pages/bug%20detail%20page/bug_detail_page.dart';
 
 class Bug extends Issue {
   Bug() : super(
@@ -10,14 +11,27 @@ class Bug extends Issue {
 
   @override
   bool isEditable(BuildContext context) {
+    if (state == 'Resolved' || state == 'ToDo') {
+      return false;
+    }
+
     if (Provider.of<UniNaBugBoard26State>(context).user.role == 'Admin') {
       return true;
     }
 
-    if (user.id == Provider.of<UniNaBugBoard26State>(context).user.id) {
+    if (Provider.of<UniNaBugBoard26State>(context).user.id == user.id) {
       return true;
     }
 
     return false;
+  }
+
+  @override
+  void getDetailPage(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (BuildContext context) => BugDetailPage(issue: this)
+      )
+    );
   }
 }

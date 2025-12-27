@@ -10,4 +10,9 @@ class Feature extends Issue {
   bool isEditable(BuildContext context) {
     return false;
   }
+
+  @override
+  void getDetailPage(BuildContext context) {
+    throw Exception('Detail page not avaiable');
+  }
 }

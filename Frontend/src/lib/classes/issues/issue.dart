@@ -34,6 +34,8 @@ abstract class Issue {
   }
 
   bool isEditable(BuildContext context);
+
+  void getDetailPage(BuildContext context);
 }
 
 class IssueFactory {
