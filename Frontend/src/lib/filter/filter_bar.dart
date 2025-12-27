@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:test_app/filter/enum/issue_priority.dart';
-import 'package:test_app/filter/enum/issue_state.dart';
-import 'package:test_app/filter/enum/issue_type.dart';
+import 'package:test_app/enum/issue_priority.dart';
+import 'package:test_app/enum/issue_state.dart';
+import 'package:test_app/enum/issue_type.dart';
 
 class FilterBar extends StatefulWidget {
   const FilterBar({super.key});
@@ -26,7 +26,8 @@ class FilterBarState extends State<FilterBar> {
           DropdownMenu<IssuePriority>(
             dropdownMenuEntries: IssuePriority.entries,
             label: const Text('Priorità'),
-            initialSelection: null,
+            initialSelection: IssuePriority.all,
+            requestFocusOnTap: false,
             onSelected: (IssuePriority? priority) {
               setState(() {
                 selectedPriority = priority;
@@ -37,7 +38,8 @@ class FilterBarState extends State<FilterBar> {
           DropdownMenu<IssueType>(
             dropdownMenuEntries: IssueType.entries,
             label: const Text('Tipo'),
-            initialSelection: null,
+            initialSelection: IssueType.all,
+            requestFocusOnTap: false,
               onSelected: (IssueType? type) {
               setState(() {
                 selectedType = type;
@@ -48,7 +50,8 @@ class FilterBarState extends State<FilterBar> {
           DropdownMenu<IssueState>(
             dropdownMenuEntries: IssueState.entries,
             label: const Text('Stato'),
-            initialSelection: null,
+            initialSelection: IssueState.all,
+            requestFocusOnTap: false,
               onSelected: (IssueState? state) {
               setState(() {
                 selectedState = state;
