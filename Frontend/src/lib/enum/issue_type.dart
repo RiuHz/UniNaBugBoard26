@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 
 enum IssueType {
+  all('Tutti'),
   bug('Bug'),
   question('Question'),
   feature('Feature'),

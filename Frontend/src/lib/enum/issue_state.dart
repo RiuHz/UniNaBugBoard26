@@ -2,6 +2,7 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 
 enum IssueState {
+  all('Tutti'),
   todo('ToDo'),
   inProgress('In Progress'),
   resolved('Resolved');

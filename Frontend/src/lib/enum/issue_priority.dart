@@ -2,6 +2,7 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 
 enum IssuePriority {
+  all('Tutte'),
   low('Low'),
   medium('Medium'),
   high('High');

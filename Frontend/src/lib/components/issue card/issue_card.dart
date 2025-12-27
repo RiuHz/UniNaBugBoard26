@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:test_app/classes/issues/issue.dart';
-import 'package:test_app/classes/user/user.dart';
 import 'package:test_app/theme/theme.dart';
 
 class IssueCard extends StatelessWidget {
@@ -29,17 +28,9 @@ class IssueCard extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              IssueCardIcon(icon: issue.icon),
-              IssueCardInfo(
-                title: issue.title,
-                description: issue.description,
-                user: issue.user
-              ),
-              IssueCardState(
-                state: issue.state,
-                priority: issue.priority,
-                isEditable: issue.isEditable(context)
-              )
+              IssueCardIcon(issue: issue),
+              IssueCardInfo(issue: issue),
+              IssueCardState(issue: issue)
             ],
           ),
         ),  
@@ -63,29 +54,25 @@ class IssueCard extends StatelessWidget {
 }
 
 class IssueCardIcon extends StatelessWidget {
-  final Icon icon;
+  final Issue issue;
 
   const IssueCardIcon({
     super.key,
-    required this.icon
+    required this.issue
   });
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(aspectRatio: 1.0, child: icon);
+    return AspectRatio(aspectRatio: 1.0, child: issue.icon);
   }
 }
 
 class IssueCardInfo extends StatelessWidget {
-  final String title;
-  final String description;
-  final User user;
+  final Issue issue;
 
   const IssueCardInfo({
     super.key,
-    required this.title,
-    required this.description,
-    required this.user
+    required this.issue
   });
 
   @override
@@ -97,7 +84,7 @@ class IssueCardInfo extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              title,
+              issue.title,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(fontWeight: FontWeight.bold),
@@ -105,14 +92,14 @@ class IssueCardInfo extends StatelessWidget {
             const Padding(padding: EdgeInsets.only(bottom: 2.0)),
             Expanded(
               child: Text(
-                description,
+                issue.description,
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(fontSize: 12.0,),
               ),
             ),
             Text(
-              '${user.surname} ${user.name}',
+              '${issue.user.surname} ${issue.user.name}',
               style: const TextStyle(fontSize: 12.0)
             ),
           ],
@@ -123,15 +110,11 @@ class IssueCardInfo extends StatelessWidget {
 }
 
 class IssueCardState extends StatelessWidget {
-  final String state;
-  final String priority;
-  final bool isEditable;
+  final Issue issue;
 
   const IssueCardState({
     super.key,
-    required this.state,
-    required this.priority,
-    required this.isEditable
+    required this.issue
   });
 
   @override
@@ -145,19 +128,21 @@ class IssueCardState extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              'Stato: $state',
+              'Stato: ${issue.state}',
               style: const TextStyle(fontSize: 12.0)
             ),
             const Padding(padding: EdgeInsets.only(bottom: 2.0)),
             Expanded(
               child: Text(
-                'Priorità: $priority',
+                'Priorità: ${issue.priority}',
                 style: const TextStyle(fontSize: 12.0)
               ),
             ),
-            if (isEditable)
+            if (issue.isEditable(context))
               ElevatedButton(
-                onPressed: () {}, // Questa sarà la funzione per il display della pagina di modifica
+                onPressed: () {
+                  issue.getDetailPage(context);
+                },
                 style: ElevatedButton.styleFrom(
                   shadowColor: Theme.of(context).colorScheme.inverseSurface,
                 ),
