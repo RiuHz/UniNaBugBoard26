@@ -21,7 +21,7 @@ public class IssueController {
     public Issue getIssue(){
         Issue i = new Issue();
         i.setId(1);
-        i.setUserId("23rf-t34trf-23r2gfef");
+        i.setuserid("23rf-t34trf-23r2gfef");
         i.setTitolo("Bug sul progetto numero 30");
         i.setDescrizione("Bug grafico sul front-end da risolvere entro martedì");
         i.setTipo(com.progetto.enums.Tipo.Bug);
