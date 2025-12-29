@@ -1,4 +1,4 @@
-package com.progetto.dto;
+package com.progetto.model;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.progetto.enums.*;

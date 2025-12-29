@@ -1,10 +1,10 @@
-package com.progetto;
+package com.progetto.controller;
 
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.progetto.dto.Issue;
+import com.progetto.model.Issue;
 
 /* 
 L' annotazione RestController è utilizzata per RESTful APIs che sono utulizzate per lavorare con dati come JSON 
@@ -29,6 +29,11 @@ public class IssueController {
         i.setStato(com.progetto.enums.Stato.ToDo);
         i.setAllegato("https://bucket-allegati.amazonaws.com/8.jpg");
         return i;
+    }
+
+    @GetMapping("/test-json/{id}")
+    public int getIssueId(){
+        return 56;
     }
 
 }
