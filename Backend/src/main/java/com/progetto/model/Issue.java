@@ -1,26 +1,49 @@
 package com.progetto.model;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.progetto.enums.*;
+import com.progetto.enums.Priorita;
+import com.progetto.enums.Stato; 
+import com.progetto.enums.Tipo;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
 
 // Definisco l'ordine delle proprietà dell' oggetto JSON restituito al front-end
-@JsonPropertyOrder({"id", "userId", "titolo", "descrizione", "tipo", "priorita", "stato", "allegato"}) 
+@JsonPropertyOrder({"id", "userid", "titolo", "descrizione", "tipo", "priorita", "stato", "allegato"})
+// Segnalo che questa classe rappresenta una tabella del database
+@Entity 
+// Nome della tabella nel database
+@Table(name = "issue")
 public class Issue {
+    @Id // Chiave primaria
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String userId;
+    private String userid; // Se metto userId, lo traduce come underscore (da capire come fare)
     private String titolo;
     private String descrizione;
+
+    /* Necessari altrimenti vengono trattati come tipi numerici gli enum scritti */
+    @Enumerated(EnumType.STRING)
     private Tipo tipo;
+    @Enumerated(EnumType.STRING)
     private Priorita priorita;
+    @Enumerated(EnumType.STRING)
     private Stato stato;
+    
     private String allegato;
 
     public int getId() {
         return id;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getuserid() {
+        return userid;
     }
 
     public String getTitolo() {
@@ -51,8 +74,8 @@ public class Issue {
         this.id = id;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setuserid(String userid) {
+        this.userid = userid;
     }
 
     public void setTitolo(String titolo) {
