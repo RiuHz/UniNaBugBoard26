@@ -61,15 +61,11 @@ class LogInFormState extends State<LogInForm> {
   }
 
   Future<void> logIn() async {
-    if (!formKey.currentState!.validate()) {
-      return;
-    }
+    if (!formKey.currentState!.validate()) return;
 
     LoggedUser? userLoggedIn = await logInUser(email, password);
 
-    if (!mounted) {
-      return;
-    }
+    if (!mounted) return;
 
     if (userLoggedIn == null) {
       openPopUp(context, false, '', '');
@@ -79,8 +75,8 @@ class LogInFormState extends State<LogInForm> {
   }
 
   void openUserHomePage(LoggedUser user) {
-    Provider.of<UniNaBugBoard26State>(context).user = user;
-    Provider.of<PageManagerState>(context).switchPage(0);
+    Provider.of<UniNaBugBoard26State>(context, listen: false).user = user;
+    Provider.of<PageManagerState>(context, listen: false).switchPage(0);
   }
 
   void setEmail(String value) {

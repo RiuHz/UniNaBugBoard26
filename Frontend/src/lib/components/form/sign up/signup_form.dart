@@ -90,15 +90,13 @@ class SignUpFormState extends State<SignUpForm> {
   }
 
   Future<void> signUp() async {
-    if (!formKey.currentState!.validate()) {
-      return;
-    }
+    if (!formKey.currentState!.validate()) return;
 
     bool userSignedUp = await postUser(getFormData());
 
-    if (mounted) {
-      openPopUp(context, userSignedUp, 'Utente registrato!', 'La registrazione è andata a buon fine.');
-    }
+    if (!mounted) return;
+     
+    openPopUp(context, userSignedUp, 'Utente registrato!', 'La registrazione è andata a buon fine.');
   }
 
   SignUpRequest getFormData() {

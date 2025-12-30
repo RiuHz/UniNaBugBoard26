@@ -118,15 +118,13 @@ class AddIssueFormState extends State<AddIssueForm> {
   }
 
   Future<void> createIssue() async {
-    if (!formKey.currentState!.validate()) {
-      return;
-    }
+    if (!formKey.currentState!.validate()) return;
 
     bool issueCreated = await postIssue(getFormData());
 
-    if (mounted) {
-      openPopUp(context, issueCreated, 'Issue segnalata!', 'La segnalazione è andata a buon fine.');
-    }
+    if (!mounted) return;
+      
+    openPopUp(context, issueCreated, 'Issue segnalata!', 'La segnalazione è andata a buon fine.');
   }
 
   String getFormData() {

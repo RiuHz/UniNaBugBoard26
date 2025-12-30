@@ -12,12 +12,4 @@ class LoggedUser extends User {
     required this.role,
     required this.token
   });
-
-  static LoggedUser fromJson(Map<String, dynamic> json) => LoggedUser(
-    id: json['id'] as String? ?? '',
-    name: json['nome'] as String? ?? '',
-    surname: json['cognome'] as String? ?? '',
-    role: UserRole.fromString(json['ruolo'] as String),
-    token: json['token'] as String
-  );
 }
