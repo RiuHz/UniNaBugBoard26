@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:test_app/classes/user/user.dart';
-import 'package:test_app/theme%20button/theme_button.dart';
+import 'package:test_app/classes/user/logged_user.dart';
+import 'package:test_app/components/theme%20button/theme_button.dart';
+import 'package:test_app/enum/user/user_role.dart';
+import 'package:test_app/pages/login/login_page.dart';
 import 'package:test_app/theme/theme.dart';
 import 'package:test_app/pages/page_manager.dart';
 
@@ -43,11 +45,12 @@ class UniNaBugBoard26 extends StatelessWidget {
 class UniNaBugBoard26State extends ChangeNotifier {
   bool lightTheme = ThemeMode.system == ThemeMode.light;
 
-  User user = User(
+  LoggedUser user = LoggedUser(
     id: '1',
     name: 'Pino',
     surname: 'Pino',
-    role: 'Admin'
+    role: UserRole.admin,
+    token: ''
   ); // Qui l'utente va preso dal login
 
   void switchTheme() {
