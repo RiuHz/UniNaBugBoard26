@@ -1,12 +1,13 @@
 package com.progetto.service;
 
-import com.progetto.model.Issue;
-import com.progetto.repository.IssueRepository;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.progetto.enums.Stato;
+import com.progetto.model.Issue;
+import com.progetto.repository.IssueRepository;
 
 @Service 
 public class IssueService {
@@ -28,7 +29,7 @@ public class IssueService {
     }
 
     public void impostaIssueComeResolved(Integer id) {
-        issueRepository.setIssueState(Stato.RESOLVED, id);
+        issueRepository.setIssueState(Stato.Resolved, id);
     }
 
 }
