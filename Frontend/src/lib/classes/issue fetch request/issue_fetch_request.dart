@@ -12,4 +12,8 @@ class IssueFetchRequest {
     required this.type,
     required this.state
   });
+
+  String getPriority() => priority.level;
+  String getType() => type.name;
+  String getState() => state.progress;
 }
