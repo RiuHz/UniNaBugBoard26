@@ -25,7 +25,7 @@ import com.progetto.model.Issue;
 public interface IssueRepository extends JpaRepository<Issue, Integer> {
 
     @Modifying
-    @Query("UPDATE Issue SET Issue.status = :status WHERE Issue.id = :id")
-    void setIssueState(@Param("status") Stato status, @Param("id") Integer id);
+    @Query("UPDATE Issue AS issue SET issue.stato = :stato WHERE issue.id = :id")
+    void setIssueState(@Param("stato") Stato stato, @Param("id") Integer id);
 
 }

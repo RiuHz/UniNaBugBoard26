@@ -9,6 +9,8 @@ import com.progetto.enums.Stato;
 import com.progetto.model.Issue;
 import com.progetto.repository.IssueRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service 
 public class IssueService {
 
@@ -37,6 +39,7 @@ public class IssueService {
         issueRepository.save(issue);
     }
 
+    @Transactional
     public void impostaIssueComeResolved(Integer id) {
         issueRepository.setIssueState(Stato.Resolved, id);
     }
