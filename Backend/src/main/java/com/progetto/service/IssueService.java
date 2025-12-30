@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.progetto.enums.Stato;
+import com.progetto.interfaces.ImageStorage;
 import com.progetto.model.Issue;
 import com.progetto.repository.IssueRepository;
 
@@ -32,8 +33,8 @@ public class IssueService {
     public void salvaIssue(Issue issue){
 
         if (issue.getAllegato() != null) {
-            String url = amazonWebServiceS3Repository.saveImage(issue.getAllegato());
-            issue.setAllegato(url);
+            //String url = amazonWebServiceS3Repository.saveImage(issue.getAllegato());
+            //issue.setAllegato(url);
         }
 
         issueRepository.save(issue);
