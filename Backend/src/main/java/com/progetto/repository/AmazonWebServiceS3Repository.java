@@ -1,4 +1,6 @@
 package com.progetto.repository;
+import com.progetto.interfaces.ImageStorage;
+
 
 class AmazonWebServiceS3Repository implements ImageStorage {
     // Bussiness logic per interagire con AWS S3
