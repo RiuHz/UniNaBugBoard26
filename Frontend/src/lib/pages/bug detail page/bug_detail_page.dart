@@ -66,7 +66,7 @@ class BugDetailPageState extends State<BugDetailPage> {
               Padding(
                 padding: const EdgeInsetsGeometry.symmetric(vertical: 10.0, horizontal: 25.0),
                 child: widget.issue.image.isEmpty
-                  ? Text('Nessun immagine prevista')
+                  ? const Text('Nessun immagine prevista')
                   : SizedBox(
                     width: 300,
                     height: 300,

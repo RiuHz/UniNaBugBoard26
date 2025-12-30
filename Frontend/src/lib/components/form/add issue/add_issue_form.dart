@@ -29,7 +29,7 @@ class AddIssueFormState extends State<AddIssueForm> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsGeometry.symmetric(vertical: 20, horizontal: 50),
+      padding: const EdgeInsetsGeometry.symmetric(vertical: 20, horizontal: 50),
       child: Form(
         key: formKey,
         child: Column(

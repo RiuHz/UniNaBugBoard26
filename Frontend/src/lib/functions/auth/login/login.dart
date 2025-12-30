@@ -15,8 +15,7 @@ Future<LoggedUser?> logInUser(String email, String password) async {
 
   try {
     session = await cognitoUser.authenticateUser(authDetails);
-  } on CognitoClientException catch (error) {
-    print(error);
+  } on CognitoClientException {
     return null;
   }
 
