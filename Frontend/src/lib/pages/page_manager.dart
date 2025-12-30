@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:test_app/navbar/navbar.dart';
-import 'package:test_app/pages/home/home.dart';
-import 'package:test_app/pages/my%20bugs/my_bugs.dart';
-import 'package:test_app/pages/add%20issue/add_issue.dart';
-import 'package:test_app/pages/register%20user/register_user.dart';
+import 'package:test_app/pages/home/home_page.dart';
+import 'package:test_app/pages/login/login_page.dart';
+import 'package:test_app/pages/my%20bugs/my_bugs_page.dart';
+import 'package:test_app/pages/add%20issue/add_issue_page.dart';
+import 'package:test_app/pages/signup%20user/signup_page.dart';
 
 class PageManager extends StatelessWidget {  
   const PageManager({super.key});
@@ -15,14 +15,7 @@ class PageManager extends StatelessWidget {
       create: (context) => PageManagerState(),
       child: Consumer<PageManagerState> (
         builder: (context, state, child) {
-          return Column(
-            children: [
-              const Navbar(),
-              Expanded(
-                child: state.selectedPage
-              )
-            ]
-          );
+          return state.selectedPage;
         }
       )
     );
@@ -30,7 +23,7 @@ class PageManager extends StatelessWidget {
 }
 
 class PageManagerState extends ChangeNotifier {
-  Widget selectedPage = const HomePage();
+  Widget selectedPage = const LogInUserPage();
   int selectedIndex = 0;
 
   void switchPage(int index) {
@@ -47,7 +40,7 @@ class PageManagerState extends ChangeNotifier {
         selectedPage = const AddIssuePage();
         break;
       case 3:
-        selectedPage = const RegisterUserPage();
+        selectedPage = const SignUpUserPage();
         break;
       default:
         throw UnimplementedError('No widget page for $index');
