@@ -27,7 +27,7 @@ class RoundedTextFormFieldState extends State<RoundedTextFormField> {
         floatingLabelStyle: TextStyle(
           color: Theme.of(context).colorScheme.inverseSurface
         ),
-        border: OutlineInputBorder(),
+        border: const OutlineInputBorder(),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
               color: Theme.of(context).colorScheme.inverseSurface

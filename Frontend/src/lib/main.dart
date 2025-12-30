@@ -44,7 +44,7 @@ class UniNaBugBoard26 extends StatelessWidget {
 class UniNaBugBoard26State extends ChangeNotifier {
   bool lightTheme = ThemeMode.system == ThemeMode.light;
 
-  LoggedUser user = LoggedUser(
+  LoggedUser user = const LoggedUser(
     id: '',
     name: '',
     surname: '',

@@ -37,21 +37,21 @@ class AddIssueFormState extends State<AddIssueForm> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
+              padding: const EdgeInsets.symmetric(vertical: 10),
               child: RoundedTextFormField(
                 label: 'Titolo',
                 setData: setTitle
               )
             ),
             Padding(
-              padding: EdgeInsetsGeometry.symmetric(vertical: 10),
+              padding: const EdgeInsetsGeometry.symmetric(vertical: 10),
               child: RoundedTextFormField(
                 label: 'Descrizione',
                 setData: setDescription
               ),
             ),
             Padding(
-              padding: EdgeInsetsGeometry.symmetric(vertical: 10),
+              padding: const EdgeInsetsGeometry.symmetric(vertical: 10),
               child: DropdownMenu<IssuePriority>(
                 dropdownMenuEntries: IssuePriority.entries.where((priority) => priority.value != IssuePriority.all).toList(),
                 label: const Text('Priorità'),
@@ -65,7 +65,7 @@ class AddIssueFormState extends State<AddIssueForm> {
               ), 
             ),
             Padding(
-              padding: EdgeInsetsGeometry.symmetric(vertical: 10),
+              padding: const EdgeInsetsGeometry.symmetric(vertical: 10),
               child: DropdownMenu<IssueType>(
                 dropdownMenuEntries: IssueType.entries.where((priority) => priority.value != IssueType.all).toList(),
                 label: const Text('Tipo'),
@@ -79,12 +79,12 @@ class AddIssueFormState extends State<AddIssueForm> {
               ), 
             ),
             Padding(
-              padding: EdgeInsetsGeometry.symmetric(vertical: 10),
+              padding: const EdgeInsetsGeometry.symmetric(vertical: 10),
               child: FormBuilderImagePicker(
                 name: 'Immagine',
                 maxImages: 1,
-                availableImageSources: [ImageSourceOption.gallery],
-                decoration: InputDecoration(labelText: 'Seleziona immagine'),
+                availableImageSources: const [ImageSourceOption.gallery],
+                decoration: const InputDecoration(labelText: 'Seleziona immagine'),
                 onSaved: (newValue) async {
                   if (newValue == null || newValue.isEmpty) {
                     return;
@@ -100,7 +100,7 @@ class AddIssueFormState extends State<AddIssueForm> {
               )
             ),
             Padding(
-              padding: EdgeInsetsGeometry.symmetric(vertical: 10),
+              padding: const EdgeInsetsGeometry.symmetric(vertical: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

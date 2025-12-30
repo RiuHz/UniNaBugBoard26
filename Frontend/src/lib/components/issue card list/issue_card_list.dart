@@ -28,7 +28,7 @@ class IssueCardListState extends State<IssueCardList> {
   void initState() {
     super.initState();
     updateIssueList(
-      IssueFetchRequest(
+      const IssueFetchRequest(
         priority: IssuePriority.all,
         type: IssueType.all,
         state: IssueState.all
@@ -58,7 +58,7 @@ class IssueCardListState extends State<IssueCardList> {
           }
           
           if (snapshot.hasError) {
-            return Text('Ops... Qualcosa è andato storto');
+            return const Text('Ops... Qualcosa è andato storto');
           }
           
           if (snapshot.hasData) {

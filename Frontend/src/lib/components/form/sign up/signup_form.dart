@@ -34,28 +34,28 @@ class SignUpFormState extends State<SignUpForm> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
-              padding: EdgeInsetsGeometry.symmetric(vertical: 10),
+              padding: const EdgeInsetsGeometry.symmetric(vertical: 10),
               child: RoundedTextFormField(
                 label: 'Email',
                 setData: setEmail
               )
             ),
             Padding(
-              padding: EdgeInsetsGeometry.symmetric(vertical: 10),
+              padding: const EdgeInsetsGeometry.symmetric(vertical: 10),
               child: RoundedTextFormField(
                 label: 'Nome',
                 setData: setName
               )
             ),
             Padding(
-              padding: EdgeInsetsGeometry.symmetric(vertical: 10),
+              padding: const EdgeInsetsGeometry.symmetric(vertical: 10),
               child: RoundedTextFormField(
                 label: 'Cognome',
                 setData: setSurname
               )
             ),
             Padding(
-              padding: EdgeInsetsGeometry.symmetric(vertical: 10),
+              padding: const EdgeInsetsGeometry.symmetric(vertical: 10),
               child: RoundedTextFormField(
                 label: 'Password',
                 setData: setPassword,
@@ -63,7 +63,7 @@ class SignUpFormState extends State<SignUpForm> {
               )
             ),
             Padding(
-              padding: EdgeInsetsGeometry.symmetric(vertical: 10),
+              padding: const EdgeInsetsGeometry.symmetric(vertical: 10),
               child: DropdownMenu<UserRole>(
                 dropdownMenuEntries: UserRole.entries,
                 label: const Text('Stato'),
@@ -77,7 +77,7 @@ class SignUpFormState extends State<SignUpForm> {
             ),
             ),
             Padding(
-              padding: EdgeInsetsGeometry.symmetric(vertical: 10),
+              padding: const EdgeInsetsGeometry.symmetric(vertical: 10),
               child:  RoundedLoadingButton(
                 text: 'Registra l\'Utente',
                 onPressedFunction: signUp,

@@ -33,14 +33,14 @@ class LogInFormState extends State<LogInForm> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
-              padding: EdgeInsetsGeometry.symmetric(vertical: 10),
+              padding: const EdgeInsetsGeometry.symmetric(vertical: 10),
               child: RoundedTextFormField(
                 label: 'Email',
                 setData: setEmail
               )
             ),
             Padding(
-              padding: EdgeInsetsGeometry.symmetric(vertical: 10),
+              padding: const EdgeInsetsGeometry.symmetric(vertical: 10),
               child: RoundedTextFormField(
                 label: 'Password',
                 setData: setPassword,
@@ -48,7 +48,7 @@ class LogInFormState extends State<LogInForm> {
               )
             ),
             Padding(
-              padding: EdgeInsetsGeometry.symmetric(vertical: 10),
+              padding: const EdgeInsetsGeometry.symmetric(vertical: 10),
               child: RoundedLoadingButton(
                 text: 'Effettua l\'Accesso',
                 onPressedFunction: logIn,

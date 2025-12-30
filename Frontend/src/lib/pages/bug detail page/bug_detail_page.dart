@@ -32,13 +32,13 @@ class BugDetailPageState extends State<BugDetailPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
+                padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       widget.issue.description,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16
                       )  
                     )
@@ -46,25 +46,25 @@ class BugDetailPageState extends State<BugDetailPage> {
                 )
               ),
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
+                padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
                 child: Text(
                   'Stato: ${widget.issue.state.progress}',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 22
                   )    
                 ) 
               ),
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
+                padding:const  EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
                 child: Text(
                   'Priorità: ${widget.issue.priority.level}',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 22
                   )  
                 )
               ),
               Padding(
-                padding: EdgeInsetsGeometry.symmetric(vertical: 10.0, horizontal: 25.0),
+                padding: const EdgeInsetsGeometry.symmetric(vertical: 10.0, horizontal: 25.0),
                 child: widget.issue.image.isEmpty
                   ? Text('Nessun immagine prevista')
                   : SizedBox(

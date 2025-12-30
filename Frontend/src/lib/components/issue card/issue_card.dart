@@ -24,7 +24,7 @@ class IssueCard extends StatelessWidget {
         )
       ),
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
         child: SizedBox(
           height: 100,
           child: Row(
