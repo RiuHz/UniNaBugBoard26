@@ -1,5 +1,8 @@
 package com.progetto.model;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.progetto.enums.Priorita;
 import com.progetto.enums.Stato; 
@@ -28,14 +31,17 @@ public class Issue {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo", columnDefinition = "tipo")
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     private Tipo tipo;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "priorita", columnDefinition = "priorita")
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     private Priorita priorita;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "stato", columnDefinition = "stato")
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     private Stato stato;
 
      public int getId() {
