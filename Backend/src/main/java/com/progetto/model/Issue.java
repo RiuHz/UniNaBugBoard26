@@ -22,7 +22,7 @@ import jakarta.persistence.Table;
 @Table(name = "issue")
 public class Issue {
     @Id // Chiave primaria
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Genere in automatico il valore dell' id quando lo inserisci nel db
     private int id;
     private String userid; // Se metto userId, lo traduce come underscore (da capire come fare)
     private String titolo;
