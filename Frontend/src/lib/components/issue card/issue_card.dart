@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_app/classes/issues/issue.dart';
-import 'package:test_app/components/rounded%20button/rounded_button.dart';
+import 'package:test_app/components/buttons/rounded%20button/rounded_button.dart';
 import 'package:test_app/enum/issue/issue_priority.dart';
 import 'package:test_app/theme/theme.dart';
 
