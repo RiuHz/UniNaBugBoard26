@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:test_app/enum/user/user_role.dart';
 import 'package:test_app/main.dart';
 import 'package:test_app/pages/page_manager.dart';
 
@@ -25,7 +26,7 @@ class Navbar extends StatelessWidget {
             label: 'Aggiungi un Issue',
             iconData: Icons.add
           ),
-          if (Provider.of<UniNaBugBoard26State>(context).user.role == 'Admin')
+          if (Provider.of<UniNaBugBoard26State>(context).user.role == UserRole.admin)
             const NavbarDestination(
               label: 'Aggiungi Utente',
               iconData: Icons.person_add

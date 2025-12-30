@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:test_app/enum/issue_priority.dart';
-import 'package:test_app/enum/issue_state.dart';
-import 'package:test_app/enum/issue_type.dart';
+import 'package:test_app/classes/issue%20fetch%20request/issue_fetch_request.dart';
+import 'package:test_app/enum/issue/issue_priority.dart';
+import 'package:test_app/enum/issue/issue_state.dart';
+import 'package:test_app/enum/issue/issue_type.dart';
 
 class FilterBar extends StatefulWidget {
-  const FilterBar({super.key});
+  final void Function(IssueFetchRequest) updateIssueList; 
+  
+  const FilterBar({
+    super.key,
+    required this.updateIssueList
+  });
 
   @override
   State<FilterBar> createState() => FilterBarState();
 }
 
 class FilterBarState extends State<FilterBar> {
-  IssuePriority? selectedPriority;
-  IssueType? selectedType;
-  IssueState? selectedState;
+  IssuePriority? selectedPriority = IssuePriority.all;
+  IssueType? selectedType = IssueType.all;
+  IssueState? selectedState = IssueState.all;
 
   @override
   Widget build(BuildContext context) {
@@ -26,41 +32,49 @@ class FilterBarState extends State<FilterBar> {
           DropdownMenu<IssuePriority>(
             dropdownMenuEntries: IssuePriority.entries,
             label: const Text('Priorità'),
-            initialSelection: IssuePriority.all,
+            initialSelection: selectedPriority,
             requestFocusOnTap: false,
             onSelected: (IssuePriority? priority) {
               setState(() {
                 selectedPriority = priority;
-                // Qui vanno fatte le chiamate per i filtri che cambiano le issue mostrate
+                filterIssues();
               });
             },
           ),
           DropdownMenu<IssueType>(
             dropdownMenuEntries: IssueType.entries,
             label: const Text('Tipo'),
-            initialSelection: IssueType.all,
+            initialSelection: selectedType,
             requestFocusOnTap: false,
               onSelected: (IssueType? type) {
               setState(() {
                 selectedType = type;
-                // Qui vanno fatte le chiamate per i filtri che cambiano le issue mostrate
+                filterIssues();
               });
             },
           ),
           DropdownMenu<IssueState>(
             dropdownMenuEntries: IssueState.entries,
             label: const Text('Stato'),
-            initialSelection: IssueState.all,
+            initialSelection: selectedState,
             requestFocusOnTap: false,
               onSelected: (IssueState? state) {
               setState(() {
                 selectedState = state;
-                // Qui vanno fatte le chiamate per i filtri che cambiano le issue mostrate
+                filterIssues();
               });
             },
           )
         ]
       )
     );
+  }
+
+  void filterIssues() {
+    widget.updateIssueList(IssueFetchRequest(
+      priority: selectedPriority as IssuePriority,
+      type: selectedType as IssueType, 
+      state: selectedState as IssueState
+    ));
   }
 }
