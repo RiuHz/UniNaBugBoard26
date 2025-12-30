@@ -1,10 +1,14 @@
 package com.progetto.model;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.progetto.enums.Priorita;
 import com.progetto.enums.Stato; 
 import com.progetto.enums.Tipo;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -30,10 +34,18 @@ public class Issue {
 
     /* Necessari altrimenti vengono trattati come tipi numerici gli enum scritti */
     @Enumerated(EnumType.STRING)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
+    @Column(columnDefinition = "tipo")
     private Tipo tipo;
+
     @Enumerated(EnumType.STRING)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
+    @Column(columnDefinition = "priorita")
     private Priorita priorita;
+
     @Enumerated(EnumType.STRING)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
+    @Column(columnDefinition = "stato")
     private Stato stato;
     
     private String allegato;

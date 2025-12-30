@@ -43,9 +43,12 @@ public class IssueControllerNew{
     }
 
     // 3. Salvataggio di una Issue nel database
-    @PostMapping("/save")
+    @PostMapping
     public Issue createIssue(@RequestBody Issue issue) {
         return issueService.salvaIssue(issue);
     }
+
+    // recupero -> url
+    // save -> byte
 
 }
