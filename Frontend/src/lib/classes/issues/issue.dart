@@ -4,6 +4,8 @@ import 'package:test_app/classes/issues/documentation.dart';
 import 'package:test_app/classes/issues/feature.dart';
 import 'package:test_app/classes/issues/question.dart';
 import 'package:test_app/classes/user/user.dart';
+import 'package:test_app/enum/issue/issue_priority.dart';
+import 'package:test_app/enum/issue/issue_state.dart';
 
 abstract class Issue {
   final Icon icon;
@@ -11,24 +13,24 @@ abstract class Issue {
   late User user;
   late String title;
   late String description;
-  late String priority;
-  late String state;
-  late List<String> images;
+  late IssuePriority priority;
+  late IssueState state;
+  late String images;
 
   Issue({
     required this.icon
   });
 
   static Issue fromJson(Map<String, dynamic> json) {
-    Issue issue = IssueFactory.fromType(json['Type'] as String);
+    Issue issue = IssueFactory.fromType(json['Tipo'] as String);
 
-    issue.id = json['Id'] as int;
+    issue.id = json['ID'] as int;
     issue.user = User.fromJson(json['User']);
-    issue.title = json['Title'] as String;
-    issue.description = json['Description'] as String;
-    issue.priority = json['Priority'] as String;
-    issue.state = json['State'] as String;
-    issue.images = List<String>.from(json['Images'] as List<dynamic>);
+    issue.title = json['Titolo'] as String;
+    issue.description = json['Descrizione'] as String;
+    issue.priority = IssuePriority.fromString(json['Priorita'] as String);
+    issue.state = IssueState.fromString(json['Stato'] as String);
+    issue.images = json['Allegato'] as String? ?? '';
 
     return issue;
   }
