@@ -15,7 +15,7 @@ abstract class Issue {
   late String description;
   late IssuePriority priority;
   late IssueState state;
-  late String images;
+  late String image;
 
   Issue({
     required this.icon
@@ -24,13 +24,13 @@ abstract class Issue {
   static Issue fromJson(Map<String, dynamic> json) {
     Issue issue = IssueFactory.fromType(json['Tipo'] as String);
 
-    issue.id = json['ID'] as int;
-    issue.user = User.fromJson(json['User']);
-    issue.title = json['Titolo'] as String;
-    issue.description = json['Descrizione'] as String;
-    issue.priority = IssuePriority.fromString(json['Priorita'] as String);
-    issue.state = IssueState.fromString(json['Stato'] as String);
-    issue.images = json['Allegato'] as String? ?? '';
+    issue.id = json['id'] as int;
+    issue.user = User.fromJson(json['utente']);
+    issue.title = json['titolo'] as String;
+    issue.description = json['descrizione'] as String;
+    issue.priority = IssuePriority.fromString(json['priorita'] as String);
+    issue.state = IssueState.fromString(json['stato'] as String);
+    issue.image = json['immagine'] as String? ?? '';
 
     return issue;
   }
