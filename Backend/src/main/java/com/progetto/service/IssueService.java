@@ -28,4 +28,9 @@ public class IssueService {
                 .orElseThrow(() -> new RuntimeException("Issue non trovata con ID: " + id));
     }
 
+    // 3. Salava una issue nel database
+    public Issue salvaIssue(Issue issue){
+        return issueRepository.save(issue);
+    }
+
 }
