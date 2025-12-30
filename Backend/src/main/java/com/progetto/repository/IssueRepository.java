@@ -1,9 +1,9 @@
 package com.progetto.repository;
 
+import com.progetto.model.Issue;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import com.progetto.model.Issue;
 
 /*
 
@@ -17,8 +17,11 @@ import com.progetto.model.Issue;
 
 */
 
- // Estendendo JpaRepository, Spring crea automaticamente il codice SQL necessario
- // Indico la classe "Issue" e il tipo della chiave primaria "Integer"
-
 @Repository
-public interface IssueRepository extends JpaRepository<Issue, Integer> {}
+public interface IssueRepository extends JpaRepository<Issue, Integer> {
+
+    @Modifying
+    @Query("UPDATE Issue SET Issue.status = :status WHERE Issue.id = :id")
+    void setIssueState(@Param("status") Stato status, @Param("id") Integer id);
+
+}

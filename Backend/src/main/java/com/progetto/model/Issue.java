@@ -1,11 +1,12 @@
 package com.progetto.model;
 
-import org.hibernate.type.SqlTypes;
-
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.progetto.enums.Priorita;
 import com.progetto.enums.Stato; 
 import com.progetto.enums.Tipo;
+
+import org.hibernate.type.SqlTypes;
+
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
