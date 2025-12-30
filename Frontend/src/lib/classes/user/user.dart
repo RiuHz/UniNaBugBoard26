@@ -10,8 +10,8 @@ class User {
   });
 
   static User fromJson(Map<String, dynamic> json) => User(
-      id: json['ID'] as String? ?? '',
-      name: json['Nome'] as String? ?? '',
-      surname: json['Cognome'] as String? ?? ''
+      id: json['id'] as String? ?? '',
+      name: json['nome'] as String? ?? '',
+      surname: json['cognome'] as String? ?? ''
   );
 }

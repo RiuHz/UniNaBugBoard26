@@ -1,7 +1,7 @@
 import 'package:test_app/classes/user/user.dart';
 import 'package:test_app/enum/user/user_role.dart';
 
-class LoggedUser extends User { // Potrei prendere tutto dal token JWT? Convertire da fromString il ruolo
+class LoggedUser extends User {
   final UserRole role;
   final String token;
 
@@ -13,11 +13,11 @@ class LoggedUser extends User { // Potrei prendere tutto dal token JWT? Converti
     required this.token
   });
 
-  static LoggedUser fromJson(Map<String, dynamic> json) => LoggedUser( // Il JWT viene preso come token?
-    id: json['ID'] as String? ?? '',
-    name: json['Nome'] as String? ?? '',
-    surname: json['Cognome'] as String? ?? '',
-    role: UserRole.fromString(json['Ruolo'] as String),
-    token: json['Token']
+  static LoggedUser fromJson(Map<String, dynamic> json) => LoggedUser(
+    id: json['id'] as String? ?? '',
+    name: json['nome'] as String? ?? '',
+    surname: json['cognome'] as String? ?? '',
+    role: UserRole.fromString(json['ruolo'] as String),
+    token: json['token'] as String
   );
 }
