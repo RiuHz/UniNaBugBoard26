@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:test_app/components/rounded%20button/rounded_button.dart';
+import 'package:test_app/classes/sign%20up%20request/sign_up_request.dart';
 import 'package:test_app/components/rounded%20text%20form%20field/rounded_text_form_field.dart';
+import 'package:test_app/components/buttons/rounded%20loading%20button/rounded_loading_button.dart';
 import 'package:test_app/enum/user/user_role.dart';
+import 'package:test_app/functions/auth/signup/signup.dart';
+import 'package:test_app/functions/open%20pop-up/pop_up.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({super.key});
@@ -18,9 +21,7 @@ class SignUpFormState extends State<SignUpForm> {
   late String name;
   late String surname;
   late String password;
-  late UserRole? role;
-
-  bool isLoading = false;
+  UserRole role = UserRole.developer;
 
   @override
   Widget build(BuildContext context) {
@@ -35,25 +36,29 @@ class SignUpFormState extends State<SignUpForm> {
             Padding(
               padding: EdgeInsetsGeometry.symmetric(vertical: 10),
               child: RoundedTextFormField(
-                label: 'Email'
+                label: 'Email',
+                setData: setEmail
               )
             ),
             Padding(
               padding: EdgeInsetsGeometry.symmetric(vertical: 10),
               child: RoundedTextFormField(
-                label: 'Nome'
+                label: 'Nome',
+                setData: setName
               )
             ),
             Padding(
               padding: EdgeInsetsGeometry.symmetric(vertical: 10),
               child: RoundedTextFormField(
-                label: 'Cognome'
+                label: 'Cognome',
+                setData: setSurname
               )
             ),
             Padding(
               padding: EdgeInsetsGeometry.symmetric(vertical: 10),
               child: RoundedTextFormField(
                 label: 'Password',
+                setData: setPassword,
                 obscureText: true
               )
             ),
@@ -62,23 +67,21 @@ class SignUpFormState extends State<SignUpForm> {
               child: DropdownMenu<UserRole>(
                 dropdownMenuEntries: UserRole.entries,
                 label: const Text('Stato'),
-                initialSelection: UserRole.developer,
+                initialSelection: role,
                 requestFocusOnTap: false,
                   onSelected: (UserRole? selectedRole) {
                   setState(() {
-                    role = selectedRole;
+                    role = selectedRole as UserRole;
                   });
                 },
             ),
             ),
             Padding(
               padding: EdgeInsetsGeometry.symmetric(vertical: 10),
-              child: isLoading
-                ? const CircularProgressIndicator()
-                : RoundedButton(
-                    text: 'Registra l\'Utente',
-                    onPressedFunction: registerUser,
-                  )
+              child:  RoundedLoadingButton(
+                text: 'Registra l\'Utente',
+                onPressedFunction: signUp,
+              )
             )
           ],
         )
@@ -86,19 +89,41 @@ class SignUpFormState extends State<SignUpForm> {
     );
   }
 
-  void registerUser() {
+  Future<void> signUp() async {
     if (!formKey.currentState!.validate()) {
       return;
     }
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Funziona...?') // Qua va fatta la call al server e attesa la risposta, rendere il bottone che carica
-      )
+    bool userSignedUp = await postUser(getFormData());
+
+    if (mounted) {
+      openPopUp(context, userSignedUp, 'Utente registrato!', 'La registrazione è andata a buon fine.');
+    }
+  }
+
+  SignUpRequest getFormData() {
+    return SignUpRequest(
+      email,
+      password,
+      name,
+      surname,
+      role
     );
+  }
 
-    // Devo prendere i valori di email, nome, cognome e password al click del bottone
+  void setEmail(String value) {
+    setState(() {email = value;});
+  }
 
-    setState(() {isLoading = true;});
+  void setName(String value) {
+    setState(() {name = value;});
+  }
+
+  void setSurname(String value) {
+    setState(() {surname = value;});
+  }
+
+  void setPassword(String value) {
+    setState(() {password = value;});
   }
 }

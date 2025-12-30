@@ -2,7 +2,7 @@ import 'package:amazon_cognito_identity_dart_2/cognito.dart';
 import 'package:test_app/classes/user/logged_user.dart';
 import 'package:test_app/functions/auth/user_pool.dart';
 
-void logInUser(String email, String password) async { // Cambiare il valore come LoggedUser
+Future<LoggedUser?> logInUser(String email, String password) async {
   final cognitoUser = CognitoUser(email, userPool);
   final authDetails = AuthenticationDetails(
     username: email,
@@ -13,9 +13,15 @@ void logInUser(String email, String password) async { // Cambiare il valore come
 
   try {
     session = await cognitoUser.authenticateUser(authDetails);
-  } on CognitoClientException catch (error) {
-    print(error); // Questo deve essere un pop-up per avvisare l'utente
+  } on CognitoClientException {
+    print('Error');
+    return null;
   }
 
-  session!.getAccessToken().jwtToken; // Da qua bisogna ricavare poi il LoggedUser
+  // Da qua bisogna ricavare poi il LoggedUser da passare al main e il ruolo e capire se servei l JWT (chiedi a Chat) (Il logged user deve essere inizializzato prima?...)
+  String jwtToken = session!.getAccessToken().jwtToken as String;
+
+  print(jwtToken);
+
+  return null;
 }

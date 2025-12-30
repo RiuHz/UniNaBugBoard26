@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:test_app/classes/issues/issue.dart';
-import 'package:test_app/components/rounded%20button/rounded_button.dart';
+import 'package:test_app/components/buttons/rounded%20loading%20button/rounded_loading_button.dart';
+import 'package:test_app/functions/issue/issue.dart';
+import 'package:test_app/functions/open%20pop-up/pop_up.dart';
 
-class BugDetailPage extends StatelessWidget {
+class BugDetailPage extends StatefulWidget {
   final Issue issue;
 
   const BugDetailPage({
@@ -11,10 +13,17 @@ class BugDetailPage extends StatelessWidget {
   });
 
   @override
+  State<StatefulWidget> createState() => BugDetailPageState();
+
+}
+
+class BugDetailPageState extends State<BugDetailPage> {
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(issue.title)
+        title: Text(widget.issue.title)
       ),
       body: Center(
         child: Hero(
@@ -28,7 +37,7 @@ class BugDetailPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      issue.description,
+                      widget.issue.description,
                       style: TextStyle(
                         fontSize: 16
                       )  
@@ -39,7 +48,7 @@ class BugDetailPage extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
                 child: Text(
-                  'Stato: ${issue.state.progress}',
+                  'Stato: ${widget.issue.state.progress}',
                   style: TextStyle(
                     fontSize: 22
                   )    
@@ -48,7 +57,7 @@ class BugDetailPage extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
                 child: Text(
-                  'Priorità: ${issue.priority.level}',
+                  'Priorità: ${widget.issue.priority.level}',
                   style: TextStyle(
                     fontSize: 22
                   )  
@@ -56,15 +65,21 @@ class BugDetailPage extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsetsGeometry.symmetric(vertical: 10.0, horizontal: 25.0),
-                child: Text('Nessun immagine prevista'), // Modificare per mostrare l'immagine
+                child: widget.issue.image.isEmpty
+                  ? Text('Nessun immagine prevista')
+                  : SizedBox(
+                    width: 300,
+                    height: 300,
+                    child: Image.network(widget.issue.image)
+                  )
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  RoundedButton(
-                    text: 'Segna come Resolved',
-                    onPressedFunction: markIssueAsResolved
-                  )
+                    RoundedLoadingButton(
+                      text: 'Segna come Resolved',
+                      onPressedFunction: markIssueAsResolved
+                    )
                 ],
               )
             ],
@@ -74,8 +89,12 @@ class BugDetailPage extends StatelessWidget {
     );
   }
 
-  void markIssueAsResolved() {
-    // Qui va segnata l'issue come resolved e va poi chiuso l'Hero (la finestra che apre i dettagli)
-    // Bottone che carica
+  Future<void> markIssueAsResolved() async {
+
+    bool issuePatched = await patchIssue(widget.issue.id);
+    
+    if (mounted) {
+      openPopUp(context, issuePatched, 'Issue risolta!', 'La issue adesso è segnalta come risolta.');
+    }
   }
 }

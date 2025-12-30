@@ -1,9 +1,13 @@
+import 'dart:convert';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:form_builder_image_picker/form_builder_image_picker.dart';
-import 'package:test_app/components/rounded%20button/rounded_button.dart';
+import 'package:test_app/components/buttons/rounded%20loading%20button/rounded_loading_button.dart';
 import 'package:test_app/enum/issue/issue_priority.dart';
 import 'package:test_app/components/rounded%20text%20form%20field/rounded_text_form_field.dart';
+import 'package:test_app/enum/issue/issue_type.dart';
+import 'package:test_app/functions/issue/issue.dart';
+import 'package:test_app/functions/open%20pop-up/pop_up.dart';
 
 class AddIssueForm extends StatefulWidget {
   const AddIssueForm({super.key});
@@ -18,11 +22,9 @@ class AddIssueFormState extends State<AddIssueForm> {
 
   late String title;
   late String description;
-  late IssuePriority? priority;
-  late Uint8List imageBytes;
-  String state = 'ToDO';
-
-  bool isLoading = false;
+  IssuePriority priority = IssuePriority.low;
+  IssueType type = IssueType.bug;
+  Uint8List? imageBytes;
 
   @override
   Widget build(BuildContext context) {
@@ -36,11 +38,45 @@ class AddIssueFormState extends State<AddIssueForm> {
           children: [
             Padding(
               padding: EdgeInsets.symmetric(vertical: 10),
-              child: RoundedTextFormField(label: 'Titolo')
+              child: RoundedTextFormField(
+                label: 'Titolo',
+                setData: setTitle
+              )
             ),
             Padding(
               padding: EdgeInsetsGeometry.symmetric(vertical: 10),
-              child: RoundedTextFormField(label: 'Descrizione'),
+              child: RoundedTextFormField(
+                label: 'Descrizione',
+                setData: setDescription
+              ),
+            ),
+            Padding(
+              padding: EdgeInsetsGeometry.symmetric(vertical: 10),
+              child: DropdownMenu<IssuePriority>(
+                dropdownMenuEntries: IssuePriority.entries.where((priority) => priority.value != IssuePriority.all).toList(),
+                label: const Text('Priorità'),
+                initialSelection: priority,
+                requestFocusOnTap: false,
+                  onSelected: (IssuePriority? selectedPriority) {
+                  setState(() {
+                    priority = selectedPriority as IssuePriority;
+                  });
+                },
+              ), 
+            ),
+            Padding(
+              padding: EdgeInsetsGeometry.symmetric(vertical: 10),
+              child: DropdownMenu<IssueType>(
+                dropdownMenuEntries: IssueType.entries.where((priority) => priority.value != IssueType.all).toList(),
+                label: const Text('Tipo'),
+                initialSelection: type,
+                requestFocusOnTap: false,
+                  onSelected: (IssueType? selectedType) {
+                  setState(() {
+                    type = selectedType as IssueType;
+                  });
+                },
+              ), 
             ),
             Padding(
               padding: EdgeInsetsGeometry.symmetric(vertical: 10),
@@ -65,30 +101,13 @@ class AddIssueFormState extends State<AddIssueForm> {
             ),
             Padding(
               padding: EdgeInsetsGeometry.symmetric(vertical: 10),
-              child: DropdownMenu<IssuePriority>(
-                dropdownMenuEntries: IssuePriority.entries.where((priority) => priority.value != IssuePriority.all).toList(),
-                label: const Text('Priorità'),
-                initialSelection: IssuePriority.low,
-                requestFocusOnTap: false,
-                  onSelected: (IssuePriority? selectedPriority) {
-                  setState(() {
-                    priority = selectedPriority;
-                  });
-                },
-              ), 
-            ),
-            Padding(
-              padding: EdgeInsetsGeometry.symmetric(vertical: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  if (isLoading)
-                    const CircularProgressIndicator()
-                  else 
-                    RoundedButton(
-                      text: 'Crea Issue',
-                      onPressedFunction: createIssue,
-                    )
+                  RoundedLoadingButton(
+                    text: 'Crea Issue',
+                    onPressedFunction: createIssue,
+                  )
                 ]
               )
             )
@@ -98,19 +117,35 @@ class AddIssueFormState extends State<AddIssueForm> {
     );
   }
 
-  void createIssue() {
+  Future<void> createIssue() async {
     if (!formKey.currentState!.validate()) {
       return;
     }
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Funziona...?') // Qua va fatta la call al server e attesa la risposta, rendere il bottone che carica
-      )
-    );
+    bool issueCreated = await postIssue(getFormData());
 
-    // Devo prendere i valori di email, nome, cognome e password al click del bottone
+    if (mounted) {
+      openPopUp(context, issueCreated, 'Issue segnalata!', 'La segnalazione è andata a buon fine.');
+    }
+  }
 
-    setState(() {isLoading = true;});
+  String getFormData() {
+    return jsonEncode({
+      'userid': null,
+      'titolo': title,
+      'descrizione': description,
+      'priorita': priority.level,
+      'stato': 'ToDo',
+      'tipo': type.name,
+      'immagine':  imageBytes
+    });
+  }
+
+  void setTitle(String value) {
+    setState(() {title = value;});
+  }
+
+  void setDescription(String value) {
+    setState(() {description = value;});
   }
 }

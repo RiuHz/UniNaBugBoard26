@@ -71,10 +71,12 @@ class FilterBarState extends State<FilterBar> {
   }
 
   void filterIssues() {
-    widget.updateIssueList(IssueFetchRequest(
-      priority: selectedPriority as IssuePriority,
-      type: selectedType as IssueType, 
-      state: selectedState as IssueState
-    ));
+    widget.updateIssueList(
+      IssueFetchRequest(
+        priority: selectedPriority as IssuePriority,
+        type: selectedType as IssueType, 
+        state: selectedState as IssueState
+      )
+    );
   }
 }

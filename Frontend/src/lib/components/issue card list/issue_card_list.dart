@@ -51,7 +51,7 @@ class IssueCardListState extends State<IssueCardList> {
   void updateIssueList(IssueFetchRequest request) {
     setState(() {
       issueList = FutureBuilder<List<Issue>> (
-        future: fetchIssues(widget.userId, request),
+        future: getIssues(widget.userId, request),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const CircularProgressIndicator();

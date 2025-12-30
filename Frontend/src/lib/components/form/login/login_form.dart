@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:test_app/components/rounded%20button/rounded_button.dart';
+import 'package:provider/provider.dart';
+import 'package:test_app/classes/user/logged_user.dart';
 import 'package:test_app/components/rounded%20text%20form%20field/rounded_text_form_field.dart';
+import 'package:test_app/components/buttons/rounded%20loading%20button/rounded_loading_button.dart';
+import 'package:test_app/functions/auth/login/login.dart';
+import 'package:test_app/functions/open%20pop-up/pop_up.dart';
+import 'package:test_app/main.dart';
+import 'package:test_app/pages/page_manager.dart';
 
 class LogInForm extends StatefulWidget {
   const LogInForm({super.key});
@@ -17,8 +22,6 @@ class LogInFormState extends State<LogInForm> {
   late String email;
   late String password;
 
-  bool isLoading = false;
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -32,24 +35,24 @@ class LogInFormState extends State<LogInForm> {
             Padding(
               padding: EdgeInsetsGeometry.symmetric(vertical: 10),
               child: RoundedTextFormField(
-                label: 'Email'
+                label: 'Email',
+                setData: setEmail
               )
             ),
             Padding(
               padding: EdgeInsetsGeometry.symmetric(vertical: 10),
               child: RoundedTextFormField(
                 label: 'Password',
+                setData: setPassword,
                 obscureText: true
               )
             ),
             Padding(
               padding: EdgeInsetsGeometry.symmetric(vertical: 10),
-              child: isLoading
-                ? const CircularProgressIndicator()
-                : RoundedButton(
-                    text: 'Effettua l\'Accesso',
-                    onPressedFunction: logInUser,
-                  )
+              child: RoundedLoadingButton(
+                text: 'Effettua l\'Accesso',
+                onPressedFunction: logIn,
+              )
             )
           ],
         )
@@ -57,20 +60,34 @@ class LogInFormState extends State<LogInForm> {
     );
   }
 
-  void logInUser() {
+  Future<void> logIn() async {
     if (!formKey.currentState!.validate()) {
       return;
     }
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Funziona...?') // Qua va fatta la call al server e attesa la risposta, rendere il bottone che carica
-      )
-    );
+    LoggedUser? userLoggedIn = await logInUser(email, password);
 
-    // Devo prendere i valori di email, nome, cognome e password al click del bottone
+    if (!mounted) {
+      return;
+    }
 
-    // Se va bene imposto selectedPage a HomePage()
-    setState(() {isLoading = true;});
+    if (userLoggedIn == null) {
+      openPopUp(context, false, '', '');
+    } else {
+      openUserHomePage(userLoggedIn);
+    }
+  }
+
+  void openUserHomePage(LoggedUser user) {
+    Provider.of<UniNaBugBoard26State>(context).user = user;
+    Provider.of<PageManagerState>(context).switchPage(0);
+  }
+
+  void setEmail(String value) {
+    setState(() {email = value;});
+  }
+
+  void setPassword(String value) {
+    setState(() {password = value;});
   }
 }
