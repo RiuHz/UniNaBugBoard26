@@ -86,9 +86,7 @@ class AddIssueFormState extends State<AddIssueForm> {
                 availableImageSources: const [ImageSourceOption.gallery],
                 decoration: const InputDecoration(labelText: 'Seleziona immagine'),
                 onSaved: (newValue) async {
-                  if (newValue == null || newValue.isEmpty) {
-                    return;
-                  }
+                  if (newValue == null || newValue.isEmpty) return setState(() {imageBytes = null;});
 
                   XFile selectedImage = newValue.first;
                   Uint8List bytes = await selectedImage.readAsBytes();
