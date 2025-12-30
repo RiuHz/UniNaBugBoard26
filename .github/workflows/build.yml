@@ -11,6 +11,15 @@ jobs:
     runs-on: windows-latest
 
     steps:
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Flutter Pub Get
+        run: cd ./Frontend/src && flutter pub get
+
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
