@@ -12,6 +12,10 @@ jobs:
 
     steps:
 
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -19,10 +23,6 @@ jobs:
 
       - name: Flutter Pub Get
         run: cd ./Frontend/src && flutter pub get
-
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v6
