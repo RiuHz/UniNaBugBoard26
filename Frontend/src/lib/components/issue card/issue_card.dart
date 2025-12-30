@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:test_app/classes/issues/issue.dart';
+import 'package:test_app/components/rounded%20button/rounded_button.dart';
+import 'package:test_app/enum/issue/issue_priority.dart';
 import 'package:test_app/theme/theme.dart';
 
 class IssueCard extends StatelessWidget {
@@ -38,19 +40,18 @@ class IssueCard extends StatelessWidget {
     );
   }
 
-  Color selectColorFromPriority(BuildContext context, String priority) {
+  Color selectColorFromPriority(BuildContext context, IssuePriority priority) {
     switch (priority) {
-      case 'Low':
+      case IssuePriority.low:
         return Theme.of(context).green;
-      case 'Medium':
+      case IssuePriority.medium:
         return Theme.of(context).yellow;
-      case 'High':
+      case IssuePriority.high:
         return Theme.of(context).red;
+      default:
+        throw Exception('Unkown priority for this issue... $priority');
     }
-
-    throw Exception('Unkown priority for this issue...');
   }
-
 }
 
 class IssueCardIcon extends StatelessWidget {
@@ -85,7 +86,7 @@ class IssueCardInfo extends StatelessWidget {
           children: [
             Text(
               issue.title,
-              maxLines: 2,
+              maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
@@ -128,29 +129,21 @@ class IssueCardState extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              'Stato: ${issue.state}',
+              'Stato: ${issue.state.progress}',
               style: const TextStyle(fontSize: 12.0)
             ),
             const Padding(padding: EdgeInsets.only(bottom: 2.0)),
             Expanded(
               child: Text(
-                'Priorità: ${issue.priority}',
+                'Priorità: ${issue.priority.level}',
                 style: const TextStyle(fontSize: 12.0)
               ),
             ),
             if (issue.isEditable(context))
-              ElevatedButton(
-                onPressed: () {
-                  issue.getDetailPage(context);
-                },
-                style: ElevatedButton.styleFrom(
-                  shadowColor: Theme.of(context).colorScheme.inverseSurface,
-                ),
-                child: Text(
-                  'Modifica',
-                  style: TextStyle(color: Theme.of(context).colorScheme.inverseSurface)
-                ),
-              ),
+              RoundedButton(
+                text: 'Modifica',
+                onPressedFunction: () {issue.getDetailPage(context);}
+              )
           ],
         )
       )
