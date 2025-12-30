@@ -15,17 +15,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: stable
-
-      - name: Flutter Pub Get
-        run: cd ./Frontend/src && flutter pub get
-
-      - name: Build
-        run: cd ./Frontend/src/ && flutter build web --debug
-
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v6
         env:
