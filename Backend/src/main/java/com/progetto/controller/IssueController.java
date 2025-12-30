@@ -1,39 +1,42 @@
 package com.progetto.controller;
 
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.progetto.model.Issue;
-
-/* 
-L' annotazione RestController è utilizzata per RESTful APIs che sono utulizzate per lavorare con dati come JSON 
-
-@GetMapping un'annotazione composta che funge da scorciatoia per @RequestMapping(method = RequestMethod.GET).
-
-@GetMapping è l'annotazione più recente. 
-
-*/
+import com.progetto.service.IssueService;
 
 @RestController
-public class IssueController {
-    @GetMapping("/test-json")
-    public Issue getIssue(){
-        Issue i = new Issue();
-        i.setId(1);
-        i.setuserid("23rf-t34trf-23r2gfef");
-        i.setTitolo("Bug sul progetto numero 30");
-        i.setDescrizione("Bug grafico sul front-end da risolvere entro martedì");
-        i.setTipo(com.progetto.enums.Tipo.Bug);
-        i.setPriorita(com.progetto.enums.Priorita.Bassa);
-        i.setStato(com.progetto.enums.Stato.ToDo);
-        i.setAllegato("https://bucket-allegati.amazonaws.com/8.jpg");
-        return i;
+@RequestMapping("/api/issues")
+public class IssueControllerNew{
+
+    @Autowired
+    private IssueService issueService;
+
+    @GetMapping
+    public List<Issue> getIssues() {
+        return issueService.recuperaTutteLeIssues();
     }
 
-    @GetMapping("/test-json/{id}")
-    public int getIssueId(){
-        return 56;
+    @GetMapping("/{id}")
+    public Issue getIssueById(@PathVariable Integer id) {
+        return issueService.recuperaIssuePerId(id);
     }
 
+    @PostMapping
+    public void createIssue(@RequestBody Issue issue) {
+        issueService.salvaIssue(issue);
+    }
+
+    @PatchMapping("/{id}")
+    public void patchIssueByID(@PathVariable Integer id) {
+        // Qua bisogna impostare lo stato dell'issue a resolved
+    }
 }

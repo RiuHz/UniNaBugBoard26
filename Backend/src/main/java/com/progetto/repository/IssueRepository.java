@@ -21,6 +21,4 @@ import com.progetto.model.Issue;
  // Indico la classe "Issue" e il tipo della chiave primaria "Integer"
 
 @Repository
-public interface IssueRepository extends JpaRepository<Issue, Integer> {
-    // Lascia vuoto qui dentro. Fa tutto Spring! Mio padre spring troppo forte!
-}
+public interface IssueRepository extends JpaRepository<Issue, Integer> {}
