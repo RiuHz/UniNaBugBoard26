@@ -18,7 +18,7 @@ public class ImageController {
 
     @GetMapping("/{url}")
     public byte[] getImageByUrl(@PathVariable String url) {
-        return imageService.recuperaImmaginePerUrl(url);
+        return imageService.recuperaImmagineDaUrl(url);
     }
 
 }
