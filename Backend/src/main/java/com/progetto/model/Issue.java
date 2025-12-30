@@ -32,17 +32,17 @@ public class Issue {
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo", columnDefinition = "tipo")
     @JdbcTypeCode(SqlTypes.NAMED_ENUM)
-    private Tipo tipo;
+    private TipoIssue tipo;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "priorita", columnDefinition = "priorita")
     @JdbcTypeCode(SqlTypes.NAMED_ENUM)
-    private Priorita priorita;
+    private PrioritaIssue priorita;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "stato", columnDefinition = "stato")
     @JdbcTypeCode(SqlTypes.NAMED_ENUM)
-    private Stato stato;
+    private StatoIssue stato;
 
      public int getId() {
         return id;
@@ -60,15 +60,15 @@ public class Issue {
         return descrizione;
     }
 
-    public Tipo getTipo(){
+    public TipoIssue getTipo(){
         return tipo;
     }
 
-    public Priorita getPriorita(){
+    public PrioritaIssue getPriorita(){
         return priorita;
     }
 
-    public Stato getStato(){
+    public StatoIssue getStato(){
         return stato;
     }
 

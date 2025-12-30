@@ -1,6 +1,6 @@
 package com.progetto.enums;
 
-public enum Priorita {
+public enum PrioritaIssue {
     Bassa,
     Media,
     Alta

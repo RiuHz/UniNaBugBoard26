@@ -19,7 +19,7 @@ public class IssueService {
     private IssueRepository issueRepository;
 
     @Autowired
-    private ImageStorage amazonWebServiceS3Repository;
+    private ImageStorageSaver amazonWebServiceS3Repository;
 
     public List<Issue> recuperaTutteLeIssues() {
         return issueRepository.findAll();
@@ -32,8 +32,8 @@ public class IssueService {
     public void salvaIssue(Issue issue){
 
         if (issue.getAllegato() != null) {
-            //String url = amazonWebServiceS3Repository.saveImage(issue.getAllegato());
-            //issue.setAllegato(url);
+            String url = amazonWebServiceS3Repository.saveImage(issue.getAllegato());
+            issue.setAllegato(url);
         }
 
         issueRepository.save(issue);

@@ -1,6 +1,6 @@
 package com.progetto.enums;
 
-public enum Stato { 
+public enum StatoIssue { 
     ToDo,
     InProgress,
     Resolved

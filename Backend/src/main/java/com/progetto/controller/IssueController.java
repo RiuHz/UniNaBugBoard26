@@ -43,7 +43,6 @@ public class IssueController{
         issueService.salvaIssue(issue);
     }
 
-
     @PatchMapping("/{id}")
     public void patchIssueByID(@PathVariable Integer id) {
         issueService.impostaIssueComeResolved(id);
