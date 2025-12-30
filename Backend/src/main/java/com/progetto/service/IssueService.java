@@ -26,8 +26,7 @@ public class IssueService {
     }
 
     public Issue recuperaIssuePerId(Integer id) {
-        return issueRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Issue non trovata con ID: " + id));
+        return issueRepository.findById(id).orElse(null);
     }
 
     public void salvaIssue(Issue issue){
