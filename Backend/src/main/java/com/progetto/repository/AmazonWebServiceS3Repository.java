@@ -1,5 +1,9 @@
 package com.progetto.repository;
+import org.springframework.stereotype.Repository;
 
+import com.progetto.interfaces.ImageStorage;
+
+@Repository
 class AmazonWebServiceS3Repository implements ImageStorage {
     // Bussiness logic per interagire con AWS S3
 

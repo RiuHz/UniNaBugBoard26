@@ -1,5 +1,9 @@
 package com.progetto.service;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.progetto.interfaces.ImageStorage;
+
 
 @Service
 public class ImageService {
