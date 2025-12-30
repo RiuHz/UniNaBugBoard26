@@ -1,3 +1,4 @@
+package com.progetto.interfaces;
 
 public interface ImageStorage {
     byte[] retrieveImage(String url);
