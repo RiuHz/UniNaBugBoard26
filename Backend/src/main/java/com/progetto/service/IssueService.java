@@ -20,7 +20,7 @@ public class IssueService {
 
     @Autowired
     private ImageStorageSaver amazonWebServiceS3Repository;
-
+    
     public List<Issue> recuperaTutteLeIssues() {
         return issueRepository.findAll();
     }
