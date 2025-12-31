@@ -26,7 +26,7 @@ public class IssueService {
     @Autowired
     private ImageStorageSaver amazonWebServiceS3;
     
-    public List<StorageIssue> recuperaTutteLeIssues(Priorita priorita,Stato stato,Tipo tipo,String userid) {
+    public List<StorageIssue> recuperaTutteLeIssues(Priorita priorita, Stato stato, Tipo tipo, String userid) {
         Specification<StorageIssue> filtri = StorageIssueSpecification.filtraStorageIssue(priorita, stato, tipo, userid);
         return issueRepository.findAll(filtri);
     }
@@ -50,7 +50,7 @@ public class IssueService {
 
     @Transactional
     public void impostaIssueComeResolved(Integer id) {
-        issueRepository.setIssueState(Stato.Resolved, id);
+        issueRepository.setIssueState(Stato.RESOLVED, id);
     }
 
 }

@@ -8,6 +8,9 @@ import com.progetto.enums.issue.*;
 import com.progetto.model.issues.StorageIssue;
 
 public class StorageIssueSpecification {
+
+    private StorageIssueSpecification() {};
+
     public static Specification<StorageIssue> filtraStorageIssue(Priorita priorita, Stato stato, Tipo tipo, String userid) {
 
         return (root, query, criteriaBuilder) -> {

@@ -5,7 +5,7 @@ import 'package:test_app/classes/issues/issue.dart';
 import 'package:http/http.dart' as http;
 import 'package:test_app/classes/user/logged_user.dart';
 
-final const apiURL = 'https://px7ldiamld.execute-api.eu-south-1.amazonaws.com/api/v1/issues';
+const final apiURL = 'https://px7ldiamld.execute-api.eu-south-1.amazonaws.com/api/v1/issues';
 
 List<Issue> parseIssues(String responseBody) {
   final parsed = (jsonDecode(responseBody) as List<Object?>)

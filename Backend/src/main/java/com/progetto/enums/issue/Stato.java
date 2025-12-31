@@ -1,7 +1,7 @@
 package com.progetto.enums.issue;
 
 public enum Stato { 
-    ToDo,
-    InProgress,
-    Resolved
+    TODO,
+    IN_PROGRESS,
+    RESOLVED
 }

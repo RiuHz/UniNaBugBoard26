@@ -13,7 +13,7 @@ class IssueFetchRequest {
     required this.state
   });
 
-  String getPriority() => priority.level;
-  String getType() => type.name;
-  String getState() => state.progress;
+  String getPriority() => priority.level.toUpperCase();
+  String getType() => type.name.toUpperCase();
+  String getState() => state.progress.toUpperCase();
 }

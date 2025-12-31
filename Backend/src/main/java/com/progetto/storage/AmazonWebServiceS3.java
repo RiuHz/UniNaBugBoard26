@@ -45,26 +45,9 @@ class AmazonWebServiceS3 implements ImageStorageSaver {
 		}
  
         return uniqueName;  
-    };
+    }
 
     private String generateUniqueImageName(String fileName) {
         return UUID.randomUUID().toString() + "_" + fileName;
     }
 }
-
-/*     // Funzione per caricare un immagine
-    @PostMapping("/upload")
-    public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file) {
-        try {
-            String fileName = s3Service.uploadFile(file);
-            return ResponseEntity.ok("File caricato con successo! Nome salvato: " + fileName);
-        } catch (IOException e) {
-            return ResponseEntity.internalServerError().body("Errore durante l'upload: " + e.getMessage());
-        }
-    }
-
-    
-    @GetMapping("/{url}")
-    public byte[] getImageByUrl(@PathVariable String url) {
-        return imageService.recuperaImmagineDaUrl(url);
-    } */
