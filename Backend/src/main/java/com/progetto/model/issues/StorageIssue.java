@@ -6,7 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
 @JsonPropertyOrder({"id", "userid", "titolo", "descrizione", "tipo", "priorita", "stato", "allegato"})
-@Entity 
+@Table(name = "Issue")
+@Entity(name = "Issue")
 public class StorageIssue extends Issue {
     private String allegato;
     
