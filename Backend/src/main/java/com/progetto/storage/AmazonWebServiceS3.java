@@ -1,21 +1,33 @@
-package com.progetto.repository;
-import org.springframework.stereotype.Repository;
+package com.progetto.storage;
 
-import com.progetto.interfaces.ImageStorage;
+
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.progetto.interfaces.ImageStorageSaver;
+
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 @Repository
-class AmazonWebServiceS3 implements ImageSaver {
+class AmazonWebServiceS3 implements ImageStorageSaver {
     
     @Value("${aws.s3.bucket.name}")
     private String bucketName;
 
-    private final S3Client s3Client;
+    
+    private S3Client s3Client;
 
     @Autowired
-    public S3Service(S3Client s3Client) {
+    public AmazonWebServiceS3(S3Client s3Client) {
         this.s3Client = s3Client;
     }
-    public String saveImage(MultipartFile file) {
+    public String saveImage(MultipartFile file) { 
         String uniqueName = generateUniqueImageName(file.getOriginalFilename());
 
         PutObjectRequest uploadRequest = PutObjectRequest.builder()
@@ -29,7 +41,7 @@ class AmazonWebServiceS3 implements ImageSaver {
         return uniqueName;  
     };
 
-    private generateUniqueImageName(String fileName) {
+    private String generateUniqueImageName(String fileName) {
         return UUID.randomUUID().toString() + "_" + fileName;
     }
 }
