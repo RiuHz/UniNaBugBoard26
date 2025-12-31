@@ -11,9 +11,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+
+import com.progetto.enums.issue.*;
+
+
 
 @RestController
 @RequestMapping("/issues")
@@ -23,8 +28,10 @@ public class IssueController{
     private IssueService issueService;
 
     @GetMapping
-    public List<StorageIssue> getIssues() {
-        return issueService.recuperaTutteLeIssues();
+    public List<StorageIssue> getIssues(@RequestParam(required = false, name = "priorita") Priorita priorita, @RequestParam(required = false, name = "stato") Stato stato,
+    @RequestParam(required = false, name = "tipo") Tipo tipo, @RequestParam(required = false, name = "userid") String userid) {
+
+        return issueService.recuperaTutteLeIssues(priorita,stato,tipo,userid);
     }
 
     @GetMapping("/{id}")
