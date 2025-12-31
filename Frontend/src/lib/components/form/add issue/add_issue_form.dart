@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:form_builder_image_picker/form_builder_image_picker.dart';
+import 'package:http/http.dart';
 import 'package:test_app/components/buttons/rounded%20loading%20button/rounded_loading_button.dart';
 import 'package:test_app/enum/issue/issue_priority.dart';
 import 'package:test_app/components/rounded%20text%20form%20field/rounded_text_form_field.dart';
@@ -24,7 +24,7 @@ class AddIssueFormState extends State<AddIssueForm> {
   late String description;
   IssuePriority priority = IssuePriority.low;
   IssueType type = IssueType.bug;
-  Uint8List? imageBytes;
+  MultipartFile? file;
 
   @override
   Widget build(BuildContext context) {
@@ -85,14 +85,11 @@ class AddIssueFormState extends State<AddIssueForm> {
                 maxImages: 1,
                 availableImageSources: const [ImageSourceOption.gallery],
                 decoration: const InputDecoration(labelText: 'Seleziona immagine'),
-                onSaved: (newValue) async {
-                  if (newValue == null || newValue.isEmpty) return setState(() {imageBytes = null;});
-
-                  XFile selectedImage = newValue.first;
-                  Uint8List bytes = await selectedImage.readAsBytes();
+                onSaved: (value) async {
+                  if (value == null || value.isEmpty) return setState(() {file = null;});
 
                   setState(() {
-                    imageBytes = bytes;
+                    file = value.first;
                   });
                 },
               )
@@ -133,7 +130,7 @@ class AddIssueFormState extends State<AddIssueForm> {
       'priorita': priority.level,
       'stato': 'ToDo',
       'tipo': type.name,
-      'immagine':  imageBytes
+      'immagine':  file
     });
   }
 
