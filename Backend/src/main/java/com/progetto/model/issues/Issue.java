@@ -3,9 +3,11 @@ package com.progetto.model.issues;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
-import com.progetto.enums.issue.Priorita;
-import com.progetto.enums.issue.Stato;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.progetto.enums.issue.Tipo;
+import com.progetto.enums.issue.Stato;
+import com.progetto.enums.issue.Priorita;
+
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
@@ -17,11 +19,13 @@ import jakarta.persistence.Id;
 @MappedSuperclass
 public abstract class Issue {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    
     private String userid;
     private String titolo;
     private String descrizione;
-    
+
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo", columnDefinition = "tipo")
     @JdbcTypeCode(SqlTypes.NAMED_ENUM)
@@ -36,6 +40,28 @@ public abstract class Issue {
     @Column(name = "stato", columnDefinition = "stato")
     @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     private Stato stato;
+
+    private String allegato;
+        
+    public static Issue fromUserIssue(UserIssue userIssue) {
+    	Issue storageIssue = new Issue();
+    	
+    	storageIssue.setTitolo(userIssue.getTitolo());
+    	storageIssue.setDescrizione(userIssue.getDescrizione());
+    	storageIssue.setTipo(userIssue.getTipo());
+    	storageIssue.setPriorita(userIssue.getPriorita());
+    	storageIssue.setStato(userIssue.getStato());
+    	
+    	return storageIssue;
+    }
+    
+    public String getallegato(){
+        return allegato;
+    }
+
+    public void setallegato(String allegato) {
+        this.allegato = allegato;
+    }
 
     public String getuserid() {
         return userid;
@@ -84,5 +110,4 @@ public abstract class Issue {
     public void setStato(Stato stato) {
         this.stato = stato;
     }
-    
 }
