@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:test_app/classes/sign%20up%20request/sign_up_request.dart';
 import 'package:test_app/components/rounded%20text%20form%20field/rounded_text_form_field.dart';
 import 'package:test_app/components/buttons/rounded%20loading%20button/rounded_loading_button.dart';
 import 'package:test_app/enum/user/user_role.dart';
-import 'package:test_app/functions/auth/signup/signup.dart';
+import 'package:test_app/functions/signup/signup.dart';
 import 'package:test_app/functions/open%20pop-up/pop_up.dart';
+import 'package:test_app/main.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({super.key});
@@ -92,7 +94,7 @@ class SignUpFormState extends State<SignUpForm> {
   Future<void> signUp() async {
     if (!formKey.currentState!.validate()) return;
 
-    bool userSignedUp = await postUser(getFormData());
+    bool userSignedUp = await postUser(Provider.of<UniNaBugBoard26State>(context).user, getFormData());
 
     if (!mounted) return;
      
