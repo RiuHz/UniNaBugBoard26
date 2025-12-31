@@ -1,14 +1,27 @@
 package com.progetto.model.issues;
 
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.progetto.enums.issue.Tipo;
+import com.progetto.enums.issue.Stato;
+import com.progetto.enums.issue.Priorita;
+
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @JsonPropertyOrder({"id", "userid", "titolo", "descrizione", "tipo", "priorita", "stato", "allegato"})
 @Table(name = "issue")
 @Entity
-public class StorageIssue {
+public class Issue {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -16,7 +29,7 @@ public class StorageIssue {
     private String userid;
     private String titolo;
     private String descrizione;
-    
+
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo", columnDefinition = "tipo")
     @JdbcTypeCode(SqlTypes.NAMED_ENUM)
@@ -34,8 +47,8 @@ public class StorageIssue {
 
     private String allegato;
         
-    public static StorageIssue fromUserIssue(UserIssue userIssue) {
-    	StorageIssue storageIssue = new StorageIssue();
+    public static Issue fromUserIssue(UserIssue userIssue) {
+    	Issue storageIssue = new Issue();
     	
     	storageIssue.setTitolo(userIssue.getTitolo());
     	storageIssue.setDescrizione(userIssue.getDescrizione());

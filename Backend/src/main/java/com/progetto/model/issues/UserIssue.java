@@ -2,6 +2,10 @@ package com.progetto.model.issues;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.progetto.enums.issue.Priorita;
+import com.progetto.enums.issue.Tipo;
+import com.progetto.enums.issue.Stato;
+
 public class UserIssue {
 	private String userid;
     private String titolo;

@@ -23,13 +23,13 @@ public class IssueController{
     private IssueService issueService;
 
     @GetMapping
-    public List<StorageIssue> getIssues() {
+    public List<Issue> getIssues() {
         return issueService.recuperaTutteLeIssues();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<StorageIssue> getIssueById(@PathVariable Integer id) {
-        StorageIssue issueRicavata = issueService.recuperaIssuePerId(id);
+    public ResponseEntity<Issue> getIssueById(@PathVariable Integer id) {
+        Issue issueRicavata = issueService.recuperaIssuePerId(id);
 
         if(issueRicavata == null){
             return ResponseEntity.notFound().build();
