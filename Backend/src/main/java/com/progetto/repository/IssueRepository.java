@@ -1,7 +1,7 @@
 package com.progetto.repository;
 
 import com.progetto.enums.StatoIssue;
-import com.progetto.model.Issue;
+import com.progetto.model.issues.*;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface IssueRepository extends JpaRepository<Issue, Integer> {
+public interface IssueRepository extends JpaRepository<StorageIssue, Integer> {
 
     @Modifying
     @Query("UPDATE Issue AS issue SET issue.stato = :stato WHERE issue.id = :id")

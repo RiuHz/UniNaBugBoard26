@@ -1,6 +1,6 @@
 package com.progetto.auth;
 
-import com.progetto.model.SignUpRequest;
+import com.progetto.model.RichiestaRegistrazione;
 import com.progetto.interfaces.UserRegistration;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -14,6 +14,7 @@ import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminConfir
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminUpdateUserAttributesRequest;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AttributeType;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIdentityProviderException;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.SignUpRequest;
 
 public class AmazonWebServiceCognito implements UserRegistration {
 
@@ -32,7 +33,8 @@ public class AmazonWebServiceCognito implements UserRegistration {
     @Value("${aws.secretKey}")
     private String secretKey;
     
-    public String registraUtente(SignUpRequest utente) {
+    @Override
+    public String registraUtente(RichiestaRegistrazione utente) {
         CognitoIdentityProviderClient cognitoProvider = getClient();
 
             try {
@@ -62,7 +64,7 @@ public class AmazonWebServiceCognito implements UserRegistration {
                 .build();
     }
 
-    private void verificaEmailUtente(CognitoIdentityProviderClient cognitoProvider, SignUpRequest utente) {
+    private void verificaEmailUtente(CognitoIdentityProviderClient cognitoProvider, RichiestaRegistrazione utente) {
         AttributeType verificaEmail = AttributeType.builder()
         .name("email_verified").value("true").build();
 
@@ -75,7 +77,7 @@ public class AmazonWebServiceCognito implements UserRegistration {
         cognitoProvider.adminUpdateUserAttributes(richiestaUpdateEmail);
     }
 
-    private void confermaRegistrazioneUtente(CognitoIdentityProviderClient cognitoProvider, SignUpRequest utente) {
+    private void confermaRegistrazioneUtente(CognitoIdentityProviderClient cognitoProvider, RichiestaRegistrazione utente) {
         AdminConfirmSignUpRequest richiestaConfermaRegistrazione = AdminConfirmSignUpRequest.builder()
             .userPoolId(userPoolId)
             .username(utente.getEmail())
@@ -84,7 +86,7 @@ public class AmazonWebServiceCognito implements UserRegistration {
         cognitoProvider.adminConfirmSignUp(richiestaConfermaRegistrazione);
     }
 
-    private void aggiungiUtenteAlGruppo(CognitoIdentityProviderClient cognitoProvider, SignUpRequest utente) {
+    private void aggiungiUtenteAlGruppo(CognitoIdentityProviderClient cognitoProvider, RichiestaRegistrazione utente) {
         AdminAddUserToGroupRequest richiestaAggiuntaGruppo = AdminAddUserToGroupRequest.builder()
             .userPoolId(userPoolId)
             .username(utente.getEmail())
@@ -94,7 +96,7 @@ public class AmazonWebServiceCognito implements UserRegistration {
         cognitoProvider.adminAddUserToGroup(richiestaAggiuntaGruppo);
     }
 
-    private void inviaRegistrazione(CognitoIdentityProviderClient cognitoProvider, SignUpRequest utente) {
+    private void inviaRegistrazione(CognitoIdentityProviderClient cognitoProvider, RichiestaRegistrazione utente) {
         SignUpRequest richiestaRegistrazione = SignUpRequest.builder()
             .clientId(clientId)
             .username(utente.getEmail())

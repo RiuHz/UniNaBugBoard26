@@ -1,6 +1,6 @@
 package com.progetto.controller;
 
-import com.progetto.model.Issue;
+import com.progetto.model.issues.*;
 import com.progetto.service.IssueService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +23,13 @@ public class IssueController{
     private IssueService issueService;
 
     @GetMapping
-    public List<Issue> getIssues() {
+    public List<StorageIssue> getIssues() {
         return issueService.recuperaTutteLeIssues();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Issue> getIssueById(@PathVariable Integer id) {
-        Issue issueRicavata = issueService.recuperaIssuePerId(id);
+    public ResponseEntity<StorageIssue> getIssueById(@PathVariable Integer id) {
+        StorageIssue issueRicavata = issueService.recuperaIssuePerId(id);
 
         if(issueRicavata == null){
             return ResponseEntity.notFound().build();
@@ -39,7 +39,7 @@ public class IssueController{
     }
 
     @PostMapping
-    public void createIssue(@RequestBody Issue issue) {
+    public void createIssue(@RequestBody UserIssue issue) {
         issueService.salvaIssue(issue);
     }
 

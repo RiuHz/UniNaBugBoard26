@@ -2,7 +2,7 @@ package com.progetto.model;
 
 import com.progetto.enums.RuoloUtente;
 
-public class SignUpRequest {
+public class RichiestaRegistrazione {
     private String email;
     private String password;
     private String nome;

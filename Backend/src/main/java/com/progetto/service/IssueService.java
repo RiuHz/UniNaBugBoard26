@@ -2,7 +2,7 @@ package com.progetto.service;
 
 import com.progetto.enums.StatoIssue;
 import com.progetto.interfaces.ImageStorageSaver;
-import com.progetto.model.Issue;
+import com.progetto.model.issues.*;
 import com.progetto.repository.IssueRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,22 +21,25 @@ public class IssueService {
     @Autowired
     private ImageStorageSaver amazonWebServiceS3;
     
-    public List<Issue> recuperaTutteLeIssues() {
+    public List<StorageIssue> recuperaTutteLeIssues() {
         return issueRepository.findAll();
     }
 
-    public Issue recuperaIssuePerId(Integer id) {
+    public StorageIssue recuperaIssuePerId(Integer id) {
         return issueRepository.findById(id).orElse(null);
     }
 
-    public void salvaIssue(Issue issue){
-
-        if (issue.getAllegato() != null) {
-            // String url = amazonWebServiceS3.saveImage(issue.getAllegato());
-            // issue.setAllegato(url);
+    public void salvaIssue(UserIssue userIssue){
+    	StorageIssue storageIssue = StorageIssue.fromUserIssue(userIssue);
+    	
+    	
+        if (userIssue.getImmagine() != null) {
+        	String url = amazonWebServiceS3.saveImage(userIssue.getImmagine());
+        	
+        	storageIssue.setImmagine(url);
         }
 
-        issueRepository.save(issue);
+        issueRepository.save(storageIssue);
     }
 
     @Transactional

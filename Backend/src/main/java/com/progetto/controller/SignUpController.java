@@ -1,6 +1,6 @@
 package com.progetto.controller;
 
-import com.progetto.model.SignUpRequest;
+import com.progetto.model.RichiestaRegistrazione;
 import com.progetto.service.SignUpService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ public class SignUpController{
     private SignUpService signUpService;
 
     @PostMapping
-    public void createUser(@RequestBody SignUpRequest utente) {
+    public void createUser(@RequestBody RichiestaRegistrazione utente) {
         signUpService.registraUtente(utente);
     }
 

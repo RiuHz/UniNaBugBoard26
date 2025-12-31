@@ -1,7 +1,7 @@
 package com.progetto.interfaces;
 
-import com.progetto.model.SignUpRequest;
+import com.progetto.model.RichiestaRegistrazione;
 
 public interface UserRegistration {
-    public String registraUtente(SignUpRequest utente);
+    public String registraUtente(RichiestaRegistrazione utente);
 }
