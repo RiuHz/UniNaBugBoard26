@@ -18,9 +18,6 @@ public class S3Config {
     @Value("${aws.secret.key}")
     private String secretAccessKey;
 
-    @Value("${aws.s3.bucket.name}")
-    private String bucketName;
-
     @Bean
     public S3Client s3Client(){
 

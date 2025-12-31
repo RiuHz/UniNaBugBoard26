@@ -4,9 +4,9 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.progetto.enums.Priorita;
-import com.progetto.enums.Stato; 
-import com.progetto.enums.Tipo;
+import com.progetto.enums.PrioritaIssue;
+import com.progetto.enums.StatoIssue; 
+import com.progetto.enums.TipoIssue;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -92,15 +92,15 @@ public class Issue {
         this.descrizione = descrizione;
     }
 
-    public void setTipo(Tipo tipo) {
+    public void setTipo(TipoIssue tipo) {
         this.tipo = tipo;
     }
 
-    public void setPriorita(Priorita priorita) {
+    public void setPriorita(PrioritaIssue priorita) {
         this.priorita = priorita;
     }
 
-    public void setStato(Stato stato) {
+    public void setStato(StatoIssue stato) {
         this.stato = stato;
     }
 

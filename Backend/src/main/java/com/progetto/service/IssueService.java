@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.progetto.enums.Stato;
-import com.progetto.interfaces.ImageStorage;
+import com.progetto.enums.StatoIssue;
+import com.progetto.interfaces.ImageStorageSaver;
 import com.progetto.model.Issue;
 import com.progetto.repository.IssueRepository;
 
@@ -19,7 +19,7 @@ public class IssueService {
     private IssueRepository issueRepository;
 
     @Autowired
-    private ImageStorageSaver amazonWebServiceS3Repository;
+    private ImageStorageSaver amazonWebServiceS3;
     
     public List<Issue> recuperaTutteLeIssues() {
         return issueRepository.findAll();
@@ -32,8 +32,8 @@ public class IssueService {
     public void salvaIssue(Issue issue){
 
         if (issue.getAllegato() != null) {
-            String url = amazonWebServiceS3Repository.saveImage(issue.getAllegato());
-            issue.setAllegato(url);
+            // String url = amazonWebServiceS3.saveImage(issue.getAllegato());
+            // issue.setAllegato(url);
         }
 
         issueRepository.save(issue);
@@ -41,7 +41,7 @@ public class IssueService {
 
     @Transactional
     public void impostaIssueComeResolved(Integer id) {
-        issueRepository.setIssueState(Stato.Resolved, id);
+        issueRepository.setIssueState(StatoIssue.Resolved, id);
     }
 
 }
