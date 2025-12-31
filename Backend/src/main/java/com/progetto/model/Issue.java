@@ -1,9 +1,5 @@
 package com.progetto.model;
 
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.progetto.enums.PrioritaIssue;
 import com.progetto.enums.StatoIssue; 
 import com.progetto.enums.TipoIssue;
@@ -16,6 +12,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonPropertyOrder({"id", "userid", "titolo", "descrizione", "tipo", "priorita", "stato", "allegato"})
 @Table(name = "issue")

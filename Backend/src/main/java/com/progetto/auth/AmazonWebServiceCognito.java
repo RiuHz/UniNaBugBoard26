@@ -1,10 +1,9 @@
-
 package com.progetto.auth;
 
-import org.springframework.beans.factory.annotation.Value;
-
-import com.progetto.interfaces.UserRegistration;
 import com.progetto.model.SignUpRequest;
+import com.progetto.interfaces.UserRegistration;
+
+import org.springframework.beans.factory.annotation.Value;
 
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;

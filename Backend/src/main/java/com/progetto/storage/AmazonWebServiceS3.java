@@ -1,7 +1,6 @@
 package com.progetto.storage;
 
-
-import java.util.UUID;
+import com.progetto.interfaces.ImageStorageSaver;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,17 +8,16 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.progetto.interfaces.ImageStorageSaver;
-
-import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.s3.S3Client;
+
+import java.util.UUID;
 
 @Repository
 class AmazonWebServiceS3 implements ImageStorageSaver {
     
     @Value("${aws.s3.bucket.name}")
     private String bucketName;
-
     
     private S3Client s3Client;
 
