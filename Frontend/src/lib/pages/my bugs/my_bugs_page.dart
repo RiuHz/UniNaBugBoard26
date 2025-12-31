@@ -9,11 +9,11 @@ class MyBugsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       children: const [
-        const Navbar(),
-        const Expanded(
-          child: const IssueCardList(
+        Navbar(),
+        Expanded(
+          child: IssueCardList(
             getIssueFunction: getUserIssues,
           )
         )
