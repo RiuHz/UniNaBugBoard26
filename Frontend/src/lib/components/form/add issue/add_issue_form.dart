@@ -2,12 +2,14 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:form_builder_image_picker/form_builder_image_picker.dart';
 import 'package:http/http.dart';
+import 'package:provider/provider.dart';
 import 'package:test_app/components/buttons/rounded%20loading%20button/rounded_loading_button.dart';
 import 'package:test_app/enum/issue/issue_priority.dart';
 import 'package:test_app/components/rounded%20text%20form%20field/rounded_text_form_field.dart';
 import 'package:test_app/enum/issue/issue_type.dart';
 import 'package:test_app/functions/issue/issue.dart';
 import 'package:test_app/functions/open%20pop-up/pop_up.dart';
+import 'package:test_app/main.dart';
 
 class AddIssueForm extends StatefulWidget {
   const AddIssueForm({super.key});
@@ -115,7 +117,7 @@ class AddIssueFormState extends State<AddIssueForm> {
   Future<void> createIssue() async {
     if (!formKey.currentState!.validate()) return;
 
-    bool issueCreated = await postIssue(getFormData());
+    bool issueCreated = await postIssue(Provider.of<UniNaBugBoard26State>(context).user, getFormData());
 
     if (!mounted) return;
       

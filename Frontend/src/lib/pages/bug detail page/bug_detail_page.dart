@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:test_app/classes/issues/issue.dart';
 import 'package:test_app/components/buttons/rounded%20loading%20button/rounded_loading_button.dart';
 import 'package:test_app/functions/issue/issue.dart';
 import 'package:test_app/functions/open%20pop-up/pop_up.dart';
+import 'package:test_app/main.dart';
 
 class BugDetailPage extends StatefulWidget {
   final Issue issue;
@@ -91,7 +93,7 @@ class BugDetailPageState extends State<BugDetailPage> {
 
   Future<void> markIssueAsResolved() async {
 
-    bool issuePatched = await patchIssue(widget.issue.id);
+    bool issuePatched = await patchIssue(Provider.of<UniNaBugBoard26State>(context).user, widget.issue.id);
     
     if (mounted) {
       openPopUp(context, issuePatched, 'Issue risolta!', 'La issue adesso è segnalta come risolta.');

@@ -21,10 +21,10 @@ Future<LoggedUser?> logInUser(String email, String password) async {
 
   String jwtToken = session!.getAccessToken().jwtToken as String;
 
-  return getLoggedUserAttributes(cognitoUser, jwtToken);
+  return getLoggedUserAttributes(cognitoUser, jwtToken, session.idToken.jwtToken as String);
 }
 
-Future<LoggedUser?> getLoggedUserAttributes(CognitoUser user, String jwtToken) async {
+Future<LoggedUser?> getLoggedUserAttributes(CognitoUser user, String jwtToken, String idToken) async {
 
   Map<String, dynamic> decoded = JwtDecoder.decode(jwtToken);
 
@@ -41,6 +41,6 @@ Future<LoggedUser?> getLoggedUserAttributes(CognitoUser user, String jwtToken) a
     name: attributes?[3].getValue() as String, 
     surname: attributes?[2].getValue() as String, 
     role: UserRole.fromString(decoded['cognito:groups'][0] as String), 
-    token: jwtToken
+    token: idToken
   );
 }

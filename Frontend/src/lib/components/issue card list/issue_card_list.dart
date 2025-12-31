@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:test_app/classes/issue%20fetch%20request/issue_fetch_request.dart';
 import 'package:test_app/classes/issues/issue.dart';
+import 'package:test_app/classes/user/logged_user.dart';
 import 'package:test_app/components/filter%20bar/filter_bar.dart';
 import 'package:test_app/components/issue%20card/issue_card.dart';
 import 'package:test_app/enum/issue/issue_priority.dart';
 import 'package:test_app/enum/issue/issue_state.dart';
 import 'package:test_app/enum/issue/issue_type.dart';
-import 'package:test_app/functions/issue/issue.dart';
+import 'package:test_app/main.dart';
 
 class IssueCardList extends StatefulWidget {
-  final String userId;
+  final Future<List<Issue>> Function(LoggedUser, IssueFetchRequest) getIssueFunction;
   
   const IssueCardList({
     super.key,
-    this.userId = ''
+    required this.getIssueFunction
   });
 
   @override
@@ -51,7 +53,7 @@ class IssueCardListState extends State<IssueCardList> {
   void updateIssueList(IssueFetchRequest request) {
     setState(() {
       issueList = FutureBuilder<List<Issue>> (
-        future: getIssues(widget.userId, request),
+        future: widget.getIssueFunction(Provider.of<UniNaBugBoard26State>(context).user, request),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const CircularProgressIndicator();
