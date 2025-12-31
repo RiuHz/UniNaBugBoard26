@@ -1,16 +1,17 @@
 package com.progetto.service;
 
-import com.progetto.enums.StatoIssue;
-import com.progetto.interfaces.ImageStorageSaver;
-import com.progetto.model.issues.*;
-import com.progetto.repository.IssueRepository;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import jakarta.transaction.Transactional;
+import com.progetto.enums.StatoIssue;
+import com.progetto.interfaces.ImageStorageSaver;
+import com.progetto.model.issues.StorageIssue;
+import com.progetto.model.issues.UserIssue;
+import com.progetto.repository.IssueRepository;
 
-import java.util.List;
+import jakarta.transaction.Transactional;
 
 @Service 
 public class IssueService {

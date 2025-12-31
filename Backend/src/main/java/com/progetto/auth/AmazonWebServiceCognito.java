@@ -1,9 +1,10 @@
 package com.progetto.auth;
 
-import com.progetto.model.RichiestaRegistrazione;
-import com.progetto.interfaces.UserRegistration;
-
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import com.progetto.interfaces.UserRegistration;
+import com.progetto.model.RichiestaRegistrazione;
 
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
@@ -16,6 +17,8 @@ import software.amazon.awssdk.services.cognitoidentityprovider.model.AttributeTy
 import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIdentityProviderException;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.SignUpRequest;
 
+
+@Service
 public class AmazonWebServiceCognito implements UserRegistration {
 
     @Value("${aws.cognito.clientId}")

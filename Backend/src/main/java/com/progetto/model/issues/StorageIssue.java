@@ -1,29 +1,13 @@
 package com.progetto.model.issues;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import jakarta.persistence.Entity;
+
 @JsonPropertyOrder({"id", "userid", "titolo", "descrizione", "tipo", "priorita", "stato", "immagine"})
-@Table(name = "issue")
 @Entity 
 public class StorageIssue extends Issue {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
     private String immagine;
-    
-    public int getId() {
-        return id;
-    }
-    
-    public void setId(int id) {
-        this.id = id;
-    }
     
     public String getImmagine(){
         return immagine;

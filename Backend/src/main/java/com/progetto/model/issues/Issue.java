@@ -1,17 +1,24 @@
 package com.progetto.model.issues;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 import com.progetto.enums.PrioritaIssue;
 import com.progetto.enums.StatoIssue; 
 import com.progetto.enums.TipoIssue;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-
-abstract class Issue {
+@Entity
+public abstract class Issue {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) 
     private String userid;
     private String titolo;
     private String descrizione;
