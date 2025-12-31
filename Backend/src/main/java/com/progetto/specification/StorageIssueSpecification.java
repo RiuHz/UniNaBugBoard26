@@ -9,7 +9,7 @@ import com.progetto.model.issues.StorageIssue;
 
 public class StorageIssueSpecification {
 
-    private StorageIssueSpecification() {};
+    private StorageIssueSpecification() {}
 
     public static Specification<StorageIssue> filtraStorageIssue(Priorita priorita, Stato stato, Tipo tipo, String userid) {
 
