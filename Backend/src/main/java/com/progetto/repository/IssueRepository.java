@@ -7,12 +7,12 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.progetto.enums.issue.Stato;
-import com.progetto.model.issues.Issue;
+import com.progetto.model.issues.StorageIssue;
 
 import jakarta.transaction.Transactional;
 
 @Repository
-public interface IssueRepository extends JpaRepository<Issue, Integer> {
+public interface IssueRepository extends JpaRepository<StorageIssue, Integer> {
 
     @Modifying
     @Transactional
