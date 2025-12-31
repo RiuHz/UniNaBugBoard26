@@ -6,5 +6,5 @@ public class SignUpRequest {
     private String cognome;
     private RuoloUtente ruolo;
 
-    // Generare i getter e setter
+    // Generare i getter e setter (nel gettere di ruolo fare .name() e ritornare una stringa)
 }
