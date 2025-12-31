@@ -1,12 +1,12 @@
 package com.progetto.model.issues;
 
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonPropertyOrder({"id", "userid", "titolo", "descrizione", "tipo", "priorita", "stato", "allegato"})
 @Table(name = "Issue")
@@ -26,11 +26,11 @@ public class StorageIssue extends Issue {
     	this.id = id;
     }
     
-    public String getallegato(){
+    public String getAllegato(){
         return allegato;
     }
 
-    public void setallegato(String allegato) {
+    public void setAllegato(String allegato) {
         this.allegato = allegato;
     }
     

@@ -4,8 +4,8 @@ import jakarta.persistence.criteria.Predicate;
 
 import org.springframework.data.jpa.domain.Specification;
 
-import com.progetto.enums.issue.*;
 import com.progetto.model.issues.StorageIssue;
+import com.progetto.enums.issue.*;
 
 public class StorageIssueSpecification {
 

@@ -13,11 +13,11 @@ enum IssueState {
 
   static IssueState fromString(String level) {
     switch (level) {
-      case 'To Do':
+      case 'TODO':
         return IssueState.todo;
-      case 'In Progress':
+      case 'IN_PROGRESS':
         return IssueState.inProgress;
-      case 'Resolved':
+      case 'RESOLVED':
         return IssueState.resolved;
       default:
         throw ArgumentError('Unknown progress: $level');

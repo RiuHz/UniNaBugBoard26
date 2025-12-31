@@ -11,9 +11,9 @@ enum UserRole {
 
   static UserRole fromString(String type) {
     switch(type) {
-      case 'Sviluppatore':
+      case 'SVILUPPATORE':
         return UserRole.developer;
-      case 'Admin':
+      case 'ADMIN':
         return UserRole.admin;
       default:
         throw ArgumentError('Unknown role type: $type');

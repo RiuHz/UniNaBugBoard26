@@ -13,11 +13,11 @@ enum IssuePriority {
 
   static IssuePriority fromString(String level) {
     switch (level) {
-      case 'Bassa':
+      case 'BASSA':
         return IssuePriority.low;
-      case 'Media':
+      case 'MEDIA':
         return IssuePriority.medium;
-      case 'Alta':
+      case 'ALTA':
         return IssuePriority.high;
       default:
         throw ArgumentError('Unknown priority level: $level');

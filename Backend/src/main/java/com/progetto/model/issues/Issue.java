@@ -3,15 +3,14 @@ package com.progetto.model.issues;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
-import com.progetto.enums.issue.Tipo;
-import com.progetto.enums.issue.Stato;
 import com.progetto.enums.issue.Priorita;
+import com.progetto.enums.issue.Stato;
+import com.progetto.enums.issue.Tipo;
 
-
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Column;
 
 @MappedSuperclass
 public abstract class Issue {
@@ -59,7 +58,7 @@ public abstract class Issue {
         return stato;
     }
 
-    public void setuserid(String userid) {
+    public void setUserid(String userid) {
         this.userid = userid;
     }
 

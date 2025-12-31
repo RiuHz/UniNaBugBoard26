@@ -5,7 +5,7 @@ import 'package:test_app/classes/user/logged_user.dart';
 Future<bool> postUser(LoggedUser user, SignUpRequest request) async {
   
   final response = await http.post(
-    Uri.parse('https://px7ldiamld.execute-api.eu-south-1.amazonaws.com/api/v1/issues'),
+    Uri.parse('https://px7ldiamld.execute-api.eu-south-1.amazonaws.com/api/v1/sign-up'),
     body: request.getJsonData(),
     headers: {'CognitoToken': user.token}
   );

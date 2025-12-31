@@ -43,13 +43,13 @@ abstract class Issue {
 class IssueFactory {
   static Issue fromType(String type) {
       switch (type) {
-        case 'Bug':
+        case 'BUG':
           return Bug();
-        case 'Documentation':
+        case 'DOCUMENTATION':
           return Documentation();
-        case 'Question':
+        case 'QUESTION':
           return Question();
-        case 'Feature':
+        case 'FEATURE':
           return Feature();
       }
 

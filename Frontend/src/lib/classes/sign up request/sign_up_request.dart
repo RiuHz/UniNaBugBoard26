@@ -22,7 +22,7 @@ class SignUpRequest {
       "password": password,
       "nome":  name,
       "cognome": surname,
-      "ruolo": role.type,
+      "ruolo": role.type.toUpperCase(),
     }
   );
 }
