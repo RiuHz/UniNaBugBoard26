@@ -8,21 +8,25 @@ import com.progetto.enums.issue.*;
 import com.progetto.model.issues.StorageIssue;
 
 public class StorageIssueSpecification {
-    public static Specification<StorageIssue> filtraStorageIssue(Priorita priorita,Stato stato,Tipo tipo,String userid) {
+    public static Specification<StorageIssue> filtraStorageIssue(Priorita priorita, Stato stato, Tipo tipo, String userid) {
 
         return (root, query, criteriaBuilder) -> {
 
-            Predicate filtri = criteriaBuilder.equal(root.get("userid"), userid);
+            Predicate filtri = criteriaBuilder.conjunction();
 
-            if(priorita != Priorita.Tutte) {
+            if (userid != null) {
+                criteriaBuilder.equal(root.get("userid"), userid);
+            }
+
+            if (priorita != null) {
                 filtri = criteriaBuilder.and(filtri, criteriaBuilder.equal(root.get("priorita"), priorita));
             }
 
-            if(stato != Stato.Tutti) {
+            if (stato != null) {
                 filtri = criteriaBuilder.and(filtri, criteriaBuilder.equal(root.get("stato"), stato));
             }
 
-            if(tipo != Tipo.Tutti) {
+            if (tipo != null) {
                 filtri = criteriaBuilder.and(filtri, criteriaBuilder.equal(root.get("tipo"), tipo));
             }
 

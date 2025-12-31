@@ -1,2 +1,3 @@
-target/
+**.properties
+**.MF
 **/user_pool.dart
