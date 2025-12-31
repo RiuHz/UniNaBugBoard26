@@ -30,7 +30,7 @@ abstract class Issue {
     issue.description = json['descrizione'] as String;
     issue.priority = IssuePriority.fromString(json['priorita'] as String);
     issue.state = IssueState.fromString(json['stato'] as String);
-    issue.image = json['immagine'] as String? ?? '';
+    issue.image = json['allegato'] as String? ?? '';
 
     return issue;
   }

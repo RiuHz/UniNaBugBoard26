@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.progetto.enums.issue.Stato;
 import com.progetto.interfaces.ImageStorageSaver;
-import com.progetto.model.issues.Issue;
+import com.progetto.model.issues.StorageIssue;
 import com.progetto.model.issues.UserIssue;
 import com.progetto.repository.IssueRepository;
 
@@ -22,16 +22,16 @@ public class IssueService {
     @Autowired
     private ImageStorageSaver amazonWebServiceS3;
     
-    public List<Issue> recuperaTutteLeIssues() {
+    public List<StorageIssue> recuperaTutteLeIssues() {
         return issueRepository.findAll();
     }
 
-    public Issue recuperaIssuePerId(Integer id) {
+    public StorageIssue recuperaIssuePerId(Integer id) {
         return issueRepository.findById(id).orElse(null);
     }
 
     public void salvaIssue(UserIssue userIssue){
-    	Issue storageIssue = Issue.fromUserIssue(userIssue);
+    	StorageIssue storageIssue = StorageIssue.fromUserIssue(userIssue);
     	
     	
         if (userIssue.getImmagine() != null) {

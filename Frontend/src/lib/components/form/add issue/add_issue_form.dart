@@ -132,7 +132,7 @@ class AddIssueFormState extends State<AddIssueForm> {
       'priorita': priority.level,
       'stato': 'ToDo',
       'tipo': type.name,
-      'immagine':  file
+      'allegato':  file
     });
   }
 
