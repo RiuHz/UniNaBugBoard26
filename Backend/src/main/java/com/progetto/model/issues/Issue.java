@@ -3,9 +3,9 @@ package com.progetto.model.issues;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
-import com.progetto.enums.PrioritaIssue;
-import com.progetto.enums.StatoIssue; 
-import com.progetto.enums.TipoIssue;
+import com.progetto.enums.issue.Priorita;
+import com.progetto.enums.issue.Stato;
+import com.progetto.enums.issue.Tipo;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,8 +14,10 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "issue")
 public abstract class Issue {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) 
@@ -26,17 +28,17 @@ public abstract class Issue {
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo", columnDefinition = "tipo")
     @JdbcTypeCode(SqlTypes.NAMED_ENUM)
-    private TipoIssue tipo;
+    private Tipo tipo;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "priorita", columnDefinition = "priorita")
     @JdbcTypeCode(SqlTypes.NAMED_ENUM)
-    private PrioritaIssue priorita;
+    private Priorita priorita;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "stato", columnDefinition = "stato")
     @JdbcTypeCode(SqlTypes.NAMED_ENUM)
-    private StatoIssue stato;
+    private Stato stato;
 
     public String getuserid() {
         return userid;
@@ -50,15 +52,15 @@ public abstract class Issue {
         return descrizione;
     }
 
-    public TipoIssue getTipo(){
+    public Tipo getTipo(){
         return tipo;
     }
 
-    public PrioritaIssue getPriorita(){
+    public Priorita getPriorita(){
         return priorita;
     }
 
-    public StatoIssue getStato(){
+    public Stato getStato(){
         return stato;
     }
 
@@ -74,15 +76,15 @@ public abstract class Issue {
         this.descrizione = descrizione;
     }
 
-    public void setTipo(TipoIssue tipo) {
+    public void setTipo(Tipo tipo) {
         this.tipo = tipo;
     }
 
-    public void setPriorita(PrioritaIssue priorita) {
+    public void setPriorita(Priorita priorita) {
         this.priorita = priorita;
     }
 
-    public void setStato(StatoIssue stato) {
+    public void setStato(Stato stato) {
         this.stato = stato;
     }
     

@@ -1,6 +1,6 @@
-package com.progetto.enums;
+package com.progetto.enums.issue;
 
-public enum TipoIssue {
+public enum Tipo {
     Bug,
     Documentation,
     Question,

@@ -1,6 +1,6 @@
 package com.progetto.model;
 
-import com.progetto.enums.RuoloUtente;
+import com.progetto.enums.utente.RuoloUtente;
 
 public class RichiestaRegistrazione {
     private String email;

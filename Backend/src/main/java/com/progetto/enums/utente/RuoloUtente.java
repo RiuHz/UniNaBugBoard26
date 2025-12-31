@@ -1,4 +1,4 @@
-package com.progetto.enums;
+package com.progetto.enums.utente;
 
 public enum RuoloUtente {
     Sviluppatore,

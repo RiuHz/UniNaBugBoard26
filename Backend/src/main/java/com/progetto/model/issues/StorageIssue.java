@@ -3,18 +3,19 @@ package com.progetto.model.issues;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
-@JsonPropertyOrder({"id", "userid", "titolo", "descrizione", "tipo", "priorita", "stato", "immagine"})
+@JsonPropertyOrder({"id", "userid", "titolo", "descrizione", "tipo", "priorita", "stato", "allegato"})
 @Entity 
 public class StorageIssue extends Issue {
-    private String immagine;
+    private String allegato;
     
-    public String getImmagine(){
-        return immagine;
+    public String getallegato(){
+        return allegato;
     }
 
-    public void setImmagine(String immagine) {
-        this.immagine = immagine;
+    public void setallegato(String allegato) {
+        this.allegato = allegato;
     }
     
     public static StorageIssue fromUserIssue(UserIssue userIssue) {
