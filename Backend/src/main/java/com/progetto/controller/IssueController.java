@@ -1,21 +1,23 @@
 package com.progetto.controller;
 
-import com.progetto.service.IssueService;
-import com.progetto.model.issues.*;
-import com.progetto.enums.issue.*;
+import java.util.List;
 
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.progetto.enums.issue.Priorita;
+import com.progetto.enums.issue.Stato;
+import com.progetto.enums.issue.Tipo;
+import com.progetto.model.issues.StorageIssue;
+import com.progetto.model.issues.UserIssue;
+import com.progetto.service.IssueService;
 
 @RestController
 @RequestMapping("/issues")
@@ -32,7 +34,7 @@ public class IssueController{
     }
 
     @PostMapping
-    public void createIssue(@RequestBody UserIssue issue) {
+    public void createIssue(@ModelAttribute UserIssue issue) {
         issueService.salvaIssue(issue);
     }
 
