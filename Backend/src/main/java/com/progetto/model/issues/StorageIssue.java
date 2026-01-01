@@ -37,6 +37,7 @@ public class StorageIssue extends Issue {
     public static StorageIssue fromUserIssue(UserIssue userIssue) {
     	StorageIssue storageIssue = new StorageIssue();
     	
+        storageIssue.setUserid(userIssue.getUserId());
     	storageIssue.setTitolo(userIssue.getTitolo());
     	storageIssue.setDescrizione(userIssue.getDescrizione());
     	storageIssue.setTipo(userIssue.getTipo());
