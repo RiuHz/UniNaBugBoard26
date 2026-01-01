@@ -3,13 +3,13 @@ package com.progetto.model.issues;
 import org.springframework.web.multipart.MultipartFile;
 
 public class UserIssue extends Issue {
-	private MultipartFile immagine;
+	private MultipartFile allegato;
 	
-	public void setImmagine(MultipartFile immagine) {
-		this.immagine = immagine;
+	public void setAllegato(MultipartFile allegato) {
+		this.allegato = allegato;
 	}
-	
-	public MultipartFile getImmagine() {
-		return immagine;
+
+	public MultipartFile getAllegato() {
+		return allegato;
 	}
 }
