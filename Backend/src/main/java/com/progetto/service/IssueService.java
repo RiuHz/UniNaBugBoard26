@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import com.progetto.specification.StorageIssueSpecification;
-import com.progetto.interfaces.ImageStorageSaver;
-import com.progetto.repository.IssueRepository;
-import com.progetto.model.issues.StorageIssue;
-import com.progetto.model.issues.UserIssue;
 import com.progetto.enums.issue.Priorita;
 import com.progetto.enums.issue.Stato;
 import com.progetto.enums.issue.Tipo;
+import com.progetto.interfaces.ImageStorageSaver;
+import com.progetto.model.issues.StorageIssue;
+import com.progetto.model.issues.UserIssue;
+import com.progetto.repository.IssueRepository;
+import com.progetto.specification.StorageIssueSpecification;
 
 import jakarta.transaction.Transactional;
 
@@ -38,7 +38,7 @@ public class IssueService {
         if (userIssue.getImmagine() != null) {
         	String url = amazonWebServiceS3.saveImage(userIssue.getImmagine());
         	
-        	storageIssue.setallegato(url);
+        	storageIssue.setAllegato(url);
         }
 
         issueRepository.save(storageIssue);
