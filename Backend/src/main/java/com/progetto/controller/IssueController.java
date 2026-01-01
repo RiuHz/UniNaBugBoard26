@@ -3,6 +3,7 @@ package com.progetto.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -18,6 +19,7 @@ import com.progetto.enums.issue.Tipo;
 import com.progetto.model.issues.StorageIssue;
 import com.progetto.model.issues.UserIssue;
 import com.progetto.service.IssueService;
+import com.progetto.exception.StorageException;
 
 @RestController
 @RequestMapping("/issues")
@@ -37,8 +39,8 @@ public class IssueController{
     public ResponseEntity<String> createIssue(@ModelAttribute UserIssue issue) {
         try {
             issueService.salvaIssue(issue);
-        } catch StorageException {
-            return ResponseEntity.internalServerError();
+        } catch (StorageException error) {
+            return ResponseEntity.internalServerError().body(null);
         }
 
         return ResponseEntity.ok("Issue created");

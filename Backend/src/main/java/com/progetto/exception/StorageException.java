@@ -1,2 +1,7 @@
+package com.progetto.exception;
 
-class StorageException extends Exception {}
+public class StorageException extends Exception {
+
+	private static final long serialVersionUID = 1L;
+	
+}

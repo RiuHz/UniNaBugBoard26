@@ -1,2 +1,7 @@
+package com.progetto.exception;
 
-class AuthException extends Exception {}
+public class AuthException extends Exception {
+
+	private static final long serialVersionUID = 1L;
+
+}
