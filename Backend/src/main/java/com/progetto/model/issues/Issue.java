@@ -34,7 +34,7 @@ public abstract class Issue {
     @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     private Stato stato;
 
-    public String getuserid() {
+    public String getUserId() {
         return userid;
     }
 
