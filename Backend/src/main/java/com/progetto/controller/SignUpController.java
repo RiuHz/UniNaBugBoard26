@@ -23,7 +23,7 @@ public class SignUpController{
         try {
             signUpService.registraUtente(utente);
         } catch(AuthException errror) {
-            return ResponseEntity.internalServerError().body(null);
+            return ResponseEntity.badRequest().body(null);
         }
 
         return ResponseEntity.ok("User created");
