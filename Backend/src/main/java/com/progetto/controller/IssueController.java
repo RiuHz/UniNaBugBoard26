@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.progetto.enums.issue.Priorita;
 import com.progetto.enums.issue.Stato;
 import com.progetto.enums.issue.Tipo;
+import com.progetto.exception.StorageException;
 import com.progetto.model.issues.StorageIssue;
 import com.progetto.model.issues.UserIssue;
 import com.progetto.service.IssueService;
-import com.progetto.exception.StorageException;
 
 @RestController
 @RequestMapping("/issues")
@@ -40,7 +40,7 @@ public class IssueController{
         try {
             issueService.salvaIssue(issue);
         } catch (StorageException error) {
-            return ResponseEntity.internalServerError().body(null);
+            return ResponseEntity.badRequest().body(null);
         }
 
         return ResponseEntity.ok("Issue created");
