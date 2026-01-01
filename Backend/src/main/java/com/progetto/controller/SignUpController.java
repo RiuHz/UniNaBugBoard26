@@ -17,8 +17,14 @@ public class SignUpController{
     private SignUpService signUpService;
 
     @PostMapping
-    public void createUser(@RequestBody RichiestaRegistrazione utente) {
-        signUpService.registraUtente(utente);
+    public ResponseEntity<String> createUser(@RequestBody RichiestaRegistrazione utente) {
+        try {
+            signUpService.registraUtente(utente);
+        } catch AuthException {
+            return ResponseEntity.internalServerError();
+        }
+
+        return ResponseEntity.ok("User created");
     }
 
 }

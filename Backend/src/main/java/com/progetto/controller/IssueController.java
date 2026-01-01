@@ -34,12 +34,20 @@ public class IssueController{
     }
 
     @PostMapping
-    public void createIssue(@ModelAttribute UserIssue issue) {
-        issueService.salvaIssue(issue);
+    public ResponseEntity<String> createIssue(@ModelAttribute UserIssue issue) {
+        try {
+            issueService.salvaIssue(issue);
+        } catch StorageException {
+            return ResponseEntity.internalServerError();
+        }
+
+        return ResponseEntity.ok("Issue created");
     }
 
     @PatchMapping("/{id}")
-    public void patchIssueByID(@PathVariable Integer id) {
+    public ResponseEntity<String> patchIssueByID(@PathVariable Integer id) {
         issueService.impostaIssueComeResolved(id);
+
+        return ResponseEntity.ok("Issue set to Resolved");
     }
 }

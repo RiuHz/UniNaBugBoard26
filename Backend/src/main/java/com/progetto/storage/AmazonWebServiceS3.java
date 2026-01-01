@@ -22,13 +22,8 @@ class AmazonWebServiceS3 implements ImageStorageSaver {
     @Value("${aws.s3.bucket.name}")
     private String bucketName;
     
-    private S3Client s3Client;
-
     @Autowired
-    public AmazonWebServiceS3(S3Client s3Client) {
-        this.s3Client = s3Client;
-    }
-    
+    private S3Client s3Client;
 
     public String saveImage(MultipartFile file) { 
         String uniqueName = generateUniqueImageName();
@@ -42,7 +37,7 @@ class AmazonWebServiceS3 implements ImageStorageSaver {
 		try {
 			s3Client.putObject(uploadRequest, RequestBody.fromBytes(file.getBytes()));
 		} catch (AwsServiceException | SdkClientException | IOException e) {
-			return null;
+			throw new StorageException();
 		}
  
         return uniqueName;  

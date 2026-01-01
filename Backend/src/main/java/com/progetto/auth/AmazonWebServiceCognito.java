@@ -51,7 +51,7 @@ public class AmazonWebServiceCognito implements UserRegistration {
                 return "Utente creato, confermato, verificato e aggiunto al gruppo '" + utente.getRuolo() + "' con successo.";
 
             } catch (CognitoIdentityProviderException e) {
-                return "Errore AWS: " + e.awsErrorDetails().errorMessage();
+                throw new AuthException();
             } finally {
                 cognitoProvider.close();
         }

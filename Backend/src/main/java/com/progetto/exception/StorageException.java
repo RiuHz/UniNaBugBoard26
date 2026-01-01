@@ -1,0 +1,2 @@
+
+class StorageException extends Exception {}

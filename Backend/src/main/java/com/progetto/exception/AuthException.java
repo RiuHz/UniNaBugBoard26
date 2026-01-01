@@ -1,0 +1,2 @@
+
+class AuthException extends Exception {}

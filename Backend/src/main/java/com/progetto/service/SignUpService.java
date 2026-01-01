@@ -12,8 +12,8 @@ public class SignUpService {
     @Autowired
     public UserRegistration amazonWebServiceCognito;
 
-    public String registraUtente(RichiestaRegistrazione utente) {
-        return amazonWebServiceCognito.registraUtente(utente);
+    public void registraUtente(RichiestaRegistrazione utente) {
+        amazonWebServiceCognito.registraUtente(utente);
     }
     
 }
