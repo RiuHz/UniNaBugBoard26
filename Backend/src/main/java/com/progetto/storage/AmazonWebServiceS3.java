@@ -26,6 +26,7 @@ class AmazonWebServiceS3 implements ImageStorageSaver {
     @Autowired
     private S3Client s3Client;
 
+    @Override
     public String saveImage(MultipartFile file) throws StorageException { 
         String uniqueName = generateUniqueImageName();
 
