@@ -14,6 +14,7 @@ import com.progetto.model.issues.UserIssue;
 import com.progetto.enums.issue.Priorita;
 import com.progetto.enums.issue.Stato;
 import com.progetto.enums.issue.Tipo;
+import com.progetto.exception.StorageException;
 
 import jakarta.transaction.Transactional;
 
@@ -31,7 +32,7 @@ public class IssueService {
         return issueRepository.findAll(filtri);
     }
 
-    public void salvaIssue(UserIssue userIssue){
+    public void salvaIssue(UserIssue userIssue) throws StorageException{
     	StorageIssue storageIssue = StorageIssue.fromUserIssue(userIssue);
 
         if (userIssue.getAllegato() != null) {

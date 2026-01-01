@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.progetto.exception.StorageException;
 import com.progetto.interfaces.ImageStorageSaver;
 
 import software.amazon.awssdk.awscore.exception.AwsServiceException;
@@ -25,7 +26,8 @@ class AmazonWebServiceS3 implements ImageStorageSaver {
     @Autowired
     private S3Client s3Client;
 
-    public String saveImage(MultipartFile file) { 
+    @Override
+    public String saveImage(MultipartFile file) throws StorageException { 
         String uniqueName = generateUniqueImageName();
 
         PutObjectRequest uploadRequest = PutObjectRequest.builder()

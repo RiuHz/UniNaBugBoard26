@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.progetto.model.RichiestaRegistrazione;
+import com.progetto.exception.AuthException;
 import com.progetto.interfaces.UserRegistration;
 
 import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIdentityProviderException;
@@ -36,7 +37,7 @@ public class AmazonWebServiceCognito implements UserRegistration {
     private String secretKey;
     
     @Override
-    public String registraUtente(RichiestaRegistrazione utente) {
+    public String registraUtente(RichiestaRegistrazione utente) throws AuthException {
         CognitoIdentityProviderClient cognitoProvider = getClient();
 
             try {

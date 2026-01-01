@@ -3,6 +3,7 @@ package com.progetto.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.progetto.enums.issue.Priorita;
 import com.progetto.enums.issue.Stato;
 import com.progetto.enums.issue.Tipo;
+import com.progetto.exception.StorageException;
 import com.progetto.model.issues.StorageIssue;
 import com.progetto.model.issues.UserIssue;
 import com.progetto.service.IssueService;
@@ -37,8 +39,8 @@ public class IssueController{
     public ResponseEntity<String> createIssue(@ModelAttribute UserIssue issue) {
         try {
             issueService.salvaIssue(issue);
-        } catch StorageException {
-            return ResponseEntity.internalServerError();
+        } catch (StorageException error) {
+            return ResponseEntity.badRequest().body(null);
         }
 
         return ResponseEntity.ok("Issue created");
