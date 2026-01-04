@@ -4,8 +4,7 @@ import 'package:test_app/classes/issue%20fetch%20request/issue_fetch_request.dar
 import 'package:test_app/classes/issues/issue.dart';
 import 'package:http/http.dart' as http;
 import 'package:test_app/classes/user/logged_user.dart';
-
-const apiURL = 'https://px7ldiamld.execute-api.eu-south-1.amazonaws.com/api/v1/issues';
+import 'package:test_app/functions/api.dart';
 
 List<Issue> parseIssues(String responseBody) {
   final parsed = (jsonDecode(responseBody) as List<Object?>)
@@ -39,7 +38,7 @@ String addQueryParameters(String url, IssueFetchRequest issue, {String userId = 
 Future<List<Issue>> getIssues(LoggedUser user, IssueFetchRequest issue) async {
    final response = await http.get(
       Uri.parse(addQueryParameters(apiURL, issue)),
-      headers: {'CognitoToken': user.token}
+      headers: {'Authorization': user.token}
   );
 
   if (response.statusCode == 200) {
@@ -52,7 +51,7 @@ Future<List<Issue>> getIssues(LoggedUser user, IssueFetchRequest issue) async {
 Future<List<Issue>> getUserIssues(LoggedUser user, IssueFetchRequest issue) async {
    final response = await http.get(
       Uri.parse(addQueryParameters(apiURL, issue, userId: user.id)),
-      headers: {'CognitoToken': user.token}
+      headers: {'Authorization': user.token}
   );
 
   if (response.statusCode == 200) {
@@ -65,7 +64,7 @@ Future<List<Issue>> getUserIssues(LoggedUser user, IssueFetchRequest issue) asyn
 Future<bool> patchIssue(LoggedUser user, int id) async {
   final response = await http.patch(
     Uri.parse('$apiURL/$id'),
-    headers: {'CognitoToken': user.token}
+    headers: {'Authorization': user.token}
   );
 
   return response.statusCode == 200;
@@ -75,7 +74,7 @@ Future<bool> postIssue(LoggedUser user, String json) async {
     final response = await http.post(
     Uri.parse(apiURL),
     body: json,
-    headers: {'CognitoToken': user.token}
+    headers: {'Authorization': user.token}
   );
 
   return response.statusCode == 200;
