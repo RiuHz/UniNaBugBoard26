@@ -1,14 +1,14 @@
 package com.progetto.model.issues;
 
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.persistence.Id;
-
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@JsonPropertyOrder({"id", "userid", "titolo", "descrizione", "tipo", "priorita", "stato", "allegato"})
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@JsonPropertyOrder({"id", "userInfo", "titolo", "descrizione", "tipo", "priorita", "stato", "allegato"})
 @Table(name = "Issue")
 @Entity(name = "Issue")
 public class StorageIssue extends Issue {
@@ -38,7 +38,7 @@ public class StorageIssue extends Issue {
     	StorageIssue storageIssue = new StorageIssue();
     	
         if (userIssue.getUserInfo() != null) {
-            storageIssue.setUserid(userIssue.getUserInfo().getUserid());
+            storageIssue.setUserInfo(userIssue.getUserInfo());
         }
     	storageIssue.setTitolo(userIssue.getTitolo());
     	storageIssue.setDescrizione(userIssue.getDescrizione());
