@@ -1,11 +1,14 @@
 package com.progetto.model.issues;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.Transient;
 
 
 @Embeddable
 public class UserInfo {
     private String userid;
+    @Transient
     private String name;
+    @Transient  
     private String surname;
 
     public String getUserid() {
