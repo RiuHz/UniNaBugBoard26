@@ -2,27 +2,26 @@ package com.progetto.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-
-import com.progetto.specification.StorageIssueSpecification;
-import com.progetto.interfaces.ImageStorageSaver;
-import com.progetto.repository.IssueRepository;
-import com.progetto.model.issues.StorageIssue;
-import com.progetto.model.issues.UserIssue;
+import com.progetto.auth.AmazonWebServiceCognito;
 import com.progetto.enums.issue.Priorita;
 import com.progetto.enums.issue.Stato;
 import com.progetto.enums.issue.Tipo;
-import com.progetto.exception.StorageException;
-import com.progetto.model.issues.UserInfo;
-import com.progetto.auth.AmazonWebServiceCognito;
 import com.progetto.exception.AuthException;
-import java.util.Map;
-import java.util.Set;
+import com.progetto.exception.StorageException;
+import com.progetto.interfaces.ImageStorageSaver;
+import com.progetto.model.issues.StorageIssue;
+import com.progetto.model.issues.UserInfo;
+import com.progetto.model.issues.UserIssue;
+import com.progetto.repository.IssueRepository;
+import com.progetto.specification.StorageIssueSpecification;
 
 import jakarta.transaction.Transactional;
 
@@ -48,7 +47,7 @@ public class IssueService {
 
     //Trova tutti gli ID utente unici presenti in queste issues
     Set<String> uniqueUserIds = issues.stream()
-        .map(StorageIssue::getUserid)
+        .map(issue -> issue.getUserInfo() != null ? issue.getUserInfo().getUserid() : null)
         .filter(id -> id != null && !id.isEmpty())
         .collect(Collectors.toSet());
 
@@ -68,8 +67,9 @@ public class IssueService {
 
     // 4. Popola le issues usando la cache
     for (StorageIssue si : issues) {
-        if (si.getUserid() != null && userCache.containsKey(si.getUserid())) {
-            si.setUserInfo(userCache.get(si.getUserid()));
+        String uid = si.getUserInfo() != null ? si.getUserInfo().getUserid() : null;
+        if (uid != null && userCache.containsKey(uid)) {
+            si.setUserInfo(userCache.get(uid));
         }
     }
 
