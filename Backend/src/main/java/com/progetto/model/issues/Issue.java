@@ -3,6 +3,7 @@ package com.progetto.model.issues;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.progetto.enums.issue.Priorita;
 import com.progetto.enums.issue.Stato;
 import com.progetto.enums.issue.Tipo;
@@ -81,6 +82,7 @@ public abstract class Issue {
         this.stato = stato;
     }
    
+    @JsonProperty("utente")
     public UserInfo getUserInfo() {
          return userinfo; 
     }
