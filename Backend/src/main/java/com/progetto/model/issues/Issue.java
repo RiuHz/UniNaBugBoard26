@@ -16,7 +16,7 @@ import jakarta.persistence.Transient;
 @MappedSuperclass
 public abstract class Issue {
 
-    @Column(name = "userid")
+    @Column(name = "utente")
     private String userid; 
     @Transient
     private UserInfo userinfo;
