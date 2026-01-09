@@ -4,6 +4,7 @@ import jakarta.persistence.criteria.Predicate;
 
 import org.springframework.data.jpa.domain.Specification;
 
+import com.progetto.model.issues.UserInfo;
 import com.progetto.model.issues.StorageIssue;
 import com.progetto.enums.issue.*;
 
@@ -11,14 +12,14 @@ public class StorageIssueSpecification {
 
     private StorageIssueSpecification() {}
 
-    public static Specification<StorageIssue> filtraStorageIssue(Priorita priorita, Stato stato, Tipo tipo, String userid) {
+    public static Specification<StorageIssue> filtraStorageIssue(Priorita priorita, Stato stato, Tipo tipo, UserInfo userinfo) {
 
         return (root, query, criteriaBuilder) -> {
 
             Predicate filtri = criteriaBuilder.conjunction();
 
-            if (userid != null) {
-                criteriaBuilder.equal(root.get("userid"), userid);
+            if (userinfo != null) {
+                criteriaBuilder.equal(root.get("userinfo"), userinfo);
             }
 
             if (priorita != null) {
