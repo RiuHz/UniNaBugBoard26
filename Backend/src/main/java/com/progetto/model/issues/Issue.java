@@ -7,18 +7,20 @@ import com.progetto.enums.issue.Priorita;
 import com.progetto.enums.issue.Stato;
 import com.progetto.enums.issue.Tipo;
 
+import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.Transient;
 
 @MappedSuperclass
 public abstract class Issue {
-
-    @Column(name = "utente")
-    private String userid; 
-    @Transient
+    @Embedded
+    @AttributeOverride(
+        name = "userid",             
+        column = @Column(name = "utente") 
+    )
     private UserInfo userinfo;
 
     private String titolo;
@@ -77,14 +79,6 @@ public abstract class Issue {
 
     public void setStato(Stato stato) {
         this.stato = stato;
-    }
-
-    public String getUserid() {
-        return userid;
-    }
-
-    public void setUserid(String userid) {
-        this.userid = userid;
     }
    
     public UserInfo getUserInfo() {
