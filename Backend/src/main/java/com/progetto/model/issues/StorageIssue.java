@@ -8,7 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-@JsonPropertyOrder({"id", "userInfo", "titolo", "descrizione", "tipo", "priorita", "stato", "allegato"})
+@JsonPropertyOrder({"id", "utente", "titolo", "descrizione", "tipo", "priorita", "stato", "allegato"})
 @Table(name = "Issue")
 @Entity(name = "Issue")
 public class StorageIssue extends Issue {
