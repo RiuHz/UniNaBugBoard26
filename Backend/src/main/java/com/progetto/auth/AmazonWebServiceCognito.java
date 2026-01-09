@@ -4,13 +4,18 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.progetto.model.RichiestaRegistrazione;
+import com.progetto.model.issues.UserInfo;
 import com.progetto.exception.AuthException;
 import com.progetto.interfaces.UserRegistration;
 
 import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIdentityProviderException;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.ListUsersRequest;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.ListUsersResponse;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminUpdateUserAttributesRequest;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminAddUserToGroupRequest;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminConfirmSignUpRequest;
+import software.amazon.awssdk.services.cognitoidentityprovider.model.UserType;
+
 import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AttributeType;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.SignUpRequest;
@@ -112,5 +117,53 @@ public class AmazonWebServiceCognito implements UserRegistration {
             .build();
 
         cognitoProvider.signUp(richiestaRegistrazione);
+    }
+
+    // Metodo per recuperare nome e cognome da Cognito dato il sub
+    public static UserInfo recuperaInfomazioniUtente(String sub, CognitoIdentityProviderClient cognitoProvider, String userPoolId) throws AuthException {
+    try {
+        ListUsersRequest listReq = ListUsersRequest.builder()
+            .userPoolId(userPoolId)
+            .filter("sub = \"" + sub + "\"")
+            .limit(1)
+            .build();
+
+        ListUsersResponse listResp = cognitoProvider.listUsers(listReq);
+
+        if (listResp.users().isEmpty()) {
+            throw new AuthException();
+        }
+
+        UserType user = listResp.users().get(0);
+
+        UserInfo userInfo = new UserInfo();
+        userInfo.setUserid(sub);
+
+        for (AttributeType attributo : user.attributes()) {
+            if ("given_name".equals(attributo.name())) {
+                userInfo.setName(attributo.value());
+            } else if ("family_name".equals(attributo.name())) {
+                userInfo.setSurname(attributo.value());
+            }
+        }
+
+        return userInfo;
+
+    } catch (CognitoIdentityProviderException e) {
+        // Per vedere eventuale errore da console (DA RIMUOVERE)
+        System.err.println("Errore Cognito: " + e.awsErrorDetails().errorMessage());
+        e.printStackTrace(); 
+        throw new AuthException();
+    }
+
+    }
+
+    public UserInfo recuperaInfomazioniUtentePublic(String sub) throws AuthException {
+    CognitoIdentityProviderClient cognitoProvider = getClient();
+        try {
+            return recuperaInfomazioniUtente(sub, cognitoProvider, userPoolId);
+        } finally {
+            cognitoProvider.close();
+        }   
     }
 }
