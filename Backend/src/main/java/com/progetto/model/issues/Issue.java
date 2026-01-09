@@ -7,15 +7,20 @@ import com.progetto.enums.issue.Priorita;
 import com.progetto.enums.issue.Stato;
 import com.progetto.enums.issue.Tipo;
 
-import jakarta.persistence.MappedSuperclass;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.EnumType;
 import jakarta.persistence.Column;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Transient;
 
 @MappedSuperclass
 public abstract class Issue {
-	
-    private String userid;
+
+    @Column(name = "userid")
+    private String userid; 
+    @Transient
+    private UserInfo userinfo;
+
     private String titolo;
     private String descrizione;
 
@@ -33,10 +38,6 @@ public abstract class Issue {
     @Column(name = "stato", columnDefinition = "stato")
     @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     private Stato stato;
-
-    public String getUserId() {
-        return userid;
-    }
 
     public String getTitolo() {
         return titolo;
@@ -58,10 +59,6 @@ public abstract class Issue {
         return stato;
     }
 
-    public void setUserid(String userid) {
-        this.userid = userid;
-    }
-
     public void setTitolo(String titolo) {
         this.titolo = titolo;
     }
@@ -80,5 +77,21 @@ public abstract class Issue {
 
     public void setStato(Stato stato) {
         this.stato = stato;
+    }
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
+    }
+   
+    public UserInfo getUserInfo() {
+         return userinfo; 
+    }
+
+    public void setUserInfo(UserInfo userInfo) {
+         this.userinfo = userInfo; 
     }
 }
