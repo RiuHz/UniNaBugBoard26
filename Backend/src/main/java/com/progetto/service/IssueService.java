@@ -14,9 +14,8 @@ import com.progetto.exception.AuthException;
 import com.progetto.exception.StorageException;
 import com.progetto.interfaces.ImageStorageSaver;
 import com.progetto.models.Issue;
-import com.progetto.models.Utente;
 import com.progetto.repository.IssueRepository;
-import com.progetto.specification.StorageIssueSpecification;
+import com.progetto.specification.IssueSpecification;
 
 import jakarta.transaction.Transactional;
 
@@ -32,14 +31,14 @@ public class IssueService {
     @Autowired
     private AmazonWebServiceCognito amazonWebServiceCognito;
 
-   public List<Issue> recuperaTutteLeIssues(Priorita priorita, Stato stato, Tipo tipo, Utente utente) throws AuthException {
+   public List<Issue> recuperaTutteLeIssues(Priorita priorita, Stato stato, Tipo tipo, String utenteId) throws AuthException {
 
-        Specification<Issue> filtri = StorageIssueSpecification.filtraIssue(priorita, stato, tipo, utente);
+        Specification<Issue> filtri = IssueSpecification.filtraIssue(priorita, stato, tipo, utenteId);
 
         List<Issue> issues = issueRepository.findAll(filtri);
 
         for (Issue issue : issues) 
-            if (issue.getUtente().getId() != null)
+            if (issue.getUtente() != null && issue.getUtente().getId() != null)
                 issue.setUtente(amazonWebServiceCognito.recuperaInfomazioniUtente(issue.getUtente().getId()));
 
         return issues;
