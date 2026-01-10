@@ -6,13 +6,14 @@ import org.hibernate.type.SqlTypes;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.progetto.converter.ImmagineConverter;
+import com.progetto.converter.UtenteConverter;
 import com.progetto.enums.issue.Priorita;
 import com.progetto.enums.issue.Stato;
 import com.progetto.enums.issue.Tipo;
 
-import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -28,6 +29,8 @@ public class Issue {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    
 
     private String titolo;
     private String descrizione;
@@ -56,20 +59,15 @@ public class Issue {
     @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     private Stato stato;
 
-    @Embedded
-    @AttributeOverride(
-        name = "id",
-        column = @Column(name = "utente")
-    )
-    private Utente utente;
 
-    @Embedded
-    @AttributeOverride(
-        name = "url",
-        column = @Column(name = "allegato")
-    )
+    @Column(name = "allegato")
+    @Convert(converter = ImmagineConverter.class)
     @JsonIgnore
     private Immagine allegato;
+
+    @Column(name = "utente")
+    @Convert(converter = UtenteConverter.class)
+    private Utente utente;
 
     public int getId() {
     	return id;
