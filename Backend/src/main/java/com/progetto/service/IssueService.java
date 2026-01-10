@@ -43,17 +43,34 @@ public class IssueService {
         userinfo = amazonWebServiceCognito.recuperaInfomazioniUtentePublic(userinfo.getUserid());
     }
     Specification<StorageIssue> filtri = StorageIssueSpecification.filtraStorageIssue(priorita, stato, tipo, userinfo);
+    
     List<StorageIssue> issues = issueRepository.findAll(filtri);
 
     //Trova tutti gli ID utente unici presenti in queste issues
-    Set<String> uniqueUserIds = issues.stream()
-        .map(issue -> issue.getUserInfo() != null ? issue.getUserInfo().getUserid() : null)
-        .filter(id -> id != null && !id.isEmpty())
-        .collect(Collectors.toSet());
+    Set<String> uniqueUserIds = getUniqueUserIds(issues);
 
     // Crea una mappa ID -> UserInfo per fare cache per ottimizzare
     Map<String, UserInfo> userCache = new HashMap<>();
 
+    extractedUserId(uniqueUserIds, userCache);
+
+    // 4. Popola le issues usando la cache
+    completeIssueInfo(issues, userCache);
+    
+    return issues;
+
+    }
+
+   private void completeIssueInfo(List<StorageIssue> issues, Map<String, UserInfo> userCache) {
+    for (StorageIssue si : issues) {
+        String uid = si.getUserInfo() != null ? si.getUserInfo().getUserid() : null;
+        if (uid != null && userCache.containsKey(uid)) {
+            si.setUserInfo(userCache.get(uid));
+        }
+    }
+   }
+
+   private void extractedUserId(Set<String> uniqueUserIds, Map<String, UserInfo> userCache) {
     for (String userId : uniqueUserIds) {
         try {
             // Chiamiamo Cognito UNA volta per ogni utente distinto, non per ogni issue
@@ -64,17 +81,15 @@ public class IssueService {
             System.err.println("Impossibile recuperare info per user: " + userId);
         }
     }
+   }
 
-    // 4. Popola le issues usando la cache
-    for (StorageIssue si : issues) {
-        String uid = si.getUserInfo() != null ? si.getUserInfo().getUserid() : null;
-        if (uid != null && userCache.containsKey(uid)) {
-            si.setUserInfo(userCache.get(uid));
-        }
-    }
-
-        return issues;
-    }
+   private Set<String> getUniqueUserIds(List<StorageIssue> issues) {
+    Set<String> uniqueUserIds = issues.stream()
+        .map(issue -> issue.getUserInfo() != null ? issue.getUserInfo().getUserid() : null)
+        .filter(id -> id != null && !id.isEmpty())
+        .collect(Collectors.toSet());
+    return uniqueUserIds;
+   }
 
     public void salvaIssue(UserIssue userIssue) throws StorageException{
     	StorageIssue storageIssue = StorageIssue.fromUserIssue(userIssue);
