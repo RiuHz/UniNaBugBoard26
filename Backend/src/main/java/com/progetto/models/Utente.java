@@ -1,14 +1,9 @@
 package com.progetto.models;
 
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.Transient;
 
-@Embeddable
 public class Utente {
     private String id;
-    @Transient
     private String nome;
-    @Transient  
     private String cognome;
 
     public String getId() {
