@@ -12,6 +12,8 @@ import jakarta.persistence.criteria.Predicate;
 
 public class IssueSpecification {
 
+    private IssueSpecification() {}
+
     public static Specification<Issue> filtraIssue(Priorita priorita, Stato stato, Tipo tipo, Utente utente) {
 
         return (root, query, criteriaBuilder) -> {
