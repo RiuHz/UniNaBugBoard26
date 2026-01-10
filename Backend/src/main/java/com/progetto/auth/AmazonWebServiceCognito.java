@@ -1,13 +1,16 @@
 package com.progetto.auth;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.progetto.exception.AuthException;
 import com.progetto.interfaces.UserRegistration;
-import com.progetto.model.RichiestaRegistrazione;
-import com.progetto.model.issues.UserInfo;
+import com.progetto.models.RichiestaRegistrazione;
+import com.progetto.models.Utente;
 
+import jakarta.annotation.PostConstruct;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -20,7 +23,6 @@ import software.amazon.awssdk.services.cognitoidentityprovider.model.CognitoIden
 import software.amazon.awssdk.services.cognitoidentityprovider.model.ListUsersRequest;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.ListUsersResponse;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.SignUpRequest;
-import software.amazon.awssdk.services.cognitoidentityprovider.model.UserType;
 
 @Service
 public class AmazonWebServiceCognito implements UserRegistration {
@@ -40,12 +42,15 @@ public class AmazonWebServiceCognito implements UserRegistration {
     @Value("${aws.secretKey}")
     private String secretKey;
 
-    private CognitoIdentityProviderClient cognitoProvider = getClient();
+    private CognitoIdentityProviderClient cognitoProvider;
+
+    @PostConstruct
+    private void initializeCognitoClient() {
+        this.cognitoProvider = getClient();
+    }
     
     @Override
     public String registraUtente(RichiestaRegistrazione utente) throws AuthException {
-        CognitoIdentityProviderClient cognitoProvider = getClient();
-
             try {
                 inviaRegistrazione(cognitoProvider, utente);
 
@@ -68,14 +73,16 @@ public class AmazonWebServiceCognito implements UserRegistration {
         AwsBasicCredentials credentials = AwsBasicCredentials.create(accessKey, secretKey);
 
         return CognitoIdentityProviderClient.builder()
-                .region(Region.of(region))
-                .credentialsProvider(StaticCredentialsProvider.create(credentials))
-                .build();
+            .region(Region.of(region))
+            .credentialsProvider(StaticCredentialsProvider.create(credentials))
+            .build();
     }
 
     private void verificaEmailUtente(CognitoIdentityProviderClient cognitoProvider, RichiestaRegistrazione utente) {
         AttributeType verificaEmail = AttributeType.builder()
-        .name("email_verified").value("true").build();
+            .name("email_verified")
+            .value("true")
+            .build();
 
         AdminUpdateUserAttributesRequest richiestaUpdateEmail = AdminUpdateUserAttributesRequest.builder()
             .userPoolId(userPoolId)
@@ -120,55 +127,39 @@ public class AmazonWebServiceCognito implements UserRegistration {
         cognitoProvider.signUp(richiestaRegistrazione);
     }
 
-    // Metodo per recuperare nome e cognome da Cognito dato il sub
-    private UserInfo recuperaInfomazioniUtente(String sub) throws AuthException {
+    public Utente recuperaInfomazioniUtente(String sub) throws AuthException {
         try {
-            ListUsersRequest listReq = getListReq(sub); 
+            List<AttributeType> listaAttributiUtente = getAttributiUtente(sub);
 
-            ListUsersResponse listResp = cognitoProvider.listUsers(listReq);
+            Utente user = new Utente();
+            
+            user.setId(sub);
+            user.setNome(getAttributo(listaAttributiUtente, "given_name"));
+            user.setCognome(getAttributo(listaAttributiUtente, "family_name"));
 
-            if (listResp.users().isEmpty()) {
-                throw new AuthException();
-            }
-
-            UserType user = listResp.users().get(0);
-
-            UserInfo userInfo = new UserInfo();
-            userInfo.setUserid(sub);
-
-            extractedInfoUser(user, userInfo);
-
-            return userInfo;
-
+            return user;
         } catch (CognitoIdentityProviderException e) {
             throw new AuthException();
         }
     }
 
-    private void extractedInfoUser(UserType user, UserInfo userInfo) {
-        for (AttributeType attributo : user.attributes()) {
-            if ("given_name".equals(attributo.name())) {
-                userInfo.setName(attributo.value());
-            } else if ("family_name".equals(attributo.name())) {
-                userInfo.setSurname(attributo.value());
-            }
-        }
+    private String getAttributo(List<AttributeType> attributiUtente, String nomeAttributo) {
+        return attributiUtente.stream()
+            .filter(attributo -> attributo.name().equals(nomeAttributo))
+            .findFirst()
+            .map(AttributeType::value)
+            .orElse(null);
     }
 
-    private ListUsersRequest getListReq(String sub) {
-        ListUsersRequest listReq = ListUsersRequest.builder()
+    private List<AttributeType> getAttributiUtente(String sub) {
+        ListUsersRequest request = ListUsersRequest.builder()
             .userPoolId(userPoolId)
             .filter("sub = \"" + sub + "\"")
             .limit(1)
             .build();
-        return listReq;
-    }
 
-    public UserInfo recuperaInfomazioniUtentePublic(String sub) throws AuthException {
-        try {
-            return recuperaInfomazioniUtente(sub);
-        } finally {
-            cognitoProvider.close();
-        }   
+        ListUsersResponse response = cognitoProvider.listUsers(request);
+
+        return response.users().get(0).attributes();
     }
 }

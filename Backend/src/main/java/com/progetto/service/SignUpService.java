@@ -3,10 +3,9 @@ package com.progetto.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.progetto.model.RichiestaRegistrazione;
-
 import com.progetto.exception.AuthException;
 import com.progetto.interfaces.UserRegistration;
+import com.progetto.models.RichiestaRegistrazione;
 
 @Service
 public class SignUpService {

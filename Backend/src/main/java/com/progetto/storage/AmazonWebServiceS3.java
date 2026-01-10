@@ -31,10 +31,10 @@ class AmazonWebServiceS3 implements ImageStorageSaver {
         String uniqueName = generateUniqueImageName();
 
         PutObjectRequest uploadRequest = PutObjectRequest.builder()
-            .bucket(bucketName)
-            .key(uniqueName)
-            .contentType(file.getContentType())
-            .build();
+        .bucket(bucketName)
+        .key(uniqueName)
+        .contentType(file.getContentType())
+        .build();
             
 		try {
 			s3Client.putObject(uploadRequest, RequestBody.fromBytes(file.getBytes()));

@@ -1,4 +1,4 @@
-package com.progetto.model;
+package com.progetto.models;
 
 import com.progetto.enums.utente.RuoloUtente;
 

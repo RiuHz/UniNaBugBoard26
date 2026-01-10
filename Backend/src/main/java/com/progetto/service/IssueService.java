@@ -1,10 +1,6 @@
 package com.progetto.service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
@@ -17,9 +13,8 @@ import com.progetto.enums.issue.Tipo;
 import com.progetto.exception.AuthException;
 import com.progetto.exception.StorageException;
 import com.progetto.interfaces.ImageStorageSaver;
-import com.progetto.model.issues.StorageIssue;
-import com.progetto.model.issues.UserInfo;
-import com.progetto.model.issues.UserIssue;
+import com.progetto.models.Issue;
+import com.progetto.models.Utente;
 import com.progetto.repository.IssueRepository;
 import com.progetto.specification.StorageIssueSpecification;
 
@@ -37,70 +32,27 @@ public class IssueService {
     @Autowired
     private AmazonWebServiceCognito amazonWebServiceCognito;
 
-   public List<StorageIssue> recuperaTutteLeIssues(Priorita priorita, Stato stato, Tipo tipo, UserInfo userinfo) throws AuthException {
-    // Recupera le issues dal DB
-    if (userinfo != null && userinfo.getUserid() != null) {
-        userinfo = amazonWebServiceCognito.recuperaInfomazioniUtentePublic(userinfo.getUserid());
-    }
-    Specification<StorageIssue> filtri = StorageIssueSpecification.filtraStorageIssue(priorita, stato, tipo, userinfo);
-    
-    List<StorageIssue> issues = issueRepository.findAll(filtri);
+   public List<Issue> recuperaTutteLeIssues(Priorita priorita, Stato stato, Tipo tipo, Utente utente) throws AuthException {
 
-    //Trova tutti gli ID utente unici presenti in queste issues
-    Set<String> uniqueUserIds = getUniqueUserIds(issues);
+        Specification<Issue> filtri = StorageIssueSpecification.filtraIssue(priorita, stato, tipo, utente);
 
-    // Crea una mappa ID -> UserInfo per fare cache per ottimizzare
-    Map<String, UserInfo> userCache = new HashMap<>();
+        List<Issue> issues = issueRepository.findAll(filtri);
 
-    extractedUserId(uniqueUserIds, userCache);
+        for (Issue issue : issues) 
+            if (issue.getUtente() != null)
+                issue.setUtente(amazonWebServiceCognito.recuperaInfomazioniUtente(issue.getUtente().getId()));
 
-    // 4. Popola le issues usando la cache
-    completeIssueInfo(issues, userCache);
-    
-    return issues;
-
+        return issues;
     }
 
-   private void completeIssueInfo(List<StorageIssue> issues, Map<String, UserInfo> userCache) {
-    for (StorageIssue si : issues) {
-        String uid = si.getUserInfo() != null ? si.getUserInfo().getUserid() : null;
-        if (uid != null && userCache.containsKey(uid)) {
-            si.setUserInfo(userCache.get(uid));
-        }
-    }
-   }
-
-   private void extractedUserId(Set<String> uniqueUserIds, Map<String, UserInfo> userCache) {
-    for (String userId : uniqueUserIds) {
-        try {
-            // Chiamiamo Cognito UNA volta per ogni utente distinto, non per ogni issue
-            UserInfo info = amazonWebServiceCognito.recuperaInfomazioniUtentePublic(userId);
-            userCache.put(userId, info);
-        } catch (AuthException e) {
-            // Se fallisce un utente, logghiamo ma non blocchiamo tutto l'elenco
-            System.err.println("Impossibile recuperare info per user: " + userId);
-        }
-    }
-   }
-
-   private Set<String> getUniqueUserIds(List<StorageIssue> issues) {
-    Set<String> uniqueUserIds = issues.stream()
-        .map(issue -> issue.getUserInfo() != null ? issue.getUserInfo().getUserid() : null)
-        .filter(id -> id != null && !id.isEmpty())
-        .collect(Collectors.toSet());
-    return uniqueUserIds;
-   }
-
-    public void salvaIssue(UserIssue userIssue) throws StorageException{
-    	StorageIssue storageIssue = StorageIssue.fromUserIssue(userIssue);
-
-        if (userIssue.getAllegato() != null) {
-        	String url = amazonWebServiceS3.saveImage(userIssue.getAllegato());
+    public void salvaIssue(Issue issue) throws StorageException{
+        if (issue.getAllegato().getFile() != null) {
+        	String url = amazonWebServiceS3.saveImage(issue.getAllegato().getFile());
         	
-        	storageIssue.setAllegato(url);
+        	issue.getAllegato().setUrl(url);
         }
 
-        issueRepository.save(storageIssue);
+        issueRepository.save(issue);
     }
 
     @Transactional

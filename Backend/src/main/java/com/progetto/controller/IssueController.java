@@ -13,14 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.progetto.model.issues.UserInfo;
 import com.progetto.enums.issue.Priorita;
 import com.progetto.enums.issue.Stato;
 import com.progetto.enums.issue.Tipo;
 import com.progetto.exception.AuthException;
 import com.progetto.exception.StorageException;
-import com.progetto.model.issues.StorageIssue;
-import com.progetto.model.issues.UserIssue;
+import com.progetto.models.Utente;
+import com.progetto.models.Issue;
 import com.progetto.service.IssueService;
 
 @RestController
@@ -31,14 +30,17 @@ public class IssueController{
     private IssueService issueService;
 
     @GetMapping
-    public List<StorageIssue> getIssues(@RequestParam(required = false, name = "priorita") Priorita priorita, @RequestParam(required = false, name = "stato") Stato stato,
-    @RequestParam(required = false, name = "tipo") Tipo tipo, @RequestParam(required = false, name = "userid") UserInfo userinfo) throws AuthException{
-
-        return issueService.recuperaTutteLeIssues(priorita,stato,tipo,userinfo);
+    public List<Issue> getIssues(
+        @RequestParam(required = false, name = "priorita") Priorita priorita,
+        @RequestParam(required = false, name = "stato") Stato stato,
+        @RequestParam(required = false, name = "tipo") Tipo tipo,
+        @RequestParam(required = false, name = "utente") Utente utente
+    ) throws AuthException {
+        return issueService.recuperaTutteLeIssues(priorita, stato, tipo, utente);
     }
 
     @PostMapping
-    public ResponseEntity<String> createIssue(@ModelAttribute UserIssue issue) {
+    public ResponseEntity<String> createIssue(@ModelAttribute Issue issue) {
         try {
             issueService.salvaIssue(issue);
         } catch (StorageException error) {

@@ -4,22 +4,22 @@ import jakarta.persistence.criteria.Predicate;
 
 import org.springframework.data.jpa.domain.Specification;
 
-import com.progetto.model.issues.UserInfo;
-import com.progetto.model.issues.StorageIssue;
 import com.progetto.enums.issue.*;
+import com.progetto.models.Issue;
+import com.progetto.models.Utente;
 
 public class StorageIssueSpecification {
 
     private StorageIssueSpecification() {}
 
-    public static Specification<StorageIssue> filtraStorageIssue(Priorita priorita, Stato stato, Tipo tipo, UserInfo userinfo) {
+    public static Specification<Issue> filtraIssue(Priorita priorita, Stato stato, Tipo tipo, Utente utente) {
 
         return (root, query, criteriaBuilder) -> {
 
             Predicate filtri = criteriaBuilder.conjunction();
 
-            if (userinfo != null) {
-                criteriaBuilder.equal(root.get("userinfo"), userinfo);
+            if (utente != null) {
+                criteriaBuilder.equal(root.get("utente"), utente);
             }
 
             if (priorita != null) {

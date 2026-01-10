@@ -11,12 +11,12 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.progetto.enums.issue.Stato;
-import com.progetto.model.issues.StorageIssue;
+import com.progetto.models.Issue;
 
 import jakarta.transaction.Transactional;
 
 @Repository
-public interface IssueRepository extends JpaRepository<StorageIssue, Integer>, JpaSpecificationExecutor<StorageIssue>{
+public interface IssueRepository extends JpaRepository<Issue, Integer>, JpaSpecificationExecutor<Issue> {
 
     @Modifying
     @Transactional
@@ -24,5 +24,5 @@ public interface IssueRepository extends JpaRepository<StorageIssue, Integer>, J
     void setIssueState(@Param("stato") Stato stato, @Param("id") Integer id);
 
     @Override
-    List<StorageIssue> findAll(Specification<StorageIssue> specification); 
+    List<Issue> findAll(Specification<Issue> specification); 
 }
