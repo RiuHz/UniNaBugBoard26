@@ -39,7 +39,7 @@ public class IssueService {
         List<Issue> issues = issueRepository.findAll(filtri);
 
         for (Issue issue : issues) 
-            if (issue.getUtente() != null)
+            if (issue.getUtente().getId() != null)
                 issue.setUtente(amazonWebServiceCognito.recuperaInfomazioniUtente(issue.getUtente().getId()));
 
         return issues;

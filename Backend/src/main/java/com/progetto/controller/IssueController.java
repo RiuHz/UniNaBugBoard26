@@ -34,8 +34,10 @@ public class IssueController{
         @RequestParam(required = false, name = "priorita") Priorita priorita,
         @RequestParam(required = false, name = "stato") Stato stato,
         @RequestParam(required = false, name = "tipo") Tipo tipo,
-        @RequestParam(required = false, name = "utente") Utente utente
+        @RequestParam(required = false, name = "utente") String idUtente
     ) throws AuthException {
+        Utente utente = new Utente();
+        utente.setId(idUtente);
         return issueService.recuperaTutteLeIssues(priorita, stato, tipo, utente);
     }
 

@@ -18,8 +18,8 @@ public class StorageIssueSpecification {
 
             Predicate filtri = criteriaBuilder.conjunction();
 
-            if (utente != null) {
-                criteriaBuilder.equal(root.get("utente"), utente);
+            if (utente.getId() != null) {
+                criteriaBuilder.equal(root.get("utente"), utente.getId());
             }
 
             if (priorita != null) {
