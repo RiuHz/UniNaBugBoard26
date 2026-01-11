@@ -30,8 +30,6 @@ public class Issue {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    
-
     private String titolo;
     private String descrizione;
 
@@ -58,7 +56,6 @@ public class Issue {
     )
     @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     private Stato stato;
-
 
     @Column(name = "allegato")
     @Convert(converter = ImmagineConverter.class)

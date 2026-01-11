@@ -48,17 +48,26 @@ public class AmazonWebServiceCognito implements UserRegistration {
     private void initializeCognitoClient() {
         this.cognitoProvider = getClient();
     }
+
+    private CognitoIdentityProviderClient getClient() {
+        AwsBasicCredentials credentials = AwsBasicCredentials.create(accessKey, secretKey);
+
+        return CognitoIdentityProviderClient.builder()
+            .region(Region.of(region))
+            .credentialsProvider(StaticCredentialsProvider.create(credentials))
+            .build();
+    }
     
     @Override
     public String registraUtente(RichiestaRegistrazione utente) throws AuthException {
             try {
-                inviaRegistrazione(cognitoProvider, utente);
+                inviaRegistrazione(utente);
 
-                confermaRegistrazioneUtente(cognitoProvider, utente);
+                confermaRegistrazioneUtente(utente);
 
-                verificaEmailUtente(cognitoProvider, utente);
+                verificaEmailUtente(utente);
 
-                aggiungiUtenteAlGruppo(cognitoProvider, utente);
+                aggiungiUtenteAlGruppo(utente);
 
                 return "Utente creato, confermato, verificato e aggiunto al gruppo '" + utente.getRuolo() + "' con successo.";
 
@@ -69,16 +78,7 @@ public class AmazonWebServiceCognito implements UserRegistration {
         }
     }
 
-    private CognitoIdentityProviderClient getClient() {
-        AwsBasicCredentials credentials = AwsBasicCredentials.create(accessKey, secretKey);
-
-        return CognitoIdentityProviderClient.builder()
-            .region(Region.of(region))
-            .credentialsProvider(StaticCredentialsProvider.create(credentials))
-            .build();
-    }
-
-    private void verificaEmailUtente(CognitoIdentityProviderClient cognitoProvider, RichiestaRegistrazione utente) {
+    private void verificaEmailUtente(RichiestaRegistrazione utente) {
         AttributeType verificaEmail = AttributeType.builder()
             .name("email_verified")
             .value("true")
@@ -93,7 +93,7 @@ public class AmazonWebServiceCognito implements UserRegistration {
         cognitoProvider.adminUpdateUserAttributes(richiestaUpdateEmail);
     }
 
-    private void confermaRegistrazioneUtente(CognitoIdentityProviderClient cognitoProvider, RichiestaRegistrazione utente) {
+    private void confermaRegistrazioneUtente(RichiestaRegistrazione utente) {
         AdminConfirmSignUpRequest richiestaConfermaRegistrazione = AdminConfirmSignUpRequest.builder()
             .userPoolId(userPoolId)
             .username(utente.getEmail())
@@ -102,7 +102,7 @@ public class AmazonWebServiceCognito implements UserRegistration {
         cognitoProvider.adminConfirmSignUp(richiestaConfermaRegistrazione);
     }
 
-    private void aggiungiUtenteAlGruppo(CognitoIdentityProviderClient cognitoProvider, RichiestaRegistrazione utente) {
+    private void aggiungiUtenteAlGruppo(RichiestaRegistrazione utente) {
         AdminAddUserToGroupRequest richiestaAggiuntaGruppo = AdminAddUserToGroupRequest.builder()
             .userPoolId(userPoolId)
             .username(utente.getEmail())
@@ -112,7 +112,7 @@ public class AmazonWebServiceCognito implements UserRegistration {
         cognitoProvider.adminAddUserToGroup(richiestaAggiuntaGruppo);
     }
 
-    private void inviaRegistrazione(CognitoIdentityProviderClient cognitoProvider, RichiestaRegistrazione utente) {
+    private void inviaRegistrazione(RichiestaRegistrazione utente) {
         SignUpRequest richiestaRegistrazione = SignUpRequest.builder()
             .clientId(clientId)
             .username(utente.getEmail())
@@ -134,8 +134,8 @@ public class AmazonWebServiceCognito implements UserRegistration {
             Utente user = new Utente();
             
             user.setId(sub);
-            user.setNome(getAttributo(listaAttributiUtente, "given_name"));
-            user.setCognome(getAttributo(listaAttributiUtente, "family_name"));
+            user.setNome(getAttributoUtente(listaAttributiUtente, "given_name"));
+            user.setCognome(getAttributoUtente(listaAttributiUtente, "family_name"));
 
             return user;
         } catch (CognitoIdentityProviderException e) {
@@ -143,7 +143,7 @@ public class AmazonWebServiceCognito implements UserRegistration {
         }
     }
 
-    private String getAttributo(List<AttributeType> attributiUtente, String nomeAttributo) {
+    private String getAttributoUtente(List<AttributeType> attributiUtente, String nomeAttributo) {
         return attributiUtente.stream()
             .filter(attributo -> attributo.name().equals(nomeAttributo))
             .findFirst()

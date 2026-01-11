@@ -19,7 +19,7 @@ public class S3Config {
     private String secretAccessKey;
 
     @Bean
-    public S3Client s3Client(){
+    public S3Client getClient() {
 
         AwsBasicCredentials credentials = AwsBasicCredentials.create(accessKeyId, secretAccessKey);
 
