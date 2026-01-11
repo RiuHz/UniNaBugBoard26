@@ -2,6 +2,7 @@ package com.progetto.aws.auth;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -10,10 +11,6 @@ import com.progetto.interfaces.UserRegistration;
 import com.progetto.models.RichiestaRegistrazione;
 import com.progetto.models.Utente;
 
-import jakarta.annotation.PostConstruct;
-import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
-import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
-import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.cognitoidentityprovider.CognitoIdentityProviderClient;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminAddUserToGroupRequest;
 import software.amazon.awssdk.services.cognitoidentityprovider.model.AdminConfirmSignUpRequest;
@@ -33,31 +30,9 @@ public class AmazonWebServiceCognito implements UserRegistration {
     @Value("${aws.cognito.userPoolId}")
     private String userPoolId;
 
-    @Value("${aws.region}")
-    private String region;
-
-    @Value("${aws.accessKey}")
-    private String accessKey;
-
-    @Value("${aws.secretKey}")
-    private String secretKey;
-
+    @Autowired
     private CognitoIdentityProviderClient cognitoProvider;
 
-    @PostConstruct
-    private void initializeCognitoClient() {
-        this.cognitoProvider = getClient();
-    }
-
-    private CognitoIdentityProviderClient getClient() {
-        AwsBasicCredentials credentials = AwsBasicCredentials.create(accessKey, secretKey);
-
-        return CognitoIdentityProviderClient.builder()
-            .region(Region.of(region))
-            .credentialsProvider(StaticCredentialsProvider.create(credentials))
-            .build();
-    }
-    
     @Override
     public String registraUtente(RichiestaRegistrazione utente) throws AuthException {
             try {
