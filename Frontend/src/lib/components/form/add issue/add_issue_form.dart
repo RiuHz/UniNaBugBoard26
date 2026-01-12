@@ -1,5 +1,5 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_image_picker/form_builder_image_picker.dart';
 import 'package:http/http.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +20,7 @@ class AddIssueForm extends StatefulWidget {
 
 class AddIssueFormState extends State<AddIssueForm> {
 
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<FormBuilderState> formKey = GlobalKey<FormBuilderState>();
 
   late String title;
   late String description;
@@ -32,7 +32,7 @@ class AddIssueFormState extends State<AddIssueForm> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsetsGeometry.symmetric(vertical: 20, horizontal: 50),
-      child: Form(
+      child: FormBuilder(
         key: formKey,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -87,11 +87,19 @@ class AddIssueFormState extends State<AddIssueForm> {
                 maxImages: 1,
                 availableImageSources: const [ImageSourceOption.gallery],
                 decoration: const InputDecoration(labelText: 'Seleziona immagine'),
-                onSaved: (value) async {
-                  if (value == null || value.isEmpty) return setState(() {file = null;});
+                onChanged: (value) async {
+                  if (value == null || value.isEmpty || value.first == null) return setState(() {file = null;});
+                  
+                  XFile image = value.first;
+
+                  MultipartFile multipartImage = MultipartFile.fromBytes(
+                    'allegato',
+                    await image.readAsBytes(),
+                    filename: image.name
+                  );
 
                   setState(() {
-                    file = value.first;
+                    file = multipartImage;
                   });
                 },
               )
@@ -115,25 +123,27 @@ class AddIssueFormState extends State<AddIssueForm> {
   }
 
   Future<void> createIssue() async {
-    if (!formKey.currentState!.validate()) return;
+    final FormBuilderState? formState = formKey.currentState;
 
-    bool issueCreated = await postIssue(Provider.of<UniNaBugBoard26State>(context).user, getFormData());
+    if (formState == null) return;
+
+    if (!formState.validate()) return;
+
+    bool issueCreated = await postIssue(context.read<UniNaBugBoard26State>().user, getFormData(), file);
 
     if (!mounted) return;
       
     openPopUp(context, issueCreated, 'Issue segnalata!', 'La segnalazione è andata a buon fine.');
   }
 
-  String getFormData() {
-    return jsonEncode({
-      'userid': null,
+  Map<String, dynamic> getFormData() {
+    return {
       'titolo': title,
       'descrizione': description,
-      'priorita': priority.level,
-      'stato': 'ToDo',
-      'tipo': type.name,
-      'allegato':  file
-    });
+      'priorita': priority.level.toUpperCase(),
+      'stato': 'TODO',
+      'tipo': type.name.toUpperCase(),
+    };
   }
 
   void setTitle(String value) {

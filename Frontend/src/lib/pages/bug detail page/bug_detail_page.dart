@@ -73,7 +73,7 @@ class BugDetailPageState extends State<BugDetailPage> {
                   : SizedBox(
                     width: 300,
                     height: 300,
-                    child: getImageFromURL(Provider.of<UniNaBugBoard26State>(context).user, widget.issue.image)
+                    child: getImageFromURL(context.read<UniNaBugBoard26State>().user, widget.issue.image)
                   )
               ),
               Row(
@@ -94,7 +94,7 @@ class BugDetailPageState extends State<BugDetailPage> {
 
   Future<void> markIssueAsResolved() async {
 
-    bool issuePatched = await patchIssue(Provider.of<UniNaBugBoard26State>(context).user, widget.issue.id);
+    bool issuePatched = await patchIssue(context.read<UniNaBugBoard26State>().user, widget.issue.id);
     
     if (mounted) {
       openPopUp(context, issuePatched, 'Issue risolta!', 'La issue adesso è segnalta come risolta.');

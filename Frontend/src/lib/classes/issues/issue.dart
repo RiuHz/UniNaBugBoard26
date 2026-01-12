@@ -22,15 +22,15 @@ abstract class Issue {
   });
 
   static Issue fromJson(Map<String, dynamic> json) {
-    Issue issue = IssueFactory.fromType(json['Tipo'] as String);
+    Issue issue = IssueFactory.fromType(json['tipo'] as String);
 
     issue.id = json['id'] as int;
-    issue.user = User.fromJson(json['utente']);
-    issue.title = json['titolo'] as String;
-    issue.description = json['descrizione'] as String;
+    issue.user = User.fromJson(json['utente'] ?? {'id': '', 'nome': '', 'cognome': ''});
+    issue.title = json['titolo'] as String; 
+    issue.description = json['descrizione'] as String; //
     issue.priority = IssuePriority.fromString(json['priorita'] as String);
     issue.state = IssueState.fromString(json['stato'] as String);
-    issue.image = json['allegato'] as String? ?? '';
+    issue.image = json['allegato'] as String? ?? ''; 
 
     return issue;
   }

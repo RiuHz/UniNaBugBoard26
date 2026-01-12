@@ -26,7 +26,7 @@ enum IssuePriority {
 
   static final List<DropdownMenuEntry<IssuePriority>> entries = UnmodifiableListView<DropdownMenuEntry<IssuePriority>>(
     values.map<DropdownMenuEntry<IssuePriority>>(
-      (IssuePriority priority) =>  DropdownMenuEntry<IssuePriority>(
+      (IssuePriority priority) => DropdownMenuEntry<IssuePriority>(
         value: priority,
         label: priority.level
       ) 

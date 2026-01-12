@@ -18,11 +18,11 @@ class SignUpRequest {
 
   String getJsonData() => json.encode(
     {
-      "email": email,
-      "password": password,
-      "nome":  name,
-      "cognome": surname,
-      "ruolo": role.type.toUpperCase(),
+      'email': email,
+      'password': password,
+      'nome':  name,
+      'cognome': surname,
+      'ruolo': role.type.toUpperCase(),
     }
   );
 }
