@@ -48,9 +48,7 @@ public class AmazonWebServiceCognito implements UserRegistration {
 
             } catch (CognitoIdentityProviderException e) {
                 throw new AuthException();
-            } finally {
-                cognitoProvider.close();
-        }
+            }
     }
 
     private void verificaEmailUtente(RichiestaRegistrazione utente) {
