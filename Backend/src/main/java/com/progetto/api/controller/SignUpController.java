@@ -25,7 +25,7 @@ public class SignUpController{
         try {
             signUpService.registraUtente(utente);
         } catch(AuthException errror) {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().body("Utente non creato");
         }
 
         return ResponseEntity.ok("User created");
