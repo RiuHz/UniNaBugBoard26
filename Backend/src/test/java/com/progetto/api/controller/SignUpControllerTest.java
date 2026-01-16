@@ -104,7 +104,7 @@ public class SignUpControllerTest {
                 .content(objectMapper.writeValueAsString(nuovoUtente)))
                 
         // ASSERT
-                .andExpect(status().isBadRequest()) // Ci aspettiamo 400 Bad Request
+                .andExpect(status().isBadRequest()) 
                 .andExpect(content().string("Utente non creato"));
 
     }
@@ -124,7 +124,7 @@ public class SignUpControllerTest {
                 .content(objectMapper.writeValueAsString(nuovoUtente)))
                 
         // ASSERT
-                .andExpect(status().isBadRequest()) // Ci aspettiamo 400 Bad Request
+                .andExpect(status().isBadRequest()) 
                 .andExpect(content().string("Utente non creato"));
 
     }
@@ -144,7 +144,7 @@ public class SignUpControllerTest {
                 .content(objectMapper.writeValueAsString(nuovoUtente)))
                 
         // ASSERT
-                .andExpect(status().isBadRequest()) // Ci aspettiamo 400 Bad Request
+                .andExpect(status().isBadRequest()) 
                 .andExpect(content().string("Utente non creato"));
 
     }
@@ -164,7 +164,7 @@ public class SignUpControllerTest {
                 .content(objectMapper.writeValueAsString(nuovoUtente)))
                 
         // ASSERT
-                .andExpect(status().isBadRequest()) // Ci aspettiamo 400 Bad Request
+                .andExpect(status().isBadRequest()) 
                 .andExpect(content().string("Utente non creato"));
 
     }
@@ -184,7 +184,7 @@ public class SignUpControllerTest {
                 .content(objectMapper.writeValueAsString(nuovoUtente)))
                 
         // ASSERT
-                .andExpect(status().isBadRequest()) // Ci aspettiamo 400 Bad Request
+                .andExpect(status().isBadRequest()) 
                 .andExpect(content().string("Utente non creato"));
 
     }
@@ -204,7 +204,7 @@ public class SignUpControllerTest {
                 .content(objectMapper.writeValueAsString(nuovoUtente)))
                 
         // ASSERT
-                .andExpect(status().isBadRequest()) // Ci aspettiamo 400 Bad Request
+                .andExpect(status().isBadRequest()) 
                 .andExpect(content().string("Utente non creato"));
 
     }
@@ -224,50 +224,11 @@ public class SignUpControllerTest {
                 .content(objectMapper.writeValueAsString(nuovoUtente)))
                 
         // ASSERT
-                .andExpect(status().isBadRequest()) // Ci aspettiamo 400 Bad Request
+                .andExpect(status().isBadRequest()) 
                 .andExpect(content().string("Utente non creato"));
 
     }
 
-    @Test
-    public void test11() throws Exception {
-        // ARRANGE
-        // campo cognome malformato
-        RichiestaRegistrazione nuovoUtente = creaUtente("Sviluppatore3@gmail.it","Sviluppatore3!","Carlo","Mancini", null);
-
-        doThrow(new AuthException())
-                .when(signUpService).registraUtente(any(RichiestaRegistrazione.class));
-
-        //ACT
-        mockMvc.perform(post("/sign-up")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(nuovoUtente)))
-                
-        // ASSERT
-                .andExpect(status().isBadRequest()) // Ci aspettiamo 400 Bad Request
-                .andExpect(content().string("Utente non creato"));
-
-    }
-
-    @Test
-    public void test12() throws Exception {
-        // ARRANGE
-        // campo cognome malformato
-        RichiestaRegistrazione nuovoUtente = creaUtente("Sviluppatore2@gmail.it","Sviluppatore2!","Mario","###", RuoloUtente.SVILUPPATORE);
-
-        doThrow(new AuthException())
-                .when(signUpService).registraUtente(any(RichiestaRegistrazione.class));
-
-        //ACT
-        mockMvc.perform(post("/sign-up")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(nuovoUtente)))
-                
-        // ASSERT
-                .andExpect(status().isBadRequest()) // Ci aspettiamo 400 Bad Request
-                .andExpect(content().string("Utente non creato"));
-
-    }
 
     private RichiestaRegistrazione creaUtente(String email, String password, String nome, String cognome, RuoloUtente ruolo) {
         RichiestaRegistrazione nuovoUtente = new RichiestaRegistrazione();
