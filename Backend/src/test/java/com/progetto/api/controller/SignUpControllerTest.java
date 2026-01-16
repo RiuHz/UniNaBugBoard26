@@ -35,14 +35,8 @@ public class SignUpControllerTest {
     @Test
     public void test01() throws Exception {
 
-        //ARRANGE
-        RichiestaRegistrazione nuovoUtente = new RichiestaRegistrazione();
-        nuovoUtente.setEmail("mario@email.com");
-        nuovoUtente.setPassword("Password123!");
-        nuovoUtente.setNome("Mario");
-        nuovoUtente.setCognome("Rossi");
-        nuovoUtente.setRuolo(RuoloUtente.ADMIN);
-
+        //ARRANGE (refactor da fare, possibile code smell long parameter list)
+        RichiestaRegistrazione nuovoUtente = creaUtente("mario@email.com","Password123!","Mario","Rossi", RuoloUtente.ADMIN);
 
         // Poiché il metodo del service è 'void', usiamo doNothing().
         doNothing().when(signUpService).registraUtente(any(RichiestaRegistrazione.class));
@@ -60,13 +54,9 @@ public class SignUpControllerTest {
     @Test
     public void test02() throws Exception {
         // ARRANGE
-        RichiestaRegistrazione nuovoUtente = new RichiestaRegistrazione();
-        nuovoUtente.setEmail("luca@email.com");
-        nuovoUtente.setPassword("pass1"); // password che non rispetta i requisiti
-        nuovoUtente.setNome("Luca");
-        nuovoUtente.setCognome("Verdi");
-        nuovoUtente.setRuolo(RuoloUtente.SVILUPPATORE);
-        
+        // password che non rispetta i requisiti
+        RichiestaRegistrazione nuovoUtente = creaUtente("luca@email.com","pass1","Luca","Verdi", RuoloUtente.SVILUPPATORE);
+
         doThrow(new AuthException())
                 .when(signUpService).registraUtente(any(RichiestaRegistrazione.class));
 
@@ -79,6 +69,16 @@ public class SignUpControllerTest {
                 .andExpect(status().isBadRequest()) // Ci aspettiamo 400 Bad Request
                 .andExpect(content().string("Utente non creato"));
 
+    }
+
+    private RichiestaRegistrazione creaUtente(String email, String password, String nome, String cognome, RuoloUtente ruolo) {
+        RichiestaRegistrazione nuovoUtente = new RichiestaRegistrazione();
+        nuovoUtente.setEmail(email);
+        nuovoUtente.setPassword(password);
+        nuovoUtente.setNome(nome);
+        nuovoUtente.setCognome(cognome);
+        nuovoUtente.setRuolo(ruolo);
+        return nuovoUtente;
     }
 
     
