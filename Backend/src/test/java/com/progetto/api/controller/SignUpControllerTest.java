@@ -38,7 +38,7 @@ public class SignUpControllerTest {
         //ARRANGE
         RichiestaRegistrazione nuovoUtente = new RichiestaRegistrazione();
         nuovoUtente.setEmail("mario@email.com");
-        nuovoUtente.setPassword("password123");
+        nuovoUtente.setPassword("Password123!");
         nuovoUtente.setNome("Mario");
         nuovoUtente.setCognome("Rossi");
         nuovoUtente.setRuolo(RuoloUtente.ADMIN);
@@ -55,6 +55,30 @@ public class SignUpControllerTest {
         // ASSERT
                 .andExpect(status().isOk()) 
                 .andExpect(content().string("User created"));
+    }
+
+    @Test
+    public void test02() throws Exception {
+        // ARRANGE
+        RichiestaRegistrazione nuovoUtente = new RichiestaRegistrazione();
+        nuovoUtente.setEmail("luca@email.com");
+        nuovoUtente.setPassword("pass1"); // password che non rispetta i requisiti
+        nuovoUtente.setNome("Luca");
+        nuovoUtente.setCognome("Verdi");
+        nuovoUtente.setRuolo(RuoloUtente.SVILUPPATORE);
+        
+        doThrow(new AuthException())
+                .when(signUpService).registraUtente(any(RichiestaRegistrazione.class));
+
+        //ACT
+        mockMvc.perform(post("/sign-up")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(nuovoUtente)))
+                
+        // ASSERT
+                .andExpect(status().isBadRequest()) // Ci aspettiamo 400 Bad Request
+                .andExpect(content().string("Utente non creato"));
+
     }
 
     
