@@ -47,7 +47,7 @@ public class SignUpControllerTest {
                 .content(objectMapper.writeValueAsString(nuovoUtente))) // Converte l'oggetto in JSON string
                 
         // ASSERT
-                .andExpect(status().isOk()) 
+                .andExpect(status().isOk())
                 .andExpect(content().string("User created"));
     }
 
@@ -85,7 +85,7 @@ public class SignUpControllerTest {
                 
         // ASSERT
                 .andExpect(status().isBadRequest()) // Ci aspettiamo 400 Bad Request
-                .andExpect(content().string("Utente non creato"));
+                .andExpect(content().string("User not created"));
 
     }
 
@@ -105,7 +105,7 @@ public class SignUpControllerTest {
                 
         // ASSERT
                 .andExpect(status().isBadRequest()) 
-                .andExpect(content().string("Utente non creato"));
+                .andExpect(content().string("User not created"));
 
     }
 
@@ -125,7 +125,7 @@ public class SignUpControllerTest {
                 
         // ASSERT
                 .andExpect(status().isBadRequest()) 
-                .andExpect(content().string("Utente non creato"));
+                .andExpect(content().string("User not created"));
 
     }
 
@@ -145,7 +145,7 @@ public class SignUpControllerTest {
                 
         // ASSERT
                 .andExpect(status().isBadRequest()) 
-                .andExpect(content().string("Utente non creato"));
+                .andExpect(content().string("User not created"));
 
     }
 
@@ -165,7 +165,7 @@ public class SignUpControllerTest {
                 
         // ASSERT
                 .andExpect(status().isBadRequest()) 
-                .andExpect(content().string("Utente non creato"));
+                .andExpect(content().string("User not created"));
 
     }
 
@@ -185,7 +185,7 @@ public class SignUpControllerTest {
                 
         // ASSERT
                 .andExpect(status().isBadRequest()) 
-                .andExpect(content().string("Utente non creato"));
+                .andExpect(content().string("User not created"));
 
     }
 
@@ -205,7 +205,7 @@ public class SignUpControllerTest {
                 
         // ASSERT
                 .andExpect(status().isBadRequest()) 
-                .andExpect(content().string("Utente non creato"));
+                .andExpect(content().string("User not created"));
 
     }
 
@@ -225,7 +225,7 @@ public class SignUpControllerTest {
                 
         // ASSERT
                 .andExpect(status().isBadRequest()) 
-                .andExpect(content().string("Utente non creato"));
+                .andExpect(content().string("User not created"));
 
     }
 
