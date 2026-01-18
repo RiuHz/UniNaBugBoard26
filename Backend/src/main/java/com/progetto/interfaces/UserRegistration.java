@@ -4,5 +4,5 @@ import com.progetto.exception.AuthException;
 import com.progetto.models.RichiestaRegistrazione;
 
 public interface UserRegistration {
-    String registraUtente(RichiestaRegistrazione utente) throws AuthException;
+    void registraUtente(RichiestaRegistrazione utente) throws AuthException;
 }

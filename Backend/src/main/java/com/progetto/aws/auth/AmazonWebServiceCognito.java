@@ -34,7 +34,7 @@ public class AmazonWebServiceCognito implements UserRegistration {
     private CognitoIdentityProviderClient cognitoProvider;
 
     @Override
-    public String registraUtente(RichiestaRegistrazione utente) throws AuthException {
+    public void registraUtente(RichiestaRegistrazione utente) throws AuthException {
             try {
                 inviaRegistrazione(utente);
 
@@ -43,9 +43,6 @@ public class AmazonWebServiceCognito implements UserRegistration {
                 verificaEmailUtente(utente);
 
                 aggiungiUtenteAlGruppo(utente);
-
-                return "Utente creato, confermato, verificato e aggiunto al gruppo '" + utente.getRuolo() + "' con successo.";
-
             } catch (CognitoIdentityProviderException e) {
                 throw new AuthException();
             }
