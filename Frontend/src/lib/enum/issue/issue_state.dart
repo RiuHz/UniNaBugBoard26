@@ -26,7 +26,7 @@ enum IssueState {
 
   static final List<DropdownMenuEntry<IssueState>> entries = UnmodifiableListView<DropdownMenuEntry<IssueState>>(
     values.map<DropdownMenuEntry<IssueState>>(
-      (IssueState state) =>  DropdownMenuEntry<IssueState>(
+      (IssueState state) => DropdownMenuEntry<IssueState>(
         value: state,
         label: state.progress
       ) 

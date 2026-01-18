@@ -4,12 +4,14 @@ import 'package:test_app/classes/user/logged_user.dart';
 import 'package:test_app/functions/api.dart';
 
 Future<bool> postUser(LoggedUser user, SignUpRequest request) async {
-  
   final response = await http.post(
     Uri.parse('$apiURL/sign-up'),
     body: request.getJsonData(),
-    headers: {'Authorization': user.token}
+    headers: {
+      'Authorization': user.token,
+      'Content-Type': 'application/json'
+    }
   );
-
+  
   return response.statusCode == 200;
 }

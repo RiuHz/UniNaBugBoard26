@@ -15,7 +15,7 @@ enum IssueType {
 
   static final List<DropdownMenuEntry<IssueType>> entries = UnmodifiableListView<DropdownMenuEntry<IssueType>>(
     values.map<DropdownMenuEntry<IssueType>>(
-      (IssueType type) =>  DropdownMenuEntry<IssueType>(
+      (IssueType type) => DropdownMenuEntry<IssueType>(
         value: type,
         label: type.name
       ) 

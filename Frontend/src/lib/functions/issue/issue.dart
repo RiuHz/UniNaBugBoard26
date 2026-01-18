@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
+import 'package:mime/mime.dart';
 import 'package:test_app/classes/issue%20fetch%20request/issue_fetch_request.dart';
 import 'package:test_app/classes/issues/issue.dart';
 import 'package:http/http.dart' as http;
@@ -28,6 +29,10 @@ String addQueryParameters(String url, IssueFetchRequest issue, {String userId = 
     queryParameters.add('stato=${issue.getState()}');
   }
 
+  if (issue.getPriority().isNotEmpty) {
+    queryParameters.add('priorita=${issue.getPriority()}');
+  }
+
   if (queryParameters.isNotEmpty) {
     return '$url?${queryParameters.join('&')}';
   }
@@ -37,7 +42,7 @@ String addQueryParameters(String url, IssueFetchRequest issue, {String userId = 
 
 Future<List<Issue>> getIssues(LoggedUser user, IssueFetchRequest issue) async {
    final response = await http.get(
-      Uri.parse(addQueryParameters(apiURL, issue)),
+      Uri.parse(addQueryParameters('$apiURL/issues', issue)),
       headers: {'Authorization': user.token}
   );
 
@@ -50,7 +55,7 @@ Future<List<Issue>> getIssues(LoggedUser user, IssueFetchRequest issue) async {
 
 Future<List<Issue>> getUserIssues(LoggedUser user, IssueFetchRequest issue) async {
    final response = await http.get(
-      Uri.parse(addQueryParameters(apiURL, issue, userId: user.id)),
+      Uri.parse(addQueryParameters('$apiURL/issues', issue, userId: user.id)),
       headers: {'Authorization': user.token}
   );
 
@@ -63,19 +68,45 @@ Future<List<Issue>> getUserIssues(LoggedUser user, IssueFetchRequest issue) asyn
 
 Future<bool> patchIssue(LoggedUser user, int id) async {
   final response = await http.patch(
-    Uri.parse('$apiURL/$id'),
-    headers: {'Authorization': user.token}
+    Uri.parse('$apiURL/issues/$id'),
+    headers: {
+      'Authorization': user.token,
+      'Content-Type': 'application/json'  
+    }
   );
 
   return response.statusCode == 200;
 }
 
-Future<bool> postIssue(LoggedUser user, String json) async {
-    final response = await http.post(
-    Uri.parse(apiURL),
-    body: json,
-    headers: {'Authorization': user.token}
-  );
+Future<bool> postIssue(LoggedUser user, Map<String, dynamic> data, http.MultipartFile? image) async {
 
-  return response.statusCode == 200;
+    final request = http.MultipartRequest(
+      'POST',
+      Uri.parse('$apiURL/issues')
+    );
+
+    request.headers['Authorization'] = user.token;
+
+    data.forEach((key, value) {
+      request.fields[key] = value;
+    });
+
+    if (image != null) {
+      String mimeType = lookupMimeType(image.filename as String) ?? 'application/octet-stream';
+      List<String> parts = mimeType.split('/');
+      http.MediaType mediaType = http.MediaType(parts[0], parts[1]);
+
+      request.files.add(
+        http.MultipartFile.fromBytes(
+          'allegato',
+          await image.finalize().toBytes(),
+          filename: image.filename,
+          contentType: mediaType
+        )
+      );
+    }
+
+    http.StreamedResponse response = await request.send();
+
+    return response.statusCode == 200;
 }

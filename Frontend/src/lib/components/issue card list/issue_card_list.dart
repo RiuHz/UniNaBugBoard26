@@ -27,8 +27,9 @@ class IssueCardListState extends State<IssueCardList> {
   Widget issueList = const CircularProgressIndicator();
 
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
     updateIssueList(
       const IssueFetchRequest(
         priority: IssuePriority.all,
@@ -37,7 +38,7 @@ class IssueCardListState extends State<IssueCardList> {
       )
     );
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -53,7 +54,7 @@ class IssueCardListState extends State<IssueCardList> {
   void updateIssueList(IssueFetchRequest request) {
     setState(() {
       issueList = FutureBuilder<List<Issue>> (
-        future: widget.getIssueFunction(Provider.of<UniNaBugBoard26State>(context).user, request),
+        future: widget.getIssueFunction(context.read<UniNaBugBoard26State>().user, request),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const CircularProgressIndicator();

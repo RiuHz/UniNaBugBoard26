@@ -1,0 +1,61 @@
+package com.progetto.api.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.progetto.enums.issue.Priorita;
+import com.progetto.enums.issue.Stato;
+import com.progetto.enums.issue.Tipo;
+import com.progetto.exception.AuthException;
+import com.progetto.exception.StorageException;
+import com.progetto.models.Issue;
+import com.progetto.models.Utente;
+import com.progetto.api.service.IssueService;
+
+@RestController
+@RequestMapping("/issues")
+@CrossOrigin(origins = "*")
+public class IssueController{
+
+    @Autowired
+    private IssueService issueService;
+
+    @GetMapping
+    public List<Issue> getIssues(
+        @RequestParam(required = false, name = "priorita") Priorita priorita,
+        @RequestParam(required = false, name = "stato") Stato stato,
+        @RequestParam(required = false, name = "tipo") Tipo tipo,
+        @RequestParam(required = false, name = "utente") Utente utente
+    ) throws AuthException {
+        return issueService.recuperaTutteLeIssues(priorita, stato, tipo, utente);
+    }
+
+    @PostMapping
+    public ResponseEntity<String> createIssue(@ModelAttribute Issue issue) {
+        try {
+            issueService.salvaIssue(issue);
+        } catch (StorageException error) {
+            return ResponseEntity.badRequest().body(null);
+        }
+
+        return ResponseEntity.ok("Issue created");
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<String> patchIssueByID(@PathVariable Integer id) {
+        issueService.impostaIssueComeResolved(id);
+
+        return ResponseEntity.ok("Issue set to Resolved");
+    }
+}

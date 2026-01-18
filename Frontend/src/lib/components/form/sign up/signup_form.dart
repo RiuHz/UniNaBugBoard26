@@ -94,7 +94,7 @@ class SignUpFormState extends State<SignUpForm> {
   Future<void> signUp() async {
     if (!formKey.currentState!.validate()) return;
 
-    bool userSignedUp = await postUser(Provider.of<UniNaBugBoard26State>(context).user, getFormData());
+    bool userSignedUp = await postUser(context.read<UniNaBugBoard26State>().user, getFormData());
 
     if (!mounted) return;
      
