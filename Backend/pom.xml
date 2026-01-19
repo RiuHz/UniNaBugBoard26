@@ -67,12 +67,19 @@
         <artifactId>cognitoidentityprovider</artifactId>
     </dependency>
     
-      <!-- Dipendenza per SpringBoot che include Mockito e JUnit 5 -->
+    <!-- Dipendenza per SpringBoot che include Mockito e JUnit 5 -->
     <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-test</artifactId>
         <scope>test</scope>
     </dependency>
+
+    <!-- Dipendenza per Database H2 embedded per i test -->
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <scope>test</scope>
+  </dependency>
 
   </dependencies>
 

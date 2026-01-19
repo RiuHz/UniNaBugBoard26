@@ -25,21 +25,21 @@ public class IssueSpecificationTest {
     @Autowired
     private IssueRepository issueRepository;
 
+    private Utente utenteNull;
+    private Utente utenteConIdVuoto = new Utente();
+    private Utente utenteConIdTest = new Utente();
+
     @BeforeEach
     public void setup() {
         List<Issue> issues = new ArrayList<>();
 
-        Utente utenteNull = new Utente();
-        Utente utenteVuoto = new Utente();
-        Utente utenteTest = new Utente();
-
-        utenteVuoto.setId("");
-        utenteTest.setId("test-utente");
+        utenteConIdVuoto.setId("");
+        utenteConIdTest.setId("test-utente");
 
         List<Utente> utenti = Arrays.asList(
             utenteNull,
-            utenteVuoto,
-            utenteTest
+            utenteConIdVuoto,
+            utenteConIdTest
         );
 
         for (Priorita priorita: Priorita.values()) {
@@ -47,6 +47,8 @@ public class IssueSpecificationTest {
                 for (Tipo tipo: Tipo.values()) {
                     for (Utente utente: utenti) {
                         Issue issue = new Issue();
+                        issue.setTitolo("Titolo");
+                        issue.setDescrizione("Descrizione");
                         issue.setPriorita(priorita);
                         issue.setStato(stato);
                         issue.setTipo(tipo);
@@ -60,271 +62,250 @@ public class IssueSpecificationTest {
         issueRepository.saveAll(issues);
     }
 
-    // Inizio 1° intervallo di test
-
     @Test
-    void filtraIssue_conPrioritaBassaStatoTodoTipoBugUtenteTest() {
-        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.BASSA,Stato.TODO,Tipo.BUG,utenteTest);
+    void filtraIssue_PrioritaBassa_StatoTodo_TipoBug_UtenteTest() {
+        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.BASSA, Stato.TODO, Tipo.BUG, utenteConIdTest);
 
         List<Issue> risultato = issueRepository.findAll(filtri);
 
         assertThat(risultato)
         .isNotEmpty()
-        .allMatch(issue -> issue.getPriorita() == Priorita.BASSA &&
-                           issue.getStato() == Stato.TODO && 
-                           issue.getTipo() == Tipo.BUG &&
-                           issue.getUtente().getId().equals("test-utente"));
+        .allMatch(issue -> issue.getPriorita() == Priorita.BASSA)
+        .allMatch(issue -> issue.getStato() == Stato.TODO)
+        .allMatch(issue -> issue.getTipo() == Tipo.BUG)
+        .allMatch(issue -> issue.getUtente().getId().equals("test-utente"));
     }
 
     @Test
-    void filtraIssue_conPrioritaBassaStatoIn_ProgressTipoDocumentationUtenteNull() {
-        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.BASSA,Stato.IN_PROGRESS,Tipo.DOCUMENTATION,null);
+    void filtraIssue_PrioritaBassa_StatoIn_Progress_TipoDocumentation_UtenteNull() {
+        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.BASSA, Stato.IN_PROGRESS, Tipo.DOCUMENTATION, utenteNull);
 
         List<Issue> risultato = issueRepository.findAll(filtri);
 
         assertThat(risultato)
         .isNotEmpty()
-        .allMatch(issue -> issue.getPriorita() == Priorita.BASSA &&
-                           issue.getStato() == Stato.IN_PROGRESS && 
-                           issue.getTipo() == Tipo.DOCUMENTATION);
+        .allMatch(issue -> issue.getPriorita() == Priorita.BASSA)
+        .allMatch(issue -> issue.getStato() == Stato.IN_PROGRESS)
+        .allMatch(issue -> issue.getTipo() == Tipo.DOCUMENTATION);
     }
 
     @Test
-    void filtraIssue_conPrioritaBassaStatoResolvedTipoQuestionUtenteVuoto() {
-        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.BASSA,Stato.RESOLVED,Tipo.QUESTION,utenteVuoto);
+    void filtraIssue_PrioritaBassa_StatoResolved_TipoQuestion_UtenteVuoto() {
+        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.BASSA, Stato.RESOLVED, Tipo.QUESTION, utenteConIdVuoto);
 
         List<Issue> risultato = issueRepository.findAll(filtri);
 
         assertThat(risultato)
         .isNotEmpty()
-        .allMatch(issue -> issue.getPriorita() == Priorita.BASSA &&
-                           issue.getStato() == Stato.RESOLVED && 
-                           issue.getTipo() == Tipo.QUESTION); 
+        .allMatch(issue -> issue.getPriorita() == Priorita.BASSA)
+        .allMatch(issue -> issue.getStato() == Stato.RESOLVED)
+        .allMatch(issue -> issue.getTipo() == Tipo.QUESTION)
+        .allMatch(issue -> issue.getUtente().getId().equals("")); 
     }
 
     @Test
-    void filtraIssue_conPrioritaBassaStatoNullTipoFeatureUtenteTest() {
-        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.BASSA, null,Tipo.FEATURE,utenteTest);
+    void filtraIssue_PrioritaBassa_StatoNull_TipoFeature_UtenteTest() {
+        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.BASSA, null, Tipo.FEATURE, utenteConIdTest);
 
         List<Issue> risultato = issueRepository.findAll(filtri);
 
         assertThat(risultato)
         .isNotEmpty()
-        .allMatch(issue -> issue.getPriorita() == Priorita.BASSA &&
-                           issue.getTipo() == Tipo.FEATURE  &&
-                           issue.getUtente().getId().equals("test-utente"));
+        .allMatch(issue -> issue.getPriorita() == Priorita.BASSA)
+        .allMatch(issue -> issue.getTipo() == Tipo.FEATURE)
+        .allMatch(issue -> issue.getUtente().getId().equals("test-utente"));
     }
 
-    // Inizio 2° intervallo di test
-
     @Test
-    void filtraIssue_conPrioritaMediaStatoTodoTipoDocumentationUtenteVuoto() {
-        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.MEDIA, Stato.TODO, Tipo.DOCUMENTATION, utenteVuoto);
+    void filtraIssue_PrioritaMedia_StatoTodo_TipoDocumentation_UtenteVuoto() {
+        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.MEDIA, Stato.TODO, Tipo.DOCUMENTATION, utenteConIdVuoto);
 
         List<Issue> risultato = issueRepository.findAll(filtri);
 
         assertThat(risultato)
         .isNotEmpty()
-        .allMatch(issue -> issue.getPriorita() == Priorita.MEDIA &&
-                           issue.getStato() == Stato.TODO && 
-                           issue.getTipo() == Tipo.DOCUMENTATION);
+        .allMatch(issue -> issue.getPriorita() == Priorita.MEDIA)
+        .allMatch(issue -> issue.getStato() == Stato.TODO)
+        .allMatch(issue -> issue.getTipo() == Tipo.DOCUMENTATION)
+        .allMatch(issue -> issue.getUtente().getId().equals(""));
     }
 
     @Test
-    void filtraIssue_conPrioritaMediaStatoIn_ProgressTipoQuestionUtenteTest() {
-        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.MEDIA, Stato.IN_PROGRESS, Tipo.QUESTION, utenteTest);
+    void filtraIssue_PrioritaMedia_StatoIn_Progress_TipoQuestion_UtenteTest() {
+        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.MEDIA, Stato.IN_PROGRESS, Tipo.QUESTION, utenteConIdTest);
 
         List<Issue> risultato = issueRepository.findAll(filtri);
 
         assertThat(risultato)
         .isNotEmpty()
-        .allMatch(issue -> issue.getPriorita() == Priorita.MEDIA && 
-                           issue.getStato() == Stato.IN_PROGRESS && 
-                           issue.getTipo() == Tipo.QUESTION && 
-                           issue.getUtente().getId().equals("test-utente"));
+        .allMatch(issue -> issue.getPriorita() == Priorita.MEDIA)
+        .allMatch(issue -> issue.getStato() == Stato.IN_PROGRESS)
+        .allMatch(issue -> issue.getTipo() == Tipo.QUESTION)
+        .allMatch(issue -> issue.getUtente().getId().equals("test-utente"));
     }
 
     @Test
-    void filtraIssue_conPrioritaMediaStatoResolvedTipoFeatureUtenteNull() {
-        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.MEDIA, Stato.RESOLVED, Tipo.FEATURE, null);
+    void filtraIssue_PrioritaMedia_StatoResolved_TipoFeature_UtenteNull() {
+        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.MEDIA, Stato.RESOLVED, Tipo.FEATURE, utenteNull);
 
         List<Issue> risultato = issueRepository.findAll(filtri);
 
         assertThat(risultato)
         .isNotEmpty()
-        .allMatch(issue -> issue.getPriorita() == Priorita.MEDIA && 
-                           issue.getStato() == Stato.RESOLVED && 
-                           issue.getTipo() == Tipo.FEATURE);
+        .allMatch(issue -> issue.getPriorita() == Priorita.MEDIA)
+        .allMatch(issue -> issue.getStato() == Stato.RESOLVED)
+        .allMatch(issue -> issue.getTipo() == Tipo.FEATURE);
     }
 
     @Test
-    void filtraIssue_conPrioritaMediaStatoNullTipoNullUtenteVuoto() {
-        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.MEDIA, null, null,utenteVuoto);
+    void filtraIssue_PrioritaMedia_StatoNull_TipoNull_UtenteVuoto() {
+        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.MEDIA, null, null, utenteConIdVuoto);
 
         List<Issue> risultato = issueRepository.findAll(filtri);
 
         assertThat(risultato)
         .isNotEmpty()
-        .allMatch(issue -> issue.getPriorita() == Priorita.MEDIA);
+        .allMatch(issue -> issue.getPriorita() == Priorita.MEDIA)
+        .allMatch(issue -> issue.getUtente().getId().equals(""));
     }
 
     @Test
-    void filtraIssue_conPrioritaMediaStatoIn_ProgressTipoBugUtenteTest() {
-        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.MEDIA, Stato.IN_PROGRESS, Tipo.BUG, utenteTest);
+    void filtraIssue_PrioritaMedia_StatoIn_Progress_TipoBug_UtenteTest() {
+        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.MEDIA, Stato.IN_PROGRESS, Tipo.BUG, utenteConIdTest);
 
         List<Issue> risultato = issueRepository.findAll(filtri);
 
         assertThat(risultato)
         .isNotEmpty()
-        .allMatch(issue -> issue.getPriorita() == Priorita.MEDIA && 
-                           issue.getStato() == Stato.IN_PROGRESS && 
-                           issue.getTipo() == Tipo.BUG && 
-                           issue.getUtente().getId().equals("test-utente"));
+        .allMatch(issue -> issue.getPriorita() == Priorita.MEDIA)
+        .allMatch(issue -> issue.getStato() == Stato.IN_PROGRESS)
+        .allMatch(issue -> issue.getTipo() == Tipo.BUG)
+        .allMatch(issue -> issue.getUtente().getId().equals("test-utente"));
     }
 
-    // Inizio 3° intervallo di test
-
     @Test
-    void filtraIssue_conPrioritaAltaStatoTodoTipoQuestionUtenteNull() {
-        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.ALTA, Stato.TODO, Tipo.QUESTION, null);
+    void filtraIssue_PrioritaAlta_StatoTodo_TipoQuestion_UtenteNull() {
+        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.ALTA, Stato.TODO, Tipo.QUESTION, utenteNull);
 
         List<Issue> risultato = issueRepository.findAll(filtri);
 
         assertThat(risultato)
         .isNotEmpty()
-        .allMatch(issue -> issue.getPriorita() == Priorita.ALTA && 
-                           issue.getStato() == Stato.TODO && 
-                           issue.getTipo() == Tipo.QUESTION);
-
+        .allMatch(issue -> issue.getPriorita() == Priorita.ALTA)
+        .allMatch(issue -> issue.getStato() == Stato.TODO)
+        .allMatch(issue -> issue.getTipo() == Tipo.QUESTION);
     }
 
     @Test
-    void filtraIssue_conPrioritaAltaStatoIn_ProgressTipoFeatureUtenteVuoto() {
-        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.ALTA, Stato.IN_PROGRESS, Tipo.FEATURE, utenteVuoto);
+    void filtraIssue_PrioritaAlta_StatoIn_Progress_TipoFeature_UtenteVuoto() {
+        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.ALTA, Stato.IN_PROGRESS, Tipo.FEATURE, utenteConIdVuoto);
 
         List<Issue> risultato = issueRepository.findAll(filtri);
 
         assertThat(risultato)
         .isNotEmpty()
-        .allMatch(issue -> issue.getPriorita() == Priorita.ALTA && 
-                           issue.getStato() == Stato.IN_PROGRESS && 
-                           issue.getTipo() == Tipo.FEATURE);
+        .allMatch(issue -> issue.getPriorita() == Priorita.ALTA)
+        .allMatch(issue -> issue.getStato() == Stato.IN_PROGRESS)
+        .allMatch(issue -> issue.getTipo() == Tipo.FEATURE)
+        .allMatch(issue -> issue.getUtente().getId().equals(""));
     }
 
     @Test
-    void filtraIssue_conPrioritaAltaStatoResolvedTipoNullUtenteTest() {
-        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.ALTA, Stato.RESOLVED, null, utenteTest);
+    void filtraIssue_PrioritaAlta_StatoResolved_TipoNull_UtenteTest() {
+        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.ALTA, Stato.RESOLVED, null, utenteConIdTest);
 
         List<Issue> risultato = issueRepository.findAll(filtri);
 
         assertThat(risultato)
         .isNotEmpty()
-        .allMatch(issue -> issue.getPriorita() == Priorita.ALTA && 
-                           issue.getStato() == Stato.RESOLVED &&
-                           issue.getUtente().getId().equals("test-utente"));
-
+        .allMatch(issue -> issue.getPriorita() == Priorita.ALTA)
+        .allMatch(issue -> issue.getStato() == Stato.RESOLVED)
+        .allMatch(issue -> issue.getUtente().getId().equals("test-utente"));
     }
 
     @Test
-    void filtraIssue_conPrioritaAltaStatoNullTipoBugUtenteNull() {
-        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.ALTA, null, Tipo.BUG, null);
+    void filtraIssue_PrioritaAlta_StatoNull_TipoBug_UtenteNull() {
+        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.ALTA, null, Tipo.BUG, utenteNull);
 
         List<Issue> risultato = issueRepository.findAll(filtri);
 
         assertThat(risultato)
         .isNotEmpty()
-        .allMatch(issue -> issue.getPriorita() == Priorita.ALTA &&
-                           issue.getTipo() == Tipo.BUG);
-
+        .allMatch(issue -> issue.getPriorita() == Priorita.ALTA)
+        .allMatch(issue -> issue.getTipo() == Tipo.BUG);
     }
 
     @Test
-    void filtraIssue_conPrioritaAltaStatoResolvedTipoDocumentationUtenteVuoto() {
-        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.ALTA, Stato.RESOLVED, Tipo.DOCUMENTATION, utenteVuoto);
+    void filtraIssue_PrioritaAlta_StatoResolved_TipoDocumentation_UtenteVuoto() {
+        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.ALTA, Stato.RESOLVED, Tipo.DOCUMENTATION, utenteConIdVuoto);
 
         List<Issue> risultato = issueRepository.findAll(filtri);
 
         assertThat(risultato)
         .isNotEmpty()
-        .allMatch(issue -> issue.getPriorita() == Priorita.ALTA && 
-                           issue.getStato() == Stato.RESOLVED && 
-                           issue.getTipo() == Tipo.DOCUMENTATION);
+        .allMatch(issue -> issue.getPriorita() == Priorita.ALTA)
+        .allMatch(issue -> issue.getStato() == Stato.RESOLVED)
+        .allMatch(issue -> issue.getTipo() == Tipo.DOCUMENTATION)
+        .allMatch(issue -> issue.getUtente().getId().equals(""));
     }
 
-
-    // Inizio 4° intervallo di test
-
     @Test
-    void filtraIssue_conPrioritaNullStatoTodoTipoFeatureUtenteTest() {
-                Specification<Issue> filtri = IssueSpecification.filtraIssue(null, Stato.TODO, Tipo.FEATURE, utenteTest);
+    void filtraIssue_PrioritaNull_StatoTodo_TipoFeature_UtenteTest() {
+        Specification<Issue> filtri = IssueSpecification.filtraIssue(null, Stato.TODO, Tipo.FEATURE, utenteConIdTest);
 
         List<Issue> risultato = issueRepository.findAll(filtri);
 
         assertThat(risultato)
         .isNotEmpty()
-        .allMatch(issue -> issue.getStato() == Stato.TODO && 
-                           issue.getTipo() == Tipo.FEATURE && 
-                           issue.getUtente().getId().equals("test-utente"));
+        .allMatch(issue -> issue.getStato() == Stato.TODO)
+        .allMatch(issue -> issue.getTipo() == Tipo.FEATURE)
+        .allMatch(issue -> issue.getUtente().getId().equals("test-utente"));
     }
 
     @Test
-    void filtraIssue_conPrioritaNullStatoIn_ProgressTipoNullUtenteNull() {
-                Specification<Issue> filtri = IssueSpecification.filtraIssue(null, Stato.IN_PROGRESS, null, null);
+    void filtraIssue_PrioritaNull_StatoIn_Progress_TipoNull_UtenteNull() {
+        Specification<Issue> filtri = IssueSpecification.filtraIssue(null, Stato.IN_PROGRESS, null, utenteNull);
 
         List<Issue> risultato = issueRepository.findAll(filtri);
 
         assertThat(risultato)
         .isNotEmpty()
         .allMatch(issue -> issue.getStato() == Stato.IN_PROGRESS);
-
     }
 
     @Test
-    void filtraIssue_conPrioritaNullStatoResolvedTipoBugUtenteVuoto() {
-                Specification<Issue> filtri = IssueSpecification.filtraIssue(null, Stato.RESOLVED, Tipo.BUG, utenteVuoto);
+    void filtraIssue_PrioritaNull_StatoResolved_TipoBug_UtenteVuoto() {
+        Specification<Issue> filtri = IssueSpecification.filtraIssue(null, Stato.RESOLVED, Tipo.BUG, utenteConIdVuoto);
 
         List<Issue> risultato = issueRepository.findAll(filtri);
 
         assertThat(risultato)
         .isNotEmpty()
-        .allMatch(issue -> issue.getStato() == Stato.RESOLVED && 
-                           issue.getTipo() == Tipo.BUG);
+        .allMatch(issue -> issue.getStato() == Stato.RESOLVED)
+        .allMatch(issue -> issue.getTipo() == Tipo.BUG)
+        .allMatch(issue -> issue.getUtente().getId().equals(""));
     }
 
     @Test
-    void filtraIssue_conPrioritaNullStatoNullTipoDocumentationUtenteTest() {
-                Specification<Issue> filtri = IssueSpecification.filtraIssue(null, null, Tipo.DOCUMENTATION, utenteTest);
+    void filtraIssue_PrioritaNull_StatoNull_TipoDocumentation_UtenteTest() {
+        Specification<Issue> filtri = IssueSpecification.filtraIssue(null, null, Tipo.DOCUMENTATION, utenteConIdTest);
 
         List<Issue> risultato = issueRepository.findAll(filtri);
 
         assertThat(risultato)
         .isNotEmpty()
-        .allMatch(issue -> issue.getTipo() == Tipo.DOCUMENTATION && 
-                           issue.getUtente().getId().equals("test-utente"));
+        .allMatch(issue -> issue.getTipo() == Tipo.DOCUMENTATION)
+        .allMatch(issue ->issue.getUtente().getId().equals("test-utente"));
     }
 
     @Test
-    void filtraIssue_conPrioritaNullStatoNullTipoQuestionUtenteNull() {
-                Specification<Issue> filtri = IssueSpecification.filtraIssue(null, null, Tipo.QUESTION, null);
+    void filtraIssue_PrioritaNull_StatoNull_TipoQuestion_UtenteNull() {
+        Specification<Issue> filtri = IssueSpecification.filtraIssue(null, null, Tipo.QUESTION, utenteNull);
 
         List<Issue> risultato = issueRepository.findAll(filtri);
 
         assertThat(risultato)
         .isNotEmpty()
         .allMatch(issue -> issue.getTipo() == Tipo.QUESTION);
-    }
-
-    // Template
-
-    @Test
-    void filtraIssue_conPrioritaBassa() {
-        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.BASSA, null, null, null);
-
-        List<Issue> risultato = issueRepository.findAll(filtri);
-
-        assertThat(risultato)
-        .isNotEmpty()
-        .allMatch(issue -> issue.getPriorita() == Priorita.BASSA);
-        // Aggiungere ulteriori AllMatch per verificare che gli altri campi possano essere di qualsiasi valore
     }
 }

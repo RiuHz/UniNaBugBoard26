@@ -1,8 +1,5 @@
 package com.progetto.models;
 
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -38,7 +35,6 @@ public class Issue {
         name = "tipo",
         columnDefinition = "tipo"
     )
-    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     private Tipo tipo;
 
     @Enumerated(EnumType.STRING)
@@ -46,7 +42,6 @@ public class Issue {
         name = "priorita",
         columnDefinition = "priorita"
     )
-    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     private Priorita priorita;
 
     @Enumerated(EnumType.STRING)
@@ -54,7 +49,6 @@ public class Issue {
         name = "stato",
         columnDefinition = "stato"
     )
-    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     private Stato stato;
 
     @Column(name = "allegato")

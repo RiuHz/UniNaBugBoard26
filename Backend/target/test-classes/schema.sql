@@ -1,0 +1,14 @@
+CREATE TYPE priorita AS ENUM ('BASSA', 'MEDIA', 'ALTA');
+CREATE TYPE tipo AS ENUM ('BUG', 'FEATURE', 'DOCUMENTATION', 'QUESTION');
+CREATE TYPE stato AS ENUM ('TODO', 'IN_PROGRESS', 'RESOLVED');
+
+CREATE TABLE issue (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  utente VARCHAR(255),
+  titolo VARCHAR(255) NOT NULL,
+  descrizione VARCHAR(255) NOT NULL,
+  tipo tipo NOT NULL,
+  priorita priorita NOT NULL,
+  stato stato NOT NULL,
+  allegato VARCHAR(255)
+);

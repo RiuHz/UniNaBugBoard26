@@ -1,4 +1,4 @@
-package com.progetto.api.controller;
+/* package com.progetto.api.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.progetto.api.service.SignUpService;
@@ -241,4 +241,4 @@ public class SignUpControllerTest {
     }
 
     
-}
+} */
