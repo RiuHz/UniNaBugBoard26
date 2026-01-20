@@ -45,7 +45,7 @@ public class IssueService {
         return issues;
     }
 
-    public void salvaIssue(Issue issue) throws StorageException{
+    public void salvaIssue(Issue issue) throws StorageException {
         if (issue.getAllegato().getFile() != null) {
             String url = amazonWebServiceS3.saveImage(issue.getAllegato().getFile());
             
