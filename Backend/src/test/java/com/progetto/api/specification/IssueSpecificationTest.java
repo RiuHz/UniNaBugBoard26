@@ -1,11 +1,10 @@
 package com.progetto.api.specification;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,9 +75,10 @@ public class IssueSpecificationTest {
         .allMatch(issue -> issue.getUtente().getId().equals("test-utente"));
     }
 
+
     @Test
-    void filtraIssue_PrioritaBassa_StatoIn_Progress_TipoDocumentation_UtenteNull() {
-        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.BASSA, Stato.IN_PROGRESS, Tipo.DOCUMENTATION, utenteNull);
+    void filtraIssue_PrioritaBassa_StatoIn_ProgressTipoDocumentation_UtenteVuoto() {
+        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.BASSA, Stato.IN_PROGRESS, Tipo.DOCUMENTATION, utenteConIdVuoto);
 
         List<Issue> risultato = issueRepository.findAll(filtri);
 
@@ -86,12 +86,13 @@ public class IssueSpecificationTest {
         .isNotEmpty()
         .allMatch(issue -> issue.getPriorita() == Priorita.BASSA)
         .allMatch(issue -> issue.getStato() == Stato.IN_PROGRESS)
-        .allMatch(issue -> issue.getTipo() == Tipo.DOCUMENTATION);
+        .allMatch(issue -> issue.getTipo() == Tipo.DOCUMENTATION)
+        .allMatch(issue -> issue.getUtente().getId().equals("")); 
     }
 
     @Test
-    void filtraIssue_PrioritaBassa_StatoResolved_TipoQuestion_UtenteVuoto() {
-        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.BASSA, Stato.RESOLVED, Tipo.QUESTION, utenteConIdVuoto);
+    void filtraIssue_PrioritaBassa_StatoResolved_TipoQuestion_UtenteNull() {
+        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.BASSA, Stato.RESOLVED, Tipo.QUESTION, utenteNull);
 
         List<Issue> risultato = issueRepository.findAll(filtri);
 
@@ -99,8 +100,7 @@ public class IssueSpecificationTest {
         .isNotEmpty()
         .allMatch(issue -> issue.getPriorita() == Priorita.BASSA)
         .allMatch(issue -> issue.getStato() == Stato.RESOLVED)
-        .allMatch(issue -> issue.getTipo() == Tipo.QUESTION)
-        .allMatch(issue -> issue.getUtente().getId().equals("")); 
+        .allMatch(issue -> issue.getTipo() == Tipo.QUESTION);
     }
 
     @Test
@@ -117,8 +117,21 @@ public class IssueSpecificationTest {
     }
 
     @Test
-    void filtraIssue_PrioritaMedia_StatoTodo_TipoDocumentation_UtenteVuoto() {
-        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.MEDIA, Stato.TODO, Tipo.DOCUMENTATION, utenteConIdVuoto);
+    void filtraIssue_PrioritaBassa_StatoTodo_TipoNull_UtenteIdVuoto() {
+        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.BASSA, Stato.TODO, null, utenteConIdVuoto);
+
+        List<Issue> risultato = issueRepository.findAll(filtri);
+
+        assertThat(risultato)
+        .isNotEmpty()
+        .allMatch(issue -> issue.getPriorita() == Priorita.BASSA)
+        .allMatch(issue -> issue.getStato() == Stato.TODO)
+        .allMatch(issue -> issue.getUtente().getId().equals(""));
+    }
+
+    @Test
+    void filtraIssue_PrioritaMedia_StatoTodo_TipoDocumentation_UtenteNull() {
+        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.MEDIA, Stato.TODO, Tipo.DOCUMENTATION, utenteNull);
 
         List<Issue> risultato = issueRepository.findAll(filtri);
 
@@ -126,8 +139,7 @@ public class IssueSpecificationTest {
         .isNotEmpty()
         .allMatch(issue -> issue.getPriorita() == Priorita.MEDIA)
         .allMatch(issue -> issue.getStato() == Stato.TODO)
-        .allMatch(issue -> issue.getTipo() == Tipo.DOCUMENTATION)
-        .allMatch(issue -> issue.getUtente().getId().equals(""));
+        .allMatch(issue -> issue.getTipo() == Tipo.DOCUMENTATION);
     }
 
     @Test
@@ -145,8 +157,8 @@ public class IssueSpecificationTest {
     }
 
     @Test
-    void filtraIssue_PrioritaMedia_StatoResolved_TipoFeature_UtenteNull() {
-        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.MEDIA, Stato.RESOLVED, Tipo.FEATURE, utenteNull);
+    void filtraIssue_PrioritaMedia_StatoResolved_TipoFeature_UtenteIdVuoto() {
+        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.MEDIA, Stato.RESOLVED, Tipo.FEATURE, utenteConIdVuoto);
 
         List<Issue> risultato = issueRepository.findAll(filtri);
 
@@ -154,19 +166,19 @@ public class IssueSpecificationTest {
         .isNotEmpty()
         .allMatch(issue -> issue.getPriorita() == Priorita.MEDIA)
         .allMatch(issue -> issue.getStato() == Stato.RESOLVED)
-        .allMatch(issue -> issue.getTipo() == Tipo.FEATURE);
+        .allMatch(issue -> issue.getTipo() == Tipo.FEATURE)
+        .allMatch(issue -> issue.getUtente().getId().equals(""));
     }
 
     @Test
-    void filtraIssue_PrioritaMedia_StatoNull_TipoNull_UtenteVuoto() {
-        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.MEDIA, null, null, utenteConIdVuoto);
+    void filtraIssue_PrioritaMedia_StatoNull_TipoNull_UtenteNull() {
+        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.MEDIA, null, null, utenteNull);
 
         List<Issue> risultato = issueRepository.findAll(filtri);
 
         assertThat(risultato)
         .isNotEmpty()
-        .allMatch(issue -> issue.getPriorita() == Priorita.MEDIA)
-        .allMatch(issue -> issue.getUtente().getId().equals(""));
+        .allMatch(issue -> issue.getPriorita() == Priorita.MEDIA);
     }
 
     @Test
@@ -184,8 +196,8 @@ public class IssueSpecificationTest {
     }
 
     @Test
-    void filtraIssue_PrioritaAlta_StatoTodo_TipoQuestion_UtenteNull() {
-        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.ALTA, Stato.TODO, Tipo.QUESTION, utenteNull);
+    void filtraIssue_PrioritaAlta_StatoTodo_TipoQuestion_UtenteIdVuoto() {
+        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.ALTA, Stato.TODO, Tipo.QUESTION, utenteConIdVuoto);
 
         List<Issue> risultato = issueRepository.findAll(filtri);
 
@@ -193,12 +205,13 @@ public class IssueSpecificationTest {
         .isNotEmpty()
         .allMatch(issue -> issue.getPriorita() == Priorita.ALTA)
         .allMatch(issue -> issue.getStato() == Stato.TODO)
-        .allMatch(issue -> issue.getTipo() == Tipo.QUESTION);
+        .allMatch(issue -> issue.getTipo() == Tipo.QUESTION)
+        .allMatch(issue -> issue.getUtente().getId().equals(""));
     }
 
     @Test
-    void filtraIssue_PrioritaAlta_StatoIn_Progress_TipoFeature_UtenteVuoto() {
-        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.ALTA, Stato.IN_PROGRESS, Tipo.FEATURE, utenteConIdVuoto);
+    void filtraIssue_PrioritaAlta_StatoIn_Progress_TipoFeature_UtenteNull() {
+        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.ALTA, Stato.IN_PROGRESS, Tipo.FEATURE, utenteNull);
 
         List<Issue> risultato = issueRepository.findAll(filtri);
 
@@ -206,8 +219,7 @@ public class IssueSpecificationTest {
         .isNotEmpty()
         .allMatch(issue -> issue.getPriorita() == Priorita.ALTA)
         .allMatch(issue -> issue.getStato() == Stato.IN_PROGRESS)
-        .allMatch(issue -> issue.getTipo() == Tipo.FEATURE)
-        .allMatch(issue -> issue.getUtente().getId().equals(""));
+        .allMatch(issue -> issue.getTipo() == Tipo.FEATURE);
     }
 
     @Test
@@ -224,20 +236,21 @@ public class IssueSpecificationTest {
     }
 
     @Test
-    void filtraIssue_PrioritaAlta_StatoNull_TipoBug_UtenteNull() {
-        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.ALTA, null, Tipo.BUG, utenteNull);
+    void filtraIssue_PrioritaAlta_StatoNull_TipoBug_UtenteIdVuoto() {
+        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.ALTA, null, Tipo.BUG, utenteConIdVuoto);
 
         List<Issue> risultato = issueRepository.findAll(filtri);
 
         assertThat(risultato)
         .isNotEmpty()
         .allMatch(issue -> issue.getPriorita() == Priorita.ALTA)
-        .allMatch(issue -> issue.getTipo() == Tipo.BUG);
+        .allMatch(issue -> issue.getTipo() == Tipo.BUG)
+        .allMatch(issue -> issue.getUtente().getId().equals(""));
     }
 
     @Test
-    void filtraIssue_PrioritaAlta_StatoResolved_TipoDocumentation_UtenteVuoto() {
-        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.ALTA, Stato.RESOLVED, Tipo.DOCUMENTATION, utenteConIdVuoto);
+    void filtraIssue_PrioritaAlta_StatoResolved_TipoDocumentation_UtenteNull() {
+        Specification<Issue> filtri = IssueSpecification.filtraIssue(Priorita.ALTA, Stato.RESOLVED, Tipo.DOCUMENTATION, utenteNull);
 
         List<Issue> risultato = issueRepository.findAll(filtri);
 
@@ -245,8 +258,7 @@ public class IssueSpecificationTest {
         .isNotEmpty()
         .allMatch(issue -> issue.getPriorita() == Priorita.ALTA)
         .allMatch(issue -> issue.getStato() == Stato.RESOLVED)
-        .allMatch(issue -> issue.getTipo() == Tipo.DOCUMENTATION)
-        .allMatch(issue -> issue.getUtente().getId().equals(""));
+        .allMatch(issue -> issue.getTipo() == Tipo.DOCUMENTATION);
     }
 
     @Test
@@ -263,27 +275,27 @@ public class IssueSpecificationTest {
     }
 
     @Test
-    void filtraIssue_PrioritaNull_StatoIn_Progress_TipoNull_UtenteNull() {
-        Specification<Issue> filtri = IssueSpecification.filtraIssue(null, Stato.IN_PROGRESS, null, utenteNull);
+    void filtraIssue_PrioritaNull_StatoIn_Progress_TipoNull_UtenteIdVuoto() {
+        Specification<Issue> filtri = IssueSpecification.filtraIssue(null, Stato.IN_PROGRESS, null, utenteConIdVuoto);
 
         List<Issue> risultato = issueRepository.findAll(filtri);
 
         assertThat(risultato)
         .isNotEmpty()
-        .allMatch(issue -> issue.getStato() == Stato.IN_PROGRESS);
+        .allMatch(issue -> issue.getStato() == Stato.IN_PROGRESS)
+        .allMatch(issue -> issue.getUtente().getId().equals(""));
     }
 
     @Test
-    void filtraIssue_PrioritaNull_StatoResolved_TipoBug_UtenteVuoto() {
-        Specification<Issue> filtri = IssueSpecification.filtraIssue(null, Stato.RESOLVED, Tipo.BUG, utenteConIdVuoto);
+    void filtraIssue_PrioritaNull_StatoResolved_TipoBug_UtenteNull() {
+        Specification<Issue> filtri = IssueSpecification.filtraIssue(null, Stato.RESOLVED, Tipo.BUG, utenteNull);
 
         List<Issue> risultato = issueRepository.findAll(filtri);
 
         assertThat(risultato)
         .isNotEmpty()
         .allMatch(issue -> issue.getStato() == Stato.RESOLVED)
-        .allMatch(issue -> issue.getTipo() == Tipo.BUG)
-        .allMatch(issue -> issue.getUtente().getId().equals(""));
+        .allMatch(issue -> issue.getTipo() == Tipo.BUG);
     }
 
     @Test
@@ -299,13 +311,14 @@ public class IssueSpecificationTest {
     }
 
     @Test
-    void filtraIssue_PrioritaNull_StatoNull_TipoQuestion_UtenteNull() {
-        Specification<Issue> filtri = IssueSpecification.filtraIssue(null, null, Tipo.QUESTION, utenteNull);
+    void filtraIssue_PrioritaNull_StatoNull_TipoQuestion_UtenteIdVuoto() {
+        Specification<Issue> filtri = IssueSpecification.filtraIssue(null, null, Tipo.QUESTION, utenteConIdVuoto);
 
         List<Issue> risultato = issueRepository.findAll(filtri);
 
         assertThat(risultato)
         .isNotEmpty()
-        .allMatch(issue -> issue.getTipo() == Tipo.QUESTION);
+        .allMatch(issue -> issue.getTipo() == Tipo.QUESTION)
+        .allMatch(issue -> issue.getUtente().getId().equals(""));
     }
 }
