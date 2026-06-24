@@ -18,8 +18,7 @@ This project was developed to demonstrate:
 - Client-Server application development
 - RESTful API design and integration
 - Spring Boot backend development
-- Web application development with Dart
-- Software maintenance and bug tracking workflows
+- Software testing strategies
 
 ## Features
 
@@ -65,7 +64,7 @@ This separation of concerns improves maintainability, scalability, and testabili
 - `src/main/java/.../aws` → Integration with Amazon Web Services
 - `src/main/java/.../exception` → Custom exceptions and error handling
 - `src/main/java/.../model` → Domain models and data entities
-
+- `src/test` → Automated tests and validation suites
 ## License
 
 This project is licensed under the [MIT](https://choosealicense.com/licenses/mit/) License.
